@@ -1,6 +1,6 @@
 <?php
-include("bd/tematica-bd.php");
-tematica_bd::Conectar();
-tematica_bd::borrarTematicaId("1");
-$vector = tematica_bd::selectTematica();
-var_dump($vector);
+include("bd/bd.php");
+BD::Conectar();
+//var_dump(BD::borrarExamenPreguntaId_Examen("1"));
+$vector = BD::selectExamenUsuario();
+var_dump(json_decode($vector[1]->getEjecucion()));
