@@ -28,19 +28,50 @@ class BD
         return $vector;
     }
 
-    public static function borrarUsuarioId($valor)
+    public static function borrarUsuarioId($usuario)
     {
-        $string = "DELETE FROM usuarios WHERE id = '${valor}';";
+        $id = $usuario->getId();
+        $string = "DELETE FROM usuarios WHERE id = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function insertarUsuario($correo, $nombre, $apellidos, $password, $fecha_nac, $rol, $imagen, $activo)
+    public static function insertarUsuario($usuario)
     {
-        $string = "INSERT INTO usuarios (id, correo, nombre, apellidos, password, fecha_nac, rol, imagen, activo)  VALUES (NULL, '${correo}','${nombre}','${apellidos}','${password}','${fecha_nac}','${rol}','${imagen}','${activo}');";
+        $correo = $usuario->getCorreo();
+        $nombre = $usuario->getNombre();
+        $apellidos = $usuario->getApellidos();
+        $password = $usuario->getPassword();
+        $fecha_nac = $usuario->getFecha_nac();
+        $rol = $usuario->getRol();
+        $imagen = $usuario->getImagen();
+        $activo = $usuario->getActivo();
+
+        if($imagen==NULL)
+        {
+            $string = "INSERT INTO usuarios (id, correo, nombre, apellidos, password, fecha_nac, rol, imagen, activo)  VALUES (NULL, '${correo}','${nombre}','${apellidos}','${password}','${fecha_nac}','${rol}',NULL,'${activo}');";
+        }
+        else{
+            $string = "INSERT INTO usuarios (id, correo, nombre, apellidos, password, fecha_nac, rol, imagen, activo)  VALUES (NULL, '${correo}','${nombre}','${apellidos}','${password}','${fecha_nac}','${rol}','${imagen}','${activo}');";
+        }
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
+
+    public static function selectLoginUsuario(usuario $usuario)
+    {
+        $correo = $usuario->getCorreo();
+        $password = $usuario->getPassword();
+        $vector = array();
+        $resultado = self::$con->query("SELECT * FROM usuarios WHERE CORREO = '${correo}' AND PASSWORD = '${password}';");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $usuario = new usuario($registro->id, $registro->correo, $registro->nombre, $registro->apellidos, $registro->password, $registro->fecha_nac, $registro->rol, $registro->imagen, $registro->activo);
+            $vector [$registro->id] = $usuario;
+        }
+
+        return $vector;
+    }
+
 
     /*public static function actualizaImagen($tabla, $id, $imagen)
     {
@@ -63,15 +94,17 @@ class BD
         return $vector;
     }
 
-    public static function borrarTematicaId($valor)
+    public static function borrarTematicaId($tematica)
     {
-        $string = "DELETE FROM tematica WHERE id = '${valor}';";
+        $id = $tematica->getId();
+        $string = "DELETE FROM tematica WHERE id = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function insertarTematica($tema)
+    public static function insertarTematica($tematica)
     {
+        $tema = $tematica->getTema();
         $string = "INSERT INTO tematica (id, tema)  VALUES (NULL, '${tema}');";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
@@ -91,15 +124,18 @@ class BD
         return $vector;
     }
 
-    public static function borrarRespuestaId($valor)
+    public static function borrarRespuestaId($respuesta)
     {
-        $string = "DELETE FROM respuestas WHERE id = '${valor}';";
+        $id = $respuesta->getId();
+        $string = "DELETE FROM respuestas WHERE id = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function insertarRespuesta($enunciado, $id_pregunta)
+    public static function insertarRespuesta($respuesta)
     {
+        $enunciado = $respuesta->getEnunciado();
+        $id_pregunta = $respuesta->getId_pregunta();
         $string = "INSERT INTO respuestas (id, enunciado, id_pregunta)  VALUES (NULL, '${enunciado}','${id_pregunta}');";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
@@ -119,15 +155,21 @@ class BD
         return $vector;
     }
 
-    public static function borrarPreguntaId($valor)
+    public static function borrarPreguntaId($pregunta)
     {
-        $string = "DELETE FROM preguntas WHERE id = '${valor}';";
+        $id = $pregunta->getId();
+        $string = "DELETE FROM preguntas WHERE id = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function insertarPregunta($enunciado, $id_respuesta_correcta, $recurso, $id_tematica)
+    public static function insertarPregunta($pregunta)
     {
+        $enunciado = $pregunta->getEnunciado();
+        $id_respuesta_correcta = $pregunta->getId_respuesta_correcta();
+        $recurso = $pregunta->getRecurso();
+        $id_tematica = $pregunta->getId_tematica();
+
         if($recurso==NULL)
         {
             $string = "INSERT INTO preguntas (id, enunciado, id_respuesta_correcta, recurso, id_tematica)  VALUES (NULL, '${enunciado}','${id_respuesta_correcta}',NULL,'${id_tematica}');";
@@ -167,15 +209,20 @@ class BD
         return $vector;
     }
 
-    public static function borrarExamenId($valor)
+    public static function borrarExamenId($examen)
     {
-        $string = "DELETE FROM examen WHERE id = '${valor}';";
+        $id = $examen->getId();
+        $string = "DELETE FROM examen WHERE id = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function insertarExamen($descripcion, $duracion, $num_preguntas, $activo)
+    public static function insertarExamen($examen)
     {
+        $descripcion = $examen->getDescripcion();
+        $duracion = $examen->getDuracion();
+        $num_preguntas = $examen->getNum_preguntas();
+        $activo = $examen->getActivo();
         $string = "INSERT INTO examen (id, descripcion, duracion, num_preguntas, activo)  VALUES (NULL, '${descripcion}','${duracion}','${num_preguntas}','${activo}');";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
@@ -195,22 +242,26 @@ class BD
         return $vector;
     }
 
-    public static function borrarExamenPreguntaId_Pregunta($valor)
+    public static function borrarExamenPreguntaId_Pregunta($examen_pregunta)
     {
-        $string = "DELETE FROM examen_pregunta WHERE id_pregunta = '${valor}';";
+        $id = $examen_pregunta->getId_pregunta();
+        $string = "DELETE FROM examen_pregunta WHERE id_pregunta = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function borrarExamenPreguntaId_Examen($valor)
+    public static function borrarExamenPreguntaId_Examen($examen_pregunta)
     {
-        $string = "DELETE FROM examen_pregunta WHERE id_examen = '${valor}';";
+        $id = $examen_pregunta->getId_examen();
+        $string = "DELETE FROM examen_pregunta WHERE id_examen = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function insertarExamenPregunta($id_examen, $id_pregunta)
+    public static function insertarExamenPregunta($examen)
     {
+        $id_examen = $examen->getId_Examen();
+        $id_pregunta = $examen->getId_pregunta();
         $string = "INSERT INTO examen_pregunta (id_examen, id_pregunta)  VALUES ('${id_examen}','${id_pregunta}');";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
@@ -230,15 +281,20 @@ class BD
         return $vector;
     }
 
-    public static function borrarExamenUsuarioId($valor)
+    public static function borrarExamenUsuarioId($examen_usuario)
     {
-        $string = "DELETE FROM examen_usuario WHERE id = '${valor}';";
+        $id = $examen_usuario->getId();
+        $string = "DELETE FROM examen_usuario WHERE id = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function insertarExamenUsuario($id_examen, $id_usuario, $calificacion, $ejecucion)
+    public static function insertarExamenUsuario($examen_usuario)
     {
+        $id_examen = $examen_usuario->getId_examen();
+        $id_usuario = $examen_usuario->getId_usuario();
+        $calificacion = $examen_usuario->getCalificacion();
+        $ejecucion = $examen_usuario->getEjecucion();
         $string = "INSERT INTO examen_usuario (id, id_examen, id_usuario, fecha, calificacion, ejecucion)  VALUES (NULL, '${id_examen}','${id_usuario}', NOW(),'${calificacion}','${ejecucion}');";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
