@@ -2,7 +2,7 @@
 class respuesta {
     protected $id;
     protected $enunciado;
-    protected $id_pregunta;
+    protected pregunta $id_pregunta;
     
     public function __construct($id, $enunciado, $id_pregunta) 
     {

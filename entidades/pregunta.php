@@ -2,9 +2,9 @@
 class pregunta {
     protected $id;
     protected $enunciado;
-    protected $id_respuesta_correcta;
+    protected respuesta $id_respuesta_correcta;
     protected $recurso;
-    protected $id_tematica;
+    protected tematica $id_tematica;
     
     public function __construct($id, $enunciado, $id_respuesta_correcta, $recurso, $id_tematica) 
     {

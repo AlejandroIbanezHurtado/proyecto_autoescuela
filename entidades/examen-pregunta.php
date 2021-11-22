@@ -1,7 +1,7 @@
 <?php
 class examen_pregunta {
-    protected $id_examen;
-    protected $id_pregunta;
+    protected examen $id_examen;
+    protected pregunta $id_pregunta;
     
     public function __construct($id_examen, $id_pregunta) 
     {

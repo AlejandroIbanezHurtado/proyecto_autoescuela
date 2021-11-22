@@ -1,8 +1,8 @@
 <?php
 class examen_usuario {
     protected $id;
-    protected $id_examen;
-    protected $id_usuario;
+    protected examen $id_examen;
+    protected usuario $id_usuario;
     protected $fecha;
     protected $calificacion;
     protected $ejecucion;
