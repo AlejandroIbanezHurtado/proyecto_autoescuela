@@ -6,24 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <?php
-    require_once("entidades/usuario.php");
-    require_once("bd/bd.php");
-    require_once("sesion/sesion.php");
-    include("helper/validator.php");
+    require_once("../entidades/usuario.php");
+    require_once("../bd/bd.php");
+    require_once("../sesion/sesion.php");
+    include("../helper/validator.php");
     ?>
-    <style><?php include('css/estilos.css'); ?></style>
+    <style><?php include('../../css/main.css'); ?></style>
 </head>
 <body>
 
+    <div class="cajaLogin">
     <form method="post">
-        Correo: <input type="text" class="errorInput" name="txtcorreo" value="<?php if(isset($_COOKIE['correo']) && $_COOKIE['password']) echo $_COOKIE['correo']?>">
+        Correo: <input type="email" class="errorInput correo" name="txtcorreo" value="<?php if(isset($_COOKIE['correo']) && $_COOKIE['password']) echo $_COOKIE['correo']?>">
         <br><br>
-        Contraseña: <input type="text" class="errorInput" name="txtPassword" value="<?php if(isset($_COOKIE['correo']) && $_COOKIE['password']) echo $_COOKIE['password']?>">
+        Contraseña: <input type="password" class="errorInput" name="txtPassword" value="<?php if(isset($_COOKIE['correo']) && $_COOKIE['password']) echo $_COOKIE['password']?>">
         <br><br>
         Recuérdame<input type="checkbox" name="recuerdame" class="recuerdame">
         <br><br>
         <input type="submit" name="btnEnviar" value="Iniciar Sesion" class="boton">
     </form>
+    </div>
+    
 
     <?php
 

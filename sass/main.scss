@@ -7,12 +7,11 @@ form{
     width: 500px;
     float: none;
     margin: auto;
-    margin-top: 200px;
 }
 
 input{
     height: 30px;
-    width: 200px;
+    width: 47%;
     font-size: 50%;
 }
 
@@ -23,9 +22,15 @@ input{
     background-color: cadetblue;
     color: white;
     border-radius: 20px;
+    font-size: 70%;
+    height: max-content;
+
+    &:hover{
+        cursor: pointer;
+    }
 }
 
-.boton:hover, .recuerdame:hover{
+.recuerdame:hover{
     cursor: pointer;
 }
 
@@ -34,4 +39,21 @@ input{
     margin-left: 45%;
     font-size: 40%;
     color: red;
+}
+
+.cajaLogin{
+    border: solid 2px black;
+    height: 300px;
+    width: 50%;
+    float: none;
+    margin: auto;
+    margin-top: 100px;
+    overflow: hidden;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    border-radius: 30px;
+}
+
+.correo{
+    width: 60%;
 }

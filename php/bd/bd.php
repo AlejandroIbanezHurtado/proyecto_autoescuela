@@ -1,11 +1,11 @@
 <?php
-require_once("entidades/usuario.php");
-require_once("entidades/pregunta.php");
-require_once("entidades/tematica.php");
-require_once("entidades/respuesta.php");
-require_once("entidades/examen.php");
-require_once("entidades/examen-pregunta.php");
-require_once("entidades/examen-usuario.php");
+require_once("../entidades/usuario.php");
+require_once("../entidades/pregunta.php");
+require_once("../entidades/tematica.php");
+require_once("../entidades/respuesta.php");
+require_once("../entidades/examen.php");
+require_once("../entidades/examen-pregunta.php");
+require_once("../entidades/examen-usuario.php");
 class BD
 {
     private static $con;
@@ -115,10 +115,28 @@ class BD
     public static function selectRespuesta():array
     {
         $vector = array();
-        $resultado = self::$con->query("SELECT * FROM respuestas");
+        $resultado = self::$con->query("SELECT respuestas.id as \"id_respuesta\", respuestas.enunciado as \"enunciado_respuesta\", preguntas.id as \"id_pregunta\", preguntas.enunciado as \"enunciado_pregunta\", preguntas.id_respuesta_correcta, preguntas.recurso, preguntas.id_tematica FROM respuestas INNER JOIN preguntas on respuestas.id_pregunta = preguntas.id");
+        $rep = "";
         while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
-            $respuesta = new respuesta($registro->id, $registro->enunciado, $registro->id_pregunta);
-            $vector [$registro->id] = $respuesta;
+            $idPreg = $registro->id_pregunta;
+            
+            if($idPreg!=$rep)
+            {
+                $resultado2 = self::$con->query("SELECT id FROM respuestas WHERE id_pregunta ='${idPreg}'");
+                $vectorResp = array();
+                while ($registro2 = $resultado2->fetch(PDO::FETCH_OBJ))
+                {
+                    $vectorResp[] = $registro2->id;
+                }
+                $rep = $idPreg;
+
+                
+            }
+            
+            $id_pregunta = new pregunta($registro->id_pregunta, $registro->enunciado_pregunta, $registro->id_respuesta_correcta, $registro->recurso, $registro->id_tematica, $vectorResp);
+                $respuesta = new respuesta($registro->id_respuesta, $registro->enunciado_respuesta, $id_pregunta);
+                $vector [$registro->id_respuesta] = $respuesta;
+            
         }
 
         return $vector;
@@ -136,6 +154,7 @@ class BD
     {
         $enunciado = $respuesta->getEnunciado();
         $id_pregunta = $respuesta->getId_pregunta();
+        $id_pregunta = $id_pregunta->getId();
         $string = "INSERT INTO respuestas (id, enunciado, id_pregunta)  VALUES (NULL, '${enunciado}','${id_pregunta}');";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
@@ -146,10 +165,27 @@ class BD
     public static function selectPregunta():array
     {
         $vector = array();
-        $resultado = self::$con->query("SELECT * FROM preguntas");
+        $resultado = self::$con->query("SELECT respuestas.id as id_respuesta, respuestas.enunciado as enunciado_respuesta, tematica.id as id_tematica, tematica.tema, preguntas.id as id_pregunta, preguntas.enunciado as enunciado_pregunta, preguntas.id_respuesta_correcta, preguntas.recurso, preguntas.id_tematica FROM respuestas INNER JOIN preguntas on respuestas.id_pregunta = preguntas.id inner join tematica on tematica.id = preguntas.id_tematica");
+        $rep = "";
         while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
-            $pregunta = new pregunta($registro->id, $registro->enunciado, $registro->id_respuesta_correcta, $registro->recurso, $registro->id_tematica);
-            $vector [$registro->id] = $pregunta;
+            $idPreg = $registro->id_pregunta;
+            
+            if($idPreg!=$rep)
+            {
+                $resultado2 = self::$con->query("SELECT id FROM respuestas WHERE id_pregunta ='${idPreg}'");
+                $vectorResp = array();
+                while ($registro2 = $resultado2->fetch(PDO::FETCH_OBJ))
+                {
+                    $vectorResp[] = $registro2->id;
+                }
+                $rep = $idPreg;
+
+                $tematica = new tematica($registro->id_tematica, $registro->tema);
+                $respuesta = new respuesta($registro->id_respuesta, $registro->enunciado_respuesta, $registro->id_pregunta);
+                $id_pregunta = new pregunta($registro->id_pregunta, $registro->enunciado_pregunta, $respuesta, $registro->recurso, $tematica, $vectorResp);
+                $vector [$registro->id_respuesta] = $id_pregunta;
+            }
+            
         }
 
         return $vector;
@@ -233,9 +269,18 @@ class BD
     public static function selectExamenPregunta():array
     {
         $vector = array();
-        $resultado = self::$con->query("SELECT * FROM examen_pregunta");
+        $resultado = self::$con->query("SELECT examen.id as id_examen, examen.descripcion, examen.duracion, examen.num_preguntas, examen.activo, preguntas.id as id_pregunta, preguntas.enunciado, preguntas.id_respuesta_correcta, preguntas.recurso, preguntas.id_tematica from examen_pregunta inner join examen on id_examen = examen.id inner join preguntas on id_pregunta = preguntas.id");
         while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
-            $examen_pregunta = new examen_pregunta($registro->id_examen, $registro->id_pregunta);
+            $idPreg = $registro->id_pregunta;
+            $resultado2 = self::$con->query("SELECT id FROM respuestas WHERE id_pregunta ='${idPreg}'");
+            $vectorResp = array();
+            while ($registro2 = $resultado2->fetch(PDO::FETCH_OBJ))
+            {
+                $vectorResp[] = $registro2->id;
+            }
+            $examen = new examen($registro->id_examen, $registro->descripcion, $registro->duracion, $registro->num_preguntas, $registro->activo);
+            $pregunta = new pregunta($registro->id_pregunta, $registro->enunciado, $registro->id_respuesta_correcta, $registro->recurso, $registro->id_tematica, $vectorResp);
+            $examen_pregunta = new examen_pregunta($examen, $pregunta);
             $vector [$registro->id_examen] = $examen_pregunta;
         }
 
@@ -245,6 +290,7 @@ class BD
     public static function borrarExamenPreguntaId_Pregunta($examen_pregunta)
     {
         $id = $examen_pregunta->getId_pregunta();
+        $id = $id->getId();
         $string = "DELETE FROM examen_pregunta WHERE id_pregunta = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
@@ -253,15 +299,18 @@ class BD
     public static function borrarExamenPreguntaId_Examen($examen_pregunta)
     {
         $id = $examen_pregunta->getId_examen();
+        $id = $id->getId();
         $string = "DELETE FROM examen_pregunta WHERE id_examen = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
 
-    public static function insertarExamenPregunta($examen)
+    public static function insertarExamenPregunta($examen_pregunta)
     {
-        $id_examen = $examen->getId_Examen();
-        $id_pregunta = $examen->getId_pregunta();
+        $id_examen = $examen_pregunta->getId_Examen();
+        $id_examen = $id_examen->getId();
+        $id_pregunta = $examen_pregunta->getId_pregunta();
+        $id_pregunta = $id_pregunta->getId();
         $string = "INSERT INTO examen_pregunta (id_examen, id_pregunta)  VALUES ('${id_examen}','${id_pregunta}');";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
