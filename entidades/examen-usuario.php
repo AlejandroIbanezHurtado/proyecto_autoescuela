@@ -1,8 +1,8 @@
 <?php
-class examen_usuario {
+class examen_usuario {//este sera el registro de examenes de cada usuario
     protected $id;
-    protected examen $id_examen;
-    protected usuario $id_usuario;
+    protected $id_examen;//objeto examen
+    protected $id_usuario;//objeto usuario
     protected $fecha;
     protected $calificacion;
     protected $ejecucion;
