@@ -7,11 +7,46 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../css/main.css">
     <script src="../entidades/examen.js"></script>
+    <script src="../lib/lib-altaExamen.js"></script>
 </head>
 <body>
-    <script>
-        var examen = new examen("a","b","c","d","e");
-        console.log(examen);
-    </script>
+    <img src="" alt="Logo autoescuela" class="fotoAutoescuela">
+    <nav>
+        <ul>
+            <li class="liMenu">
+                <a href="#">Nuestro centro</a>
+            </li>
+            <li class="liMenu">
+                <a href="#">Enseñanzas</a>
+                <ul class="submenu">
+                    <li><a href="#">Administración y gestión</a></li>
+                    <li><a href="#">Informática y comunicaciones</a></li>
+                </ul>
+            </li>
+            <li class="liMenu">
+                <a href="#">Alumnado</a>
+                <ul class="submenu">
+                    <li><a href="#">Calendario escolar</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Documentos</a></li>
+                </ul>
+            </li>
+            <li class="liMenu">
+                <a href="#">Profesorado</a>
+            </li>
+            <li class="liMenu">
+                <a href="#">Moodle</a>
+            </li>
+        </ul>
+    </nav>
+    <h3>Alta éxamenes</h3>
+    <input type="text" placeholder="descripcion">
+    <input type="text" placeholder="duracion">
+    <br>
+    <input type="text" placeholder="buscar">
+    <input type="text" placeholder="buscar">
+    <br>
+    <div id="preguntasDisponibles" class="cajaExamen-pregunta"></div>
+    <div id="preguntasSeleccionadas" class="cajaExamen-pregunta"></div>
 </body>
 </html>

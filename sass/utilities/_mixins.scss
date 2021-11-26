@@ -1,0 +1,55 @@
+$color-texto: #eee;
+$color-texto-hover: #fff;
+$color-fondo: #666;
+$color-fondo-hover: #888;
+
+@mixin estableceColor
+{
+    color: $color-texto;
+    background-color: $color-fondo;
+}
+
+@mixin estableceColorHover
+{
+    &:hover{
+        color: $color-texto-hover;
+        background-color: $color-fondo-hover;
+    }
+}
+
+@mixin boxSizing($tam)
+{
+    box-sizing: $tam;
+    -webkit-box-sizing: $tam;
+    -moz-box-sizing: $tam;
+}
+
+@mixin transiciones($pro, $dur, $tim: linear)
+{
+    transition-property: $pro;
+    transition-duration: $dur;
+    transition-timing-function: $tim;
+
+    -moz-transition-property: $pro;
+    -moz-transition-duration: $dur;
+    -moz-transition-timing-function: $tim;
+
+    -webkit-transition-property: $pro;
+    -webkit-transition-duration: $dur;
+    -webkit-transition-timing-function: $tim;
+}
+
+@mixin animaciones($name, $dur, $tim: linear)
+{
+    -moz-animation-name: $name;
+    -moz-animation-duration: $dur;
+    -moz-animation-timing-function: $tim;
+
+    -webkit-animation-name: $name;
+    -webkit-animation-duration: $dur;
+    -webkit-animation-timing-function: $tim;
+
+    animation-name: $name;
+    animation-duration: $dur;
+    animation-timing-function: $tim;
+}

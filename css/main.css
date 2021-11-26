@@ -1,41 +1,8 @@
 body {
   font-family: sans-serif;
-  font-size: 200%;
 }
 
-form {
-  width: 500px;
-  float: none;
-  margin: auto;
-}
-
-input {
-  height: 30px;
-  width: 47%;
-  font-size: 50%;
-}
-
-.boton {
-  position: relative;
-  margin-left: 30%;
-  margin-right: 30%;
-  background-color: cadetblue;
-  color: white;
-  border-radius: 20px;
-  font-size: 70%;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-}
-.boton:hover {
-  cursor: pointer;
-}
-
-.recuerdame:hover {
-  cursor: pointer;
-}
-
-.errorLogin {
+.errorInput {
   float: none;
   margin-left: 45%;
   font-size: 40%;
@@ -43,6 +10,7 @@ input {
 }
 
 .cajaLogin {
+  font-size: 200%;
   border: solid 2px black;
   height: 300px;
   width: 50%;
@@ -54,7 +22,215 @@ input {
   padding-bottom: 100px;
   border-radius: 30px;
 }
+.cajaLogin .formLogin {
+  width: 500px;
+  float: none;
+  margin: auto;
+}
+.cajaLogin .formLogin input {
+  height: 30px;
+  width: 47%;
+  font-size: 50%;
+}
+.cajaLogin .formLogin .boton {
+  position: relative;
+  margin-left: 30%;
+  margin-right: 30%;
+  background-color: cadetblue;
+  color: white;
+  border-radius: 20px;
+  font-size: 70%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+.cajaLogin .formLogin .boton:hover {
+  cursor: pointer;
+}
+.cajaLogin .formLogin .recuerdame:hover {
+  cursor: pointer;
+}
 
-.correo {
-  width: 60%;
+.cajaExamen-pregunta {
+  font-size: 200%;
+  width: 25%;
+  height: 350px;
+  border: solid 2px black;
+  margin-top: 10px;
+  overflow: scroll;
+}
+
+#preguntasDisponibles {
+  float: left;
+  margin-right: 50px;
+  margin-left: 20%;
+}
+
+#preguntasSeleccionadas {
+  float: right;
+  margin-right: 20%;
+}
+
+nav + h3 {
+  font-size: 200%;
+  margin-top: 0px;
+}
+nav + h3 + input {
+  margin-left: 20%;
+  float: left;
+  width: 20%;
+}
+nav + h3 + input + input {
+  margin-right: 40%;
+  float: right;
+}
+nav + h3 + input + input + br + input {
+  margin-left: 34.5%;
+  float: left;
+  margin-top: 50px;
+}
+nav + h3 + input + input + br + input + input {
+  margin-top: 50px;
+  margin-right: 20%;
+  float: right;
+}
+
+.formAltaUsuario {
+  font-size: 150%;
+  float: none;
+  margin: auto;
+  margin-top: 50px;
+  margin-left: 40%;
+  width: 30%;
+}
+.formAltaUsuario input {
+  margin-bottom: 30px;
+  height: 25px;
+}
+
+@-webkit-keyframes iluminar {
+  from {
+    background-color: #666;
+    color: #eee;
+  }
+  to {
+    background-color: #888;
+    color: #fff;
+  }
+}
+
+@keyframes iluminar {
+  from {
+    background-color: #666;
+    color: #eee;
+  }
+  to {
+    background-color: #888;
+    color: #fff;
+  }
+}
+nav {
+  position: absolute;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+nav ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+}
+nav a {
+  color: #eee;
+  background-color: #666;
+  text-decoration: none;
+  width: 160px;
+  padding: 7px 20px;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}
+nav a:hover {
+  color: #fff;
+  background-color: #888;
+}
+nav a:hover {
+  color: #fff;
+  background-color: #888;
+  -moz-animation-name: iluminar;
+  -moz-animation-duration: 0.4s;
+  -moz-animation-timing-function: linear;
+  -webkit-animation-name: iluminar;
+  -webkit-animation-duration: 0.4s;
+  -webkit-animation-timing-function: linear;
+  animation-name: iluminar;
+  animation-duration: 0.4s;
+  animation-timing-function: linear;
+}
+
+header {
+  padding: 12px 30px;
+  font-size: 1.8em;
+  color: #444;
+  background-color: #eee;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #aaa;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+nav > ul {
+  width: 100%;
+  height: 32px;
+  color: #eee;
+  background-color: #666;
+}
+
+li.categoria {
+  float: left;
+}
+
+ul.submenu {
+  transition-property: height;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-out;
+  -moz-transition-property: height;
+  -moz-transition-duration: 0.5s;
+  -moz-transition-timing-function: ease-out;
+  -webkit-transition-property: height;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-out;
+  position: absolute;
+  height: 0px;
+  overflow: hidden;
+}
+
+li.categoria > a {
+  transition-property: padding;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-out;
+  -moz-transition-property: padding;
+  -moz-transition-duration: 0.4s;
+  -moz-transition-timing-function: ease-out;
+  -webkit-transition-property: padding;
+  -webkit-transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-out;
+}
+
+li.categoria:hover ul.submenu {
+  height: 100px;
+}
+li.categoria:hover ul.submenu > a {
+  padding: 10px 20px;
+}
+
+footer {
+  color: #eee;
+  background-color: #666;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  padding: 5px;
 }/*# sourceMappingURL=main.css.map */
