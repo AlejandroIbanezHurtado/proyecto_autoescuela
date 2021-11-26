@@ -8,9 +8,8 @@ class usuario {
     protected $fecha_nac;
     protected $rol;
     protected $imagen;
-    protected $activo;
     
-    public function __construct($id, $correo, $nombre, $apellidos, $password, $fecha_nac, $rol, $imagen, $activo) 
+    public function __construct($id, $correo, $nombre, $apellidos, $password, $fecha_nac, $rol, $imagen) 
     {
         $this->id = $id;
         $this->correo = $correo;
@@ -20,7 +19,6 @@ class usuario {
         $this->fecha_nac = $fecha_nac;
         $this->rol = $rol;
         $this->imagen = $imagen;
-        $this->activo = $activo;
     }
 
     public function getId() {return $this->id; }
@@ -31,5 +29,4 @@ class usuario {
     public function getFecha_nac() {return $this->fecha_nac; }
     public function getRol() {return $this->rol; }
     public function getImagen() {return $this->imagen; }
-    public function getActivo() {return $this->activo; }
 }

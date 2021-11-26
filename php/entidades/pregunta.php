@@ -1,5 +1,5 @@
 <?php
-class pregunta {
+class pregunta implements JsonSerializable{
     protected $id;
     protected $enunciado;
     protected $id_respuesta_correcta; //objeto respuesta
@@ -17,6 +17,10 @@ class pregunta {
         $this->vectorRespuestas = $vectorRespuestas;
     }
 
+    public function jsonSerialize() {
+        return get_object_vars($this);
+    }
+    
     public function getId() {return $this->id; }
     public function getEnunciado() {return $this->enunciado; }
     public function getId_respuesta_correcta() {return $this->id_respuesta_correcta; }
