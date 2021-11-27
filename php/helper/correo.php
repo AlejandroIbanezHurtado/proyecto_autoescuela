@@ -15,9 +15,9 @@ class correo{
         $mail->Host       = "smtp.gmail.com";    
         $mail->Port       = 587;                 
         // introducir usuario de google
-        $mail->Username   = "2alejandroibanezhurtado@gmail.com"; 
+        $mail->Username   = self::$correo; 
         // introducir clave
-        $mail->Password   = "";       
+        $mail->Password   = self::$pass;       
         $mail->SetFrom(self::$correo, 'Autoescuela Proyecto');
         // asunto
         $mail->Subject    = $asunto;

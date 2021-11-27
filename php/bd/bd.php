@@ -39,14 +39,13 @@ class BD
         $fecha_nac = $usuario->getFecha_nac();
         $rol = $usuario->getRol();
         $imagen = $usuario->getImagen();
-        $activo = $usuario->getActivo();
 
         if($imagen==NULL)
         {
-            $string = "INSERT INTO usuarios (id, correo, nombre, apellidos, password, fecha_nac, rol, imagen, activo)  VALUES (NULL, '${correo}','${nombre}','${apellidos}','${password}','${fecha_nac}','${rol}',NULL,'${activo}');";
+            $string = "INSERT INTO usuarios (id, correo, nombre, apellidos, password, fecha_nac, rol, imagen)  VALUES (NULL, '${correo}','${nombre}','${apellidos}','${password}','${fecha_nac}','${rol}',NULL);";
         }
         else{
-            $string = "INSERT INTO usuarios (id, correo, nombre, apellidos, password, fecha_nac, rol, imagen, activo)  VALUES (NULL, '${correo}','${nombre}','${apellidos}','${password}','${fecha_nac}','${rol}','${imagen}','${activo}');";
+            $string = "INSERT INTO usuarios (id, correo, nombre, apellidos, password, fecha_nac, rol, imagen)  VALUES (NULL, '${correo}','${nombre}','${apellidos}','${password}','${fecha_nac}','${rol}','${imagen}');";
         }
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
@@ -64,6 +63,17 @@ class BD
         }
 
         return $vector;
+    }
+
+    public static function selectUsuarioEmail($email)
+    {
+        $res = false;
+        $resultado = self::$con->query("SELECT * FROM usuarios WHERE correo = '${email}';");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $res = $registro->id;
+        }
+
+        return $res;
     }
 
 
@@ -346,4 +356,43 @@ class BD
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
+
+    //PENDIENTES
+    public static function selectPendientes($id)
+    {
+        $res = false;
+        $resultado = self::$con->query("SELECT * FROM pendientes WHERE id_md5 = '${id}';");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $res = $registro->id_usuario;
+        }
+
+        return $res;
+    }
+
+    public static function selectPendientesEmail($email)
+    {
+        $res = false;
+        $resultado = self::$con->query("SELECT * FROM pendientes WHERE id_usuario = '${email}';");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $res = $registro->id_md5;
+        }
+
+        return $res;
+    }
+
+    public static function borrarPendientesId($id)
+    {
+        $string = "DELETE FROM pendientes WHERE id_md5 = '${id}';";
+        $registros = self::$con->exec($string);
+        return self::$con->errorInfo();
+    }
+
+    public static function insertarPendientes($id, $id_usuario,$fecha_expiracion)
+    {
+        $string = "INSERT INTO pendientes (id_md5, id_usuario, fecha_expiracion) VALUES ('${id}','${id_usuario}','${fecha_expiracion}');";
+        $registros = self::$con->exec($string);
+        return self::$con->errorInfo();
+    }
+
+    
 }

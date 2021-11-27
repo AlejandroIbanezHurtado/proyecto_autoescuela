@@ -5,9 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style><?php include('../../css/main.css'); ?></style>
-    <?php include('../entidades/usuario.php'); ?>
-    <?php include('../helper/validator.php'); ?>
+    <?php
+        require "../cargadores/cargarEntidades.php";
+        require "../cargadores/cargarHelper.php";
+        require "../cargadores/cargarSesion.php";
+    ?>
+    <link href="../../css/main.css" type="text/css" rel="stylesheet">
+    <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
 </head>
 <body>
     <form method="post" class="formAltaUsuario">
@@ -19,12 +23,6 @@
         <br>
         APELLIDOS:<br>
         <input type="text" name="apellidos" id="apellidos" class="errorInputapellidos">
-        <br>
-        CONTRASEÑA:<br>
-        <input type="text" name="password1" id="password1" class="errorInputcontraseña1">
-        <br>
-        CONFIRMAR CONTRASEÑA:<br>
-        <input type="text" name="password2" id="password2" class="errorInputcontraseña2">
         <br>
         FECHA DE NACIMIENTO:<br>
         <input type="date" name="fechaNac" id="fechaNac" class="errorInputfechaNac">
@@ -41,16 +39,7 @@
     
     if(isset($_POST['btnGuardar']))
     {
-        $password="";
-        
-        if($_POST['password1'] === $_POST['password2'])
-        {
-            $password = $_POST['password1'];
-        }
-        else{
-            echo "<style>.errorInputcontraseña1{border-color: red;}</style>";
-            echo "<style>.errorInputcontraseña2{border-color: red;}</style>";
-        }
+        $password=rand(10000000, 99999999);//generamos una contraseña aleatoria por defecto
         
         $usuario = new usuario("", $_POST['email'], $_POST['nombre'], $_POST['apellidos'],$password, $_POST['fechaNac'], $_POST['rol'], null);
         $res = validator::validaAltaUsuario($usuario);
@@ -64,7 +53,9 @@
             }
         }
         else{
-            header('Location: login.php');
+            Sesion::abreSesion();
+            Sesion::inserta("usuario",$usuario);
+            header('Location: enviaCorreo.php');
         }
     }
 
