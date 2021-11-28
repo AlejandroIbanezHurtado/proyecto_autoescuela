@@ -76,6 +76,24 @@ class BD
         return $res;
     }
 
+    public static function selectUsuarioId($id)
+    {
+        $res=false;
+        $resultado = self::$con->query("SELECT * FROM usuarios WHERE id = '${id}';");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $usuario = new usuario($registro->id, $registro->correo, $registro->nombre, $registro->apellidos, $registro->password, $registro->fecha_nac, $registro->rol, $registro->imagen);
+            $res = $usuario;
+        }
+
+        return $res;
+    }
+
+    public static function actualizaUsuarioPassword($id, $password)
+    {
+        $string = "UPDATE usuarios SET password = '${password}' WHERE id = '${id}'";
+        return $registros = self::$con->exec($string);
+    }
+
 
     /*public static function actualizaImagen($tabla, $id, $imagen)
     {
@@ -380,6 +398,28 @@ class BD
         return $res;
     }
 
+    public static function selectPendientesIdUsuario($id_usuario)
+    {
+        $res = false;
+        $resultado = self::$con->query("SELECT * FROM pendientes WHERE id_usuario = '${id_usuario}';");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $res = $registro->id_usuario;
+        }
+
+        return $res;
+    }
+
+    public static function selectFechaExpiracion($id)
+    {
+        $res = false;
+        $resultado = self::$con->query("SELECT * FROM pendientes WHERE id_md5 = '${id}';");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $res = $registro->fecha_expiracion;
+        }
+
+        return $res;
+    }
+
     public static function borrarPendientesId($id)
     {
         $string = "DELETE FROM pendientes WHERE id_md5 = '${id}';";
@@ -394,5 +434,6 @@ class BD
         return self::$con->errorInfo();
     }
 
+    
     
 }

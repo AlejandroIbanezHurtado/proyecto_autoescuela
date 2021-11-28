@@ -18,11 +18,11 @@
     <div class="cajaLogin">
     <img src="../../archivos/imagenesWeb/imagenCorta.png" alt="Logo autoescuela" class="fotoAutoescuela">
     <form method="post" class="formLogin">
-        Correo:<input id="correo" type="email" class="errorInput correo" name="txtcorreo" value="<?php if(isset($_COOKIE['correo']) && $_COOKIE['password']) echo $_COOKIE['correo']?>">
+        <label for="correo">Correo:</label><input id="correo" type="email" class="errorInput correo" name="txtcorreo" value="<?php if(isset($_COOKIE['correo']) && $_COOKIE['password']) echo $_COOKIE['correo']?>">
         <br><br>
-        Contraseña: <input type="password" class="errorInput" name="txtPassword" value="<?php if(isset($_COOKIE['correo']) && $_COOKIE['password']) echo $_COOKIE['password']?>">
-        <br><br>
-        Recuérdame<input type="checkbox" name="recuerdame" class="recuerdame">
+        <label for="contra">Contraseña:</label><input id="contra" type="password" class="errorInput" name="txtPassword" value="<?php if(isset($_COOKIE['correo']) && $_COOKIE['password']) echo $_COOKIE['password']?>"><aside><span><a href="olvidaPassword.php">He olvidado mi contraseña</a><br></span></aside>
+        <br>
+        <label for="recu">Recuérdame:</label><input id="recu" type="checkbox" name="recuerdame" class="recuerdame">
         <br><br>
         <input type="submit" name="btnEnviar" value="Iniciar Sesion" class="boton">
     </form>
@@ -52,8 +52,17 @@
             header("Location: ../../js/paginas/alta_examen.html");
         }
         else{
-            echo "<span class='errorLogin'>${log}</span>";
             echo "<style>.errorInput{border-color: red;}</style>";
+            echo "<style>#contra + aside  > span:after{
+                color: red;
+                content: '${log}';
+                font-size: 50%;
+                background-color: #d1d1d1;
+                float:none;
+                margin:auto;
+            }
+            
+            aside{text-align: center;}</style>";
         }
     }
     ?>

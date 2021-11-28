@@ -5,10 +5,8 @@ body {
 }
 
 .errorInput {
-  float: none;
-  margin-left: 45%;
+  float: right;
   font-size: 40%;
-  color: red;
 }
 
 .cajaLogin {
@@ -18,16 +16,27 @@ body {
   float: none;
   margin: auto;
   margin-top: -50px;
-  overflow: hidden;
+  overflow: visible;
   padding-top: 100px;
-  padding-bottom: 100px;
   border-radius: 30px;
+}
+.cajaLogin aside {
+  text-align: center;
+}
+.cajaLogin aside span a {
+  font-size: 50%;
+}
+.cajaLogin .formLogin + p {
+  margin-top: 200px;
+  text-align: center;
+  font-size: 50%;
 }
 .cajaLogin .formLogin {
   clear: both;
-  width: 500px;
+  width: 60%;
   float: none;
   margin: auto;
+  margin-top: 50px;
 }
 .cajaLogin .formLogin input {
   height: 30px;
@@ -55,6 +64,7 @@ body {
 .cajaLogin img.fotoAutoescuela {
   margin: auto;
   display: block;
+  width: 250px;
 }
 
 .cajaExamen-pregunta {
@@ -251,4 +261,30 @@ img.fotoUsuario {
   margin-top: 15px;
   margin-right: 20px;
   margin-bottom: 10px;
-}/*# sourceMappingURL=main.css.map */
+}
+
+p.errorCambioPassword {
+  font-size: 200%;
+  float: none;
+  margin: auto;
+  margin-top: 20px;
+  text-align: center;
+  border: solid 3px black;
+  width: 70%;
+}
+p.errorCambioPassword + section {
+  font-size: 200%;
+  float: none;
+  margin: auto;
+  margin-top: 100px;
+  text-align: center;
+  width: 70%;
+}
+
+img.caution {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin: auto;
+}
+/*# sourceMappingURL=main.css.map *//*# sourceMappingURL=main.css.map */

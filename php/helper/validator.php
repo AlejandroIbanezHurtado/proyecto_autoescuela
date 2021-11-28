@@ -1,4 +1,5 @@
 <?php
+require_once "../cargadores/cargarBD.php";
 class validator {
     public static function validaLogin(usuario $usuario)
     {
@@ -7,15 +8,16 @@ class validator {
         
         if(count(BD::selectLoginUsuario($usuario))==0)
         {
-            $res = "Correo o contraseña inválidos";
+            $res = "Correo y/o contraseña inválidos";
         }
         return $res;
     }
 
     public static function validaAltaUsuario(usuario $usuario)
     {
+        BD::Conectar();
         $res = [];
-        if(filter_var($usuario->getCorreo(), FILTER_VALIDATE_EMAIL)==false)
+        if(filter_var($usuario->getCorreo(), FILTER_VALIDATE_EMAIL)==false || BD::selectUsuarioEmail($usuario->getCorreo())!=false)
         {
             $res['email'] = "Correo no válido";
         }
@@ -45,6 +47,20 @@ class validator {
         else{
             $res['fechaNac'] = "Fecha inválida";
         }
+        return $res;
+    }
+
+    public static function valida2Password($password1, $password2)
+    {
+        $res = false;
+        if($password1 === $password2)
+        {
+            if(trim($password1)=="" || strlen($password1)<8)
+            {
+                $res['password'] = "Contraseña inválida";
+            }
+        }
+        
         return $res;
     }
 }
