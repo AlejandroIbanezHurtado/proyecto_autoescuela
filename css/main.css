@@ -68,23 +68,52 @@ body {
 }
 
 .cajaExamen-pregunta {
-  font-size: 200%;
-  width: 25%;
+  font-size: 100%;
+  width: 35%;
   height: 350px;
   border: solid 2px black;
   margin-top: 10px;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+.cajaExamen-pregunta div {
+  padding: 10px;
+  border: 1px solid black;
 }
 
 #preguntasDisponibles {
   float: left;
   margin-right: 50px;
-  margin-left: 20%;
+  margin-left: 10%;
+  z-index: -20;
+}
+#preguntasDisponibles div.tematica {
+  background-color: cadetblue;
+}
+
+div.seleccionado {
+  background-color: #8ac1fc;
 }
 
 #preguntasSeleccionadas {
   float: right;
-  margin-right: 20%;
+  margin-right: 10%;
+  z-index: -20;
+}
+
+#preguntasSeleccionadas + form {
+  clear: both;
+  margin-right: 10%;
+  margin-top: 20px;
+  float: right;
+}
+#preguntasSeleccionadas + form input {
+  background-color: cadetblue;
+  color: white;
+  border-radius: 20px;
+  font-size: 120%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
 }
 
 nav + h3 {
@@ -286,5 +315,9 @@ img.caution {
   height: 200px;
   display: block;
   margin: auto;
+}
+
+.dragEnter {
+  border: 2px solid blue;
 }
 /*# sourceMappingURL=main.css.map *//*# sourceMappingURL=main.css.map */

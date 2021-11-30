@@ -1,5 +1,5 @@
 <?php
-class usuario {
+class usuario implements JsonSerializable{
     protected $id;
     protected $correo;
     protected $nombre;
@@ -19,6 +19,10 @@ class usuario {
         $this->fecha_nac = $fecha_nac;
         $this->rol = $rol;
         $this->imagen = $imagen;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 
     public function getId() {return $this->id; }

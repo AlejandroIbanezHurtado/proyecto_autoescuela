@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../../css/main.css">
+    <script src="../entidades/pregunta.js"></script>
     <script src="../entidades/examen.js"></script>
     <script src="../lib/lib-altaExamen.js"></script>
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
@@ -45,13 +46,23 @@
         </ul>
     </nav>
     <h3>Alta éxamenes</h3>
-    <input type="text" placeholder="descripcion">
-    <input type="text" placeholder="duracion">
+    <!-- <form action="" class="filtrosPreguntas">
+
+    </form> -->
+    <input type="text" placeholder="descripcion" id="descripcion">
+    <input type="time" placeholder="duracion" id="duracion">
     <br>
     <input type="text" placeholder="buscar">
     <input type="text" placeholder="buscar">
     <br>
     <div id="preguntasDisponibles" class="cajaExamen-pregunta"></div>
-    <div id="preguntasSeleccionadas" class="cajaExamen-pregunta"></div>
+    <div id="preguntasSeleccionadas" class="cajaExamen-pregunta">
+        <div>
+            <span id="nPreg">Nº preguntas</span>
+        </div>
+    </div>
+    <form action="" id="form1">
+        <input type="submit" value="Guardar" class="boton" id="boton">
+    </form>
 </body>
 </html>

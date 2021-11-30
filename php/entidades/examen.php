@@ -1,5 +1,5 @@
 <?php
-class examen {
+class examen implements JsonSerializable{
     protected $id;
     protected $descripcion;
     protected $duracion;
@@ -13,6 +13,10 @@ class examen {
         $this->duracion = $duracion;
         $this->num_preguntas = $num_preguntas;
         $this->activo = $activo;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 
     public function getId() {return $this->id; }

@@ -1,5 +1,5 @@
 <?php
-class tematica {
+class tematica implements JsonSerializable{
     protected $id;
     protected $tema;
     
@@ -10,6 +10,10 @@ class tematica {
         
     }
 
+    public function jsonSerialize() {
+        return get_object_vars($this);
+    }
+    
     public function getId() {return $this->id; }
     public function getTema() {return $this->tema; }
  

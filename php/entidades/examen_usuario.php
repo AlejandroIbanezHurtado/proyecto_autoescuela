@@ -1,5 +1,5 @@
 <?php
-class examen_usuario {//este sera el registro de examenes de cada usuario
+class examen_usuario implements JsonSerializable{//este sera el registro de examenes de cada usuario
     protected $id;
     protected $id_examen;//objeto examen
     protected $id_usuario;//objeto usuario
@@ -15,6 +15,10 @@ class examen_usuario {//este sera el registro de examenes de cada usuario
         $this->fecha = $fecha;
         $this->calificacion = $calificacion;
         $this->ejecucion = $ejecucion;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 
     public function getId() {return $this->id; }
