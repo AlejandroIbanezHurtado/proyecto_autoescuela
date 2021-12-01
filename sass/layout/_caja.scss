@@ -1,0 +1,81 @@
+.cajaExamen-pregunta{
+    font-size: 100%;
+    width: 35%;
+    height: 350px;
+    border: solid 2px black;
+    margin-top: 10px;
+    overflow-y: scroll;
+
+    div{
+        padding: 10px;
+        border: 1px solid black;
+    }
+}
+
+.cajaLogin{
+    font-size: $size-texto-cajaLogin;
+    height: $altoCajaLogin;
+    width: $anchoCajaLogin;
+    @include floatMargin();
+    margin-top: -50px;
+    overflow: visible;
+    padding-top: 100px;
+    border-radius: $borderRadius-cajaLogin;
+
+    aside{
+        text-align: center;
+        span{
+            a{
+                font-size: 50%;
+            }
+        }
+    }
+
+    .formLogin + p{
+        margin-top: 200px;
+        text-align: center;
+        font-size: 50%;
+    }
+
+    .formLogin{
+        clear: both;
+        width: 60%;
+        @include floatMargin();
+        margin-top: 50px;
+    
+        input{
+            height: 30px;
+            width: 47%;
+            font-size: 50%;
+        }
+    
+        .boton{
+            position: relative;
+            margin-left: 30%;
+            margin-right: 30%;
+            @include estilosBoton();
+        }
+    
+        .recuerdame{
+            @include pointer();
+        }
+    }
+    img.fotoAutoescuela{
+        margin: auto;
+        display:block;
+        width: 250px;
+    }
+    label.recuerdame{
+        font-size: 80%;
+    }
+}
+
+div#preguntasDisponibles{
+    float: left;
+    margin-right: 50px;
+    margin-left: 10%;
+    z-index: -20;
+    div.tematica{
+        background-color: $colorFondoTematica;
+    }
+}

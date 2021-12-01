@@ -1,0 +1,12 @@
+.formAltaUsuario{
+    font-size: 150%;
+    @include floatMargin();
+    margin-top: 50px;
+    margin-left: 40%;
+    width: 30%;
+
+    input{
+        margin-bottom: 30px;
+        height: 25px;
+    }
+}

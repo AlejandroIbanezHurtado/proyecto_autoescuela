@@ -63,4 +63,32 @@ class validator {
         
         return $res;
     }
+
+    public static function validaAltaPregunta(pregunta $pregunta)
+    {
+        BD::Conectar();
+        $enunciado = BD::selectPreguntaEnunciado($pregunta->getEnunciado());
+        $res = [];
+        if(trim($pregunta->getEnunciado())=="" || !empty($enunciado))
+        {
+            $res['enunciado'] = "Enunciado vacío";
+        }
+        if(trim($pregunta->getVectorRespuestas()[0])=="")
+        {
+            $res['respuesta1'] = "Respuesta 1 vacía";
+        }
+        if(trim($pregunta->getVectorRespuestas()[1])=="")
+        {
+            $res['respuesta2'] = "Respuesta 2 vacía";
+        }
+        if(trim($pregunta->getVectorRespuestas()[2])=="")
+        {
+            $res['respuesta3'] = "Respuesta 3 vacía";
+        }
+        if(trim($pregunta->getVectorRespuestas()[3])=="")
+        {
+            $res['respuesta4'] = "Respuesta 4 vacía";
+        }
+        return $res;
+    }
 }

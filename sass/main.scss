@@ -1,106 +1,22 @@
 @import "utilities/_mixins.scss";
+@import "utilities/_variables.scss";
+@import "layout/_nav.scss";
+@import "layout/_formularios.scss";
+@import "layout/_footer.scss";
+@import "layout/_caja.scss";
  body{
-     font-family: sans-serif;
-     padding: 0;
-     margin: 0;
- }
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+}
 
 .errorInput{
     float: right;
-    font-size: 40%;
-}
-
-.cajaLogin{
-    font-size: 200%;
-    height: 600px;
-    width: 50%;
-    float: none;
-    margin: auto;
-    margin-top: -50px;
-    overflow: visible;
-    padding-top: 100px;
-    border-radius: 30px;
-
-    aside{
-        text-align: center;
-        span{
-            a{
-                font-size: 50%;
-            }
-        }
-    }
-
-    .formLogin + p{
-        margin-top: 200px;
-        text-align: center;
-        font-size: 50%;
-    }
-
-    .formLogin{
-        clear: both;
-        width: 60%;
-        float: none;
-        margin: auto;
-        margin-top: 50px;
-    
-        input{
-            height: 30px;
-            width: 47%;
-            font-size: 50%;
-        }
-    
-        .boton{
-            position: relative;
-            margin-left: 30%;
-            margin-right: 30%;
-            background-color: cadetblue;
-            color: white;
-            border-radius: 20px;
-            font-size: 70%;
-            height: max-content;
-        
-            &:hover{
-                cursor: pointer;
-            }
-        }
-    
-        .recuerdame:hover{
-            cursor: pointer;
-        }
-    }
-    img.fotoAutoescuela{
-        margin: auto;
-        display:block;
-        width: 250px;
-    }
-}
-
-.cajaExamen-pregunta{
-    font-size: 100%;
-    width: 35%;
-    height: 350px;
-    border: solid 2px black;
-    margin-top: 10px;
-    overflow-y: scroll;
-
-    div{
-        padding: 10px;
-        border: 1px solid black;
-    }
-}
-
-#preguntasDisponibles{
-    float: left;
-    margin-right: 50px;
-    margin-left: 10%;
-    z-index: -20;
-    div.tematica{
-        background-color: cadetblue;
-    }
+    font-size: $size-texto-errorInput;
 }
 
 div.seleccionado {
-    background-color: #8ac1fc;
+    background-color: $colorDivSeleccionado;
 }
 
 #preguntasSeleccionadas{
@@ -115,9 +31,9 @@ div.seleccionado {
     margin-right: 10%;
     margin-top: 20px;
     float: right;
-    input{
-        background-color: cadetblue;
-        color: white;
+    input{ //boton
+        background-color: $colorBoton;
+        color: $color-texto-boton;
         border-radius: 20px;
         font-size: 120%;
         height: max-content;
@@ -126,7 +42,8 @@ div.seleccionado {
 
 nav + h3{
     font-size: 200%;
-    margin-top: 0px;
+    margin-top: 50px;
+    margin-left: 50px;
 
     +input{
         margin-left: 20%;
@@ -152,108 +69,15 @@ nav + h3{
     }
 }
 
-.formAltaUsuario{
-    font-size: 150%;
-    float: none;
-    margin: auto;
-    margin-top: 50px;
-    margin-left: 40%;
-    width: 30%;
-
-    input{
-        margin-bottom: 30px;
-        height: 25px;
-    }
-}
-
 @keyframes iluminar {
     from {
-        background-color: #666;
-        color: #eee;
+        background-color: $color-fondo-nav;
+        color: $color-texto-nav;
     }
     to {
-        background-color: #888;
-        color: #fff;
+        background-color: $color-fondo-nav-hover;
+        color: $color-texto-nav-hover;
     }
-}
-
-nav {
-    
-    position: absolute;
-    width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-
-    ul {
-        list-style-type: none;
-        padding: 0px;
-        margin: 0px;
-    }
-    
-    a {
-        @include estableceColor;
-        @include estableceColorHover;
-
-        text-decoration: none;
-        width: 160px;
-        padding: 7px 20px;
-        display: block;
-        text-align: center;
-        cursor: pointer;
-
-        &:hover{
-            color: #fff;
-            background-color: #888;
-            
-            @include animaciones(iluminar, 0.4s);
-        }
-    }
-}
-
-header {
-    padding: 12px 30px;
-    font-size: 1.8em;
-    color: #444;
-    background-color: $color-texto;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px #aaa;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-nav>ul {
-    width: 100%;
-    height: 32px;
-    @include estableceColor;
-}
-
-li.categoria {
-    float: left;
-}
-
-ul.submenu {
-    @include transiciones(height, 0.5s, ease-out);
-    position: absolute;
-    height: 0px;
-    overflow: hidden;
-}
-
-li.categoria>a {
-    @include transiciones(padding, 0.4s, ease-out);
-}
-
-li.categoria:hover ul.submenu {
-    height: 100px;
-    >a {
-        padding: 10px 20px;
-    }
-}
-
-footer {
-    @include estableceColor;
-    @include boxSizing(border-box);
-    position: absolute;
-    width: 100%;
-    bottom: 0px;
-    padding: 5px;
 }
 
 img.fotoAutoescuela{
@@ -271,30 +95,72 @@ img.fotoUsuario{
 
 p.errorCambioPassword{
     font-size: 200%;
-    float: none;
-    margin: auto;
+    @include floatMargin();
     margin-top: 20px;
     text-align: center;
     border: solid 3px black;
     width: 70%;
-  }/*# sourceMappingURL=main.css.map */
+}
   
-  p.errorCambioPassword + section{
+p.errorCambioPassword + section{
     font-size: 200%;
-    float: none;
-    margin: auto;
+    @include floatMargin();
     margin-top: 100px;
     text-align: center;
     width: 70%;
-  }
+}
 
-  img.caution{
+img.caution{
     width: 200px;
     height: 200px;
     display:block;
     margin:auto;
-  }
+}
 
-  .dragEnter{
-    border: 2px solid blue;
-  }
+form.formAltaPreg{
+    font-size: 150%;
+    width: 40%;
+    text-align: left;
+    @include floatMargin();
+    #tematica, #enunciado{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+    input{
+        margin: 10px;
+    }
+    section{
+        label{
+            font-size: 80%;  
+        }
+    }
+    input#guardar{
+        float: right;
+    }
+    input#guardar{
+        background-color: $colorBoton;
+        color: $color-texto-boton;
+        border-radius: 20px;
+        font-size: 70%;
+        height: max-content;
+    
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.imagenAlta{
+    float: right;
+    width: 150px;
+    height: 150px;
+    @include imagenFondo("../archivos/imagenesWeb/add-image.png", no-repeat, 150px);
+    @include pointer();
+    input[type="submit"] {
+        margin-top: 200px;
+    }
+}
+
+input[type="file"] {
+    display: none;
+}

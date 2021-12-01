@@ -1,0 +1,8 @@
+footer {
+    @include estableceColor;
+    @include boxSizing(border-box);
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    padding: 5px;
+}

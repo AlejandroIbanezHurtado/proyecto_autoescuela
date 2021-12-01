@@ -110,7 +110,8 @@ class BD
         $vector = array();
         $resultado = self::$con->query("SELECT * FROM tematica");
         while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
-            $tematica = new tematica($registro->id, $registro->tema);
+            $tema = utf8_encode($registro->tema);
+            $tematica = new tematica($registro->id, $tema);
             $vector [$registro->id] = $tematica;
         }
         return $vector;
@@ -165,6 +166,19 @@ class BD
 
         return $vector;
     }
+
+    public static function selectRespuestaEnunciadoPeq($enunciado, $pregunta)
+    {
+        $vector = false;
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $resultado = self::$con->query("SELECT id from respuestas where enunciado = '${enunciado}' AND id_pregunta = '${pregunta}'");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $vector = $registro->id;
+        }
+
+        return $vector;
+    }
+
 
     public static function borrarRespuestaId($respuesta)
     {
@@ -246,6 +260,47 @@ class BD
                 $vector [$registro->id_pregunta] = $id_pregunta;
             }
             
+        }
+
+        return $vector;
+    }
+
+    public static function selectPreguntaEnunciado($clave):array
+    {
+        $vector = [];
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $resultado = self::$con->query("SELECT respuestas.id as id_respuesta, respuestas.enunciado as enunciado_respuesta, tematica.id as id_tematica, tematica.tema, preguntas.id as id_pregunta, preguntas.enunciado as enunciado_pregunta, preguntas.id_respuesta_correcta, preguntas.recurso, preguntas.id_tematica FROM respuestas INNER JOIN preguntas on respuestas.id_pregunta = preguntas.id inner join tematica on tematica.id = preguntas.id_tematica WHERE preguntas.enunciado = '${clave}'");
+        $rep = "";
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $idPreg = $registro->id_pregunta;
+            
+            if($idPreg!=$rep)
+            {
+                $resultado2 = self::$con->query("SELECT id FROM respuestas WHERE id_pregunta ='${idPreg}'");
+                $vectorResp = [];
+                while ($registro2 = $resultado2->fetch(PDO::FETCH_OBJ))
+                {
+                    $vectorResp[] = $registro2->id;
+                }
+                $rep = $idPreg;
+
+                $tematica = new tematica($registro->id_tematica, $registro->tema);
+                $respuesta = new respuesta($registro->id_respuesta, $registro->enunciado_respuesta, $registro->id_pregunta);
+                $id_pregunta = new pregunta($registro->id_pregunta, $registro->enunciado_pregunta, $respuesta, $registro->recurso, $tematica, $vectorResp);
+                $vector [$registro->id_pregunta] = $id_pregunta;
+            }
+            
+        }
+
+        return $vector;
+    }
+    public static function selectPreguntaEnunciadoPeq($clave)
+    {
+        $vector = false;
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $resultado = self::$con->query("SELECT id from preguntas where enunciado = '${clave}'");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $vector = $registro->id;
         }
 
         return $vector;

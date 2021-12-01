@@ -1,19 +1,14 @@
-$color-texto: #eee;
-$color-texto-hover: #fff;
-$color-fondo: #666;
-$color-fondo-hover: #888;
-
 @mixin estableceColor
 {
-    color: $color-texto;
-    background-color: $color-fondo;
+    color: $color-texto-nav;
+    background-color: $color-fondo-nav;
 }
 
 @mixin estableceColorHover
 {
     &:hover{
-        color: $color-texto-hover;
-        background-color: $color-fondo-hover;
+        color: $color-texto-nav-hover;
+        background-color: $color-fondo-nav-hover;
     }
 }
 
@@ -52,4 +47,34 @@ $color-fondo-hover: #888;
     animation-name: $name;
     animation-duration: $dur;
     animation-timing-function: $tim;
+}
+
+@mixin estilosBoton()
+{
+    background-color: $colorBoton;
+    color: white;
+    border-radius: 20px;
+    font-size: 70%;
+    height: max-content;
+    @include pointer();
+}
+
+@mixin pointer()
+{
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+@mixin floatMargin($float: none, $margin: auto)
+{
+    float: $float;
+    margin: $margin;
+}
+
+@mixin imagenFondo($url, $repeat: no-repeat, $size: 150px)
+{
+    background-image: url($url);
+    background-repeat: $repeat;
+    background-size: $size;
 }

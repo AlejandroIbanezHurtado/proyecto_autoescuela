@@ -27,4 +27,8 @@ class pregunta implements JsonSerializable{
     public function getRecurso() {return $this->recurso; }
     public function getId_tematica() {return $this->id_tematica; }
     public function getVectorRespuestas() {return $this->vectorRespuestas; }
+
+    public function setId($id){
+        $this->id = $id;
+     }
 }
