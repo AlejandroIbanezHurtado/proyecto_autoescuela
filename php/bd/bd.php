@@ -117,6 +117,18 @@ class BD
         return $vector;
     }
 
+    public static function selectTematicaTema($tema):array
+    {
+        $vector = array();
+        $resultado = self::$con->query("SELECT * FROM tematica where tema = '${tema}'");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $tema = utf8_encode($registro->tema);
+            $tematica = new tematica($registro->id, $tema);
+            $vector [$registro->id] = $tematica;
+        }
+        return $vector;
+    }
+
     public static function borrarTematicaId($tematica)
     {
         $id = $tematica->getId();

@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alta usuario</title>
+    <title>Alta tematica</title>
     <?php
         require "../cargadores/cargarEntidades.php";
         require "../cargadores/cargarHelper.php";
         require "../cargadores/cargarSesion.php";
+        require "../cargadores/cargarBD.php";
     ?>
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
@@ -47,36 +48,18 @@
             </li>
         </ul>
     </nav>
-    <h3>Alta usuario</h3>
+    <h3>Alta tematica</h3>
     <form method="post" class="formAltaUsuario">
-        EMAIL:<br>
-        <input type="mail" name="email" id="email" class="errorInputemail">
-        <br>
-        NOMBRE:<br>
-        <input type="text" name="nombre" id="nombre" class="errorInputnombre">
-        <br>
-        APELLIDOS:<br>
-        <input type="text" name="apellidos" id="apellidos" class="errorInputapellidos">
-        <br>
-        FECHA DE NACIMIENTO:<br>
-        <input type="date" name="fechaNac" id="fechaNac" class="errorInputfechaNac">
-        <br>
-        ROL:<br>
-        <select name="rol">
-            <option value="alumno" selected>alumno</option>
-            <option value="administrador">administrador</option>
-        </select>
-        <br><br>
+        <label for="tema">Tema:</label><br>
+        <input type="text" id="tema" name="tema" class="errorInputtema"><br>
         <input type="submit" name="btnGuardar" value="Guardar" class="botones">
     </form>
     <?php
     
     if(isset($_POST['btnGuardar']))
     {
-        $password=rand(10000000, 99999999);//generamos una contraseña aleatoria por defecto
-        
-        $usuario = new usuario("", $_POST['email'], $_POST['nombre'], $_POST['apellidos'],$password, $_POST['fechaNac'], $_POST['rol'], null);
-        $res = validator::validaAltaUsuario($usuario);
+        $tematica = new tematica(null,$_POST['tema']);
+        $res = Validator::validaTematica($tematica);
         if(count($res)!=0)
         {
             $indices = [];
@@ -87,13 +70,8 @@
             }
         }
         else{
-            Sesion::abreSesion();
-            Sesion::inserta("usuario",$usuario);
-            $id = (rand(0,5000) + time());
-            $mensaje = "Bienvenido a Autoescuela Alc&aacute;zar <br>Haz click en el siguiente enlace pra cambiar tu contrase&ntilde;a y as&iacute; confirmar tu registro<br><br><a href=\"http://localhost/autoescuela/php/paginas/cambiaPassword.php?id=${id}\">Aqu&iacute;</a>";
-            Sesion::inserta("mensaje",$mensaje);
-            Sesion::inserta("id",$id);
-            header('Location: enviaCorreo.php');
+            $tematica = new tematica(null,$_POST['tema']);
+            BD::insertarTematica($tematica);
         }
     }
 

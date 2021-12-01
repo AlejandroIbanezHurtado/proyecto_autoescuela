@@ -71,7 +71,7 @@ class validator {
         $res = [];
         if(trim($pregunta->getEnunciado())=="" || !empty($enunciado))
         {
-            $res['enunciado'] = "Enunciado vacío";
+            $res['enunciado'] = "Enunciado no disponible";
         }
         if(trim($pregunta->getVectorRespuestas()[0])=="")
         {
@@ -88,6 +88,18 @@ class validator {
         if(trim($pregunta->getVectorRespuestas()[3])=="")
         {
             $res['respuesta4'] = "Respuesta 4 vacía";
+        }
+        return $res;
+    }
+
+    public static function validaTematica(tematica $tematica)
+    {
+        BD::Conectar();
+        $res = [];
+        $tema = BD::selectTematicaTema($tematica->getTema());
+        if(trim($tematica->getTema())=="" || !empty($tema))
+        {
+            $res['tema'] = "Temática no disponible";
         }
         return $res;
     }

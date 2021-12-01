@@ -185,6 +185,19 @@ div#preguntasDisponibles div.tematica {
   background-color: #5F9EA0;
 }
 
+.botones {
+  background-color: #5F9EA0;
+  color: white;
+  border-radius: 20px;
+  font-size: 70%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+.botones:hover {
+  cursor: pointer;
+}
+
 body {
   font-family: sans-serif;
   padding: 0;
