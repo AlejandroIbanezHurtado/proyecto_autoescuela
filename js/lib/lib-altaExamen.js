@@ -9,7 +9,7 @@ window.addEventListener("load",function(){
     fetch("../../php/ajax/ajaxPreguntas.php")
     .then(response => response.json())
     .then(data => {
-        rellenaPreguntasDisponibles(data)
+        rellenaPreguntasDisponibles(data);
     });
 
     function rellenaPreguntasDisponibles(data){
