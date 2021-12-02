@@ -76,6 +76,18 @@ class BD
         return $res;
     }
 
+    public static function selectUsuarioEmail2($email)
+    {
+        $res = false;
+        $resultado = self::$con->query("SELECT * FROM usuarios WHERE correo = '${email}';");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $usuario = new usuario($registro->id, $registro->correo, $registro->nombre, $registro->apellidos, $registro->password, $registro->fecha_nac, $registro->rol, $registro->imagen);
+            $res = $usuario;
+        }
+
+        return $res;
+    }
+
     public static function selectUsuarioId($id)
     {
         $res=false;

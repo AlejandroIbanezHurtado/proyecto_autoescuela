@@ -9,13 +9,15 @@
         require "../cargadores/cargarEntidades.php";
         require "../cargadores/cargarHelper.php";
         require "../cargadores/cargarSesion.php";
+        require "../cargadores/cargarBD.php";
     ?>
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
+    <script src="../../js/lib/lib-botonLogin.js"></script>
 </head>
 <body>
     <img src="../../archivos/imagenesWeb/imagenLarga.png" alt="Logo autoescuela" class="fotoAutoescuela">
-    <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario">
+    <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario"><aside class="ocultar" id="cajaUser"><a href="#">Editar</a><br><br><a href="#" id="cierraSesion">Cerrar sesión</a></aside>
     <nav>
         <ul>
             <li class="categoria">
@@ -70,32 +72,50 @@
         <input type="submit" name="btnGuardar" value="Guardar" class="botones">
     </form>
     <?php
-    
-    if(isset($_POST['btnGuardar']))
+    if(!isset($_SESSION))
     {
-        $password=rand(10000000, 99999999);//generamos una contraseña aleatoria por defecto
-        
-        $usuario = new usuario("", $_POST['email'], $_POST['nombre'], $_POST['apellidos'],$password, $_POST['fechaNac'], $_POST['rol'], null);
-        $res = validator::validaAltaUsuario($usuario);
-        if(count($res)!=0)
+        Sesion::abreSesion();
+    }
+    if(isset($_SESSION['usuario']))
+    {
+        BD::Conectar();
+        $usuario = BD::selectUsuarioEmail2($_SESSION['usuario']->getCorreo());
+        if($usuario->getRol()=="alumno")
         {
-            $indices = [];
-            $indices = array_keys($res);
-            foreach($indices as &$valor)
-            {
-                echo "<style>.errorInput${valor}{border-color: red;}</style>";
-            }
+            header('Location: login.php');
         }
         else{
-            Sesion::abreSesion();
-            Sesion::inserta("usuario",$usuario);
-            $id = (rand(0,5000) + time());
-            $mensaje = "Bienvenido a Autoescuela Alc&aacute;zar <br>Haz click en el siguiente enlace pra cambiar tu contrase&ntilde;a y as&iacute; confirmar tu registro<br><br><a href=\"http://localhost/autoescuela/php/paginas/cambiaPassword.php?id=${id}\">Aqu&iacute;</a>";
-            Sesion::inserta("mensaje",$mensaje);
-            Sesion::inserta("id",$id);
-            header('Location: enviaCorreo.php');
+            if(isset($_POST['btnGuardar']))
+            {
+                $password=rand(10000000, 99999999);//generamos una contraseña aleatoria por defecto
+                
+                $usuario = new usuario("", $_POST['email'], $_POST['nombre'], $_POST['apellidos'],$password, $_POST['fechaNac'], $_POST['rol'], null);
+                $res = validator::validaAltaUsuario($usuario);
+                if(count($res)!=0)
+                {
+                    $indices = [];
+                    $indices = array_keys($res);
+                    foreach($indices as &$valor)
+                    {
+                        echo "<style>.errorInput${valor}{border-color: red;}</style>";
+                    }
+                }
+                else{
+                    Sesion::abreSesion();
+                    Sesion::inserta("usuario",$usuario);
+                    $id = (rand(0,5000) + time());
+                    $mensaje = "Bienvenido a Autoescuela Alc&aacute;zar <br>Haz click en el siguiente enlace pra cambiar tu contrase&ntilde;a y as&iacute; confirmar tu registro<br><br><a href=\"http://localhost/autoescuela/php/paginas/cambiaPassword.php?id=${id}\">Aqu&iacute;</a>";
+                    Sesion::inserta("mensaje",$mensaje);
+                    Sesion::inserta("id",$id);
+                    header('Location: enviaCorreo.php');
+                }
+            }
         }
     }
+    else{
+        header('Location: login.php');
+    }
+    
 
     ?>
 </body>

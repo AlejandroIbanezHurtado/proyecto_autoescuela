@@ -13,10 +13,11 @@
     ?>
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
+    <script src="../../js/lib/lib-botonLogin.js"></script>
 </head>
 <body>
     <img src="../../archivos/imagenesWeb/imagenLarga.png" alt="Logo autoescuela" class="fotoAutoescuela">
-    <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario">
+    <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario"><aside class="ocultar" id="cajaUser"><a href="#">Editar</a><br><br><a href="#" id="cierraSesion">Cerrar sesión</a></aside>
     <nav>
         <ul>
             <li class="categoria">
@@ -55,25 +56,43 @@
         <input type="submit" name="btnGuardar" value="Guardar" class="botones">
     </form>
     <?php
-    
-    if(isset($_POST['btnGuardar']))
+    if(!isset($_SESSION))
     {
-        $tematica = new tematica(null,$_POST['tema']);
-        $res = Validator::validaTematica($tematica);
-        if(count($res)!=0)
+        Sesion::abreSesion();
+    }
+    if(isset($_SESSION['usuario']))
+    {
+        BD::Conectar();
+        $usuario = BD::selectUsuarioEmail2($_SESSION['usuario']->getCorreo());
+        if($usuario->getRol()=="alumno")
         {
-            $indices = [];
-            $indices = array_keys($res);
-            foreach($indices as &$valor)
-            {
-                echo "<style>.errorInput${valor}{border-color: red;}</style>";
-            }
+            header('Location: login.php');
         }
         else{
-            $tematica = new tematica(null,$_POST['tema']);
-            BD::insertarTematica($tematica);
+            if(isset($_POST['btnGuardar']))
+            {
+                $tematica = new tematica(null,$_POST['tema']);
+                $res = Validator::validaTematica($tematica);
+                if(count($res)!=0)
+                {
+                    $indices = [];
+                    $indices = array_keys($res);
+                    foreach($indices as &$valor)
+                    {
+                        echo "<style>.errorInput${valor}{border-color: red;}</style>";
+                    }
+                }
+                else{
+                    $tematica = new tematica(null,$_POST['tema']);
+                    BD::insertarTematica($tematica);
+                }
+            }
         }
     }
+    else{
+        header('Location: login.php');
+    }
+    
 
     ?>
 </body>

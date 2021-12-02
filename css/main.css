@@ -293,6 +293,31 @@ img.fotoUsuario {
   margin-right: 20px;
   margin-bottom: 10px;
 }
+img.fotoUsuario + aside {
+  width: 10%;
+  height: 80px;
+  background-color: lightgray;
+  border-radius: 5px;
+  position: relative;
+  clear: both;
+  z-index: 10;
+  float: right;
+  margin-right: 1.5%;
+  text-align: center;
+  padding-top: 30px;
+}
+img.fotoUsuario + aside a {
+  text-decoration: none;
+  color: white;
+  text-shadow: black 2px 2px 2px;
+}
+img.fotoUsuario:hover {
+  cursor: pointer;
+}
+
+.ocultar {
+  display: none;
+}
 
 p.errorCambioPassword {
   font-size: 200%;

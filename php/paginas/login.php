@@ -49,7 +49,7 @@
                 setcookie("password",$contra,time()-3600);
             }
             
-            header("Location: ../../js/paginas/alta_examen.html");
+            header("Location: ../../js/paginas/historico.html");
         }
         else{
             echo "<style>.errorInput{border-color: red;}</style>";

@@ -15,10 +15,11 @@
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
     <script src="../../js/lib/lib-altaPregunta.js"></script>
+    <script src="../../js/lib/lib-botonLogin.js"></script>
 </head>
 <body>
     <img src="../../archivos/imagenesWeb/imagenLarga.png" alt="Logo autoescuela" class="fotoAutoescuela">
-    <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario">
+    <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario"><aside class="ocultar" id="cajaUser"><a href="#">Editar</a><br><br><a href="#" id="cierraSesion">Cerrar sesión</a></aside>
     <nav>
         <ul>
             <li class="categoria">
@@ -92,60 +93,79 @@
         <input type="submit" name="guardar" value="Guardar" id="guardar" class="botones">
     </form>
     <?php
-    $archivo = null;
-    if(isset($_POST['guardar']))
+    if(!isset($_SESSION))
     {
-        if($_FILES['fichero']['size']!=0)
+        Sesion::abreSesion();
+    }
+    if(isset($_SESSION['usuario']))
+    {
+        BD::Conectar();
+        $usuario = BD::selectUsuarioEmail2($_SESSION['usuario']->getCorreo());
+        if($usuario->getRol()=="alumno")
         {
-            $archivo = $_FILES['fichero'];
-        }
-        
-        //GUARDAMOS
-        
-        //VALIDAMOS LOS CAMPOS DE PREGUNTA
-        $enunciado = BD::selectPreguntaEnunciado($_POST['enunciado']);//vemos si ese enunciado existe en la base de datos
-        $p = new pregunta(null, $_POST['enunciado'], null, null, null, [$_POST['respuesta1'],$_POST['respuesta2'],$_POST['respuesta3'],$_POST['respuesta4']]);
-        $res = validator::validaAltaPregunta($p);
-        if(count($res)!=0)
-        {
-            $indices = [];
-            $indices = array_keys($res);
-            foreach($indices as &$valor)
-            {
-                echo "<style>.errorInput${valor}{border-color: red;}</style>";//mostramos bordes en rojo en los campos erroneos
-            }
+            header('Location: login.php');
         }
         else{
-            if($archivo!=null)
+            $archivo = null;
+            if(isset($_POST['guardar']))
             {
-                // archivo = ruta donde se ha guardado
-                $tipo = $archivo['type'];
-                $tipo = substr($tipo, 6, 10);
-                $nombre = "imagen".(rand(0, 100) + rand(0, 10000)).$archivo['size'];
-                move_uploaded_file($archivo['tmp_name'],"../../archivos/imagenesPreguntas/".$nombre.".".$tipo);
-                $archivo = "../../archivos/imagenesPreguntas/".$nombre.".".$tipo;
+                if($_FILES['fichero']['size']!=0)
+                {
+                    $archivo = $_FILES['fichero'];
+                }
+                
+                //GUARDAMOS
+                
+                //VALIDAMOS LOS CAMPOS DE PREGUNTA
+                $enunciado = BD::selectPreguntaEnunciado($_POST['enunciado']);//vemos si ese enunciado existe en la base de datos
+                $p = new pregunta(null, $_POST['enunciado'], null, null, null, [$_POST['respuesta1'],$_POST['respuesta2'],$_POST['respuesta3'],$_POST['respuesta4']]);
+                $res = validator::validaAltaPregunta($p);
+                if(count($res)!=0)
+                {
+                    $indices = [];
+                    $indices = array_keys($res);
+                    foreach($indices as &$valor)
+                    {
+                        echo "<style>.errorInput${valor}{border-color: red;}</style>";//mostramos bordes en rojo en los campos erroneos
+                    }
+                }
+                else{
+                    if($archivo!=null)
+                    {
+                        // archivo = ruta donde se ha guardado
+                        $tipo = $archivo['type'];
+                        $tipo = substr($tipo, 6, 10);
+                        $nombre = "imagen".(rand(0, 100) + rand(0, 10000)).$archivo['size'];
+                        move_uploaded_file($archivo['tmp_name'],"../../archivos/imagenesPreguntas/".$nombre.".".$tipo);
+                        $archivo = "../../archivos/imagenesPreguntas/".$nombre.".".$tipo;
+                    }
+                    //creamos pregunta sin array de respuestas ni respuesta correcta y lo insertamos en la base de datos
+                    $pregunta = new pregunta(null, $_POST['enunciado'], null, $archivo, $_POST['tematica'], null);
+                    BD::insertarPregunta($pregunta);
+                    //creamos respuestas asociadas a esa pregunta recien creada
+                    $id_pregunta = BD::selectPreguntaEnunciadoPeq($_POST['enunciado']);
+                    //var_dump($id_pregunta);
+                    //insert de respuestas
+                    $pregunta->setId($id_pregunta);
+                    for($i=1;$i<5;$i++)
+                    {
+                        $respuesta = new respuesta(null,$_POST['respuesta'.$i],$pregunta);
+                        BD::insertarRespuesta($respuesta);
+                    }
+                    //update para respuesta correcta
+                    $num = $_POST['correcta'];
+                    $respuesta = new respuesta(null,$_POST['respuesta'.$num],$pregunta);
+                    $id_res = BD::selectRespuestaEnunciadoPeq($respuesta->getEnunciado(), $pregunta->getId());
+                    BD::actualizaRespuestaCorrecta($id_res, $pregunta->getId());
+                }
+                
             }
-            //creamos pregunta sin array de respuestas ni respuesta correcta y lo insertamos en la base de datos
-            $pregunta = new pregunta(null, $_POST['enunciado'], null, $archivo, $_POST['tematica'], null);
-            BD::insertarPregunta($pregunta);
-            //creamos respuestas asociadas a esa pregunta recien creada
-            $id_pregunta = BD::selectPreguntaEnunciadoPeq($_POST['enunciado']);
-            //var_dump($id_pregunta);
-            //insert de respuestas
-            $pregunta->setId($id_pregunta);
-            for($i=1;$i<5;$i++)
-            {
-                $respuesta = new respuesta(null,$_POST['respuesta'.$i],$pregunta);
-                BD::insertarRespuesta($respuesta);
-            }
-            //update para respuesta correcta
-            $num = $_POST['correcta'];
-            $respuesta = new respuesta(null,$_POST['respuesta'.$num],$pregunta);
-            $id_res = BD::selectRespuestaEnunciadoPeq($respuesta->getEnunciado(), $pregunta->getId());
-            BD::actualizaRespuestaCorrecta($id_res, $pregunta->getId());
         }
-        
     }
+    else{
+        header('Location: login.php');
+    }
+    
     ?>
 </body>
 </html>
