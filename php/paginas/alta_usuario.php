@@ -21,27 +21,27 @@
             <li class="categoria">
                 <a href="#">Usuarios</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta de usuario</a></li>
+                    <li><a href="alta_usuario.php">Alta de usuario</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Temáticas</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta temática</a></li>
+                    <li><a href="alta_tematica.php">Alta temática</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Preguntas</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta pregunta</a></li>
+                    <li><a href="alta_pregunta.php">Alta pregunta</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Exámenes</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta examen</a></li>
+                    <li><a href="../../js/paginas/alta_examen.html">Alta examen</a></li>
                     <li><a href="#">Histórico</a></li>
                 </ul>
             </li>
@@ -50,16 +50,16 @@
     <h3>Alta usuario</h3>
     <form method="post" class="formAltaUsuario">
         EMAIL:<br>
-        <input type="mail" name="email" id="email" class="errorInputemail">
+        <input type="mail" name="email" id="email" class="errorInputemail" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">
         <br>
         NOMBRE:<br>
-        <input type="text" name="nombre" id="nombre" class="errorInputnombre">
+        <input type="text" name="nombre" id="nombre" class="errorInputnombre" value="<?php echo isset($_POST['nombre']) ? $_POST['nombre'] : '' ?>">
         <br>
         APELLIDOS:<br>
-        <input type="text" name="apellidos" id="apellidos" class="errorInputapellidos">
+        <input type="text" name="apellidos" id="apellidos" class="errorInputapellidos" value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : '' ?>">
         <br>
         FECHA DE NACIMIENTO:<br>
-        <input type="date" name="fechaNac" id="fechaNac" class="errorInputfechaNac">
+        <input type="date" name="fechaNac" id="fechaNac" class="errorInputfechaNac" value="<?php echo isset($_POST['fechaNac']) ? $_POST['fechaNac'] : '' ?>">
         <br>
         ROL:<br>
         <select name="rol">

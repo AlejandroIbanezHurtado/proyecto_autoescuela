@@ -24,34 +24,33 @@
             <li class="categoria">
                 <a href="#">Usuarios</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta de usuario</a></li>
+                    <li><a href="alta_usuario.php">Alta de usuario</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Temáticas</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta temática</a></li>
+                    <li><a href="alta_tematica.php">Alta temática</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Preguntas</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta pregunta</a></li>
+                    <li><a href="alta_pregunta.php">Alta pregunta</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Exámenes</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta examen</a></li>
+                    <li><a href="../../js/paginas/alta_examen.html">Alta examen</a></li>
                     <li><a href="#">Histórico</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
     <h3>Alta pregunta</h3>
-    <!-- <img src="../../archivos/imagenesWeb/add-image.png" alt="" class="imagenAlta"> -->
     
     <form method="post" class="formAltaPreg" enctype="multipart/form-data">
         <label class="imagenAlta" id="imagenPre">
@@ -73,21 +72,21 @@
         ?>
         <br>
         <label for="enunciado">Enunciado</label><br>
-        <textarea name="enunciado" id="enunciado" cols="30" rows="10" class="errorInputenunciado"></textarea>
+        <textarea name="enunciado" id="enunciado" cols="30" rows="10" class="errorInputenunciado"><?php echo isset($_POST['enunciado']) ? $_POST['enunciado'] : '' ?></textarea>
         <section id="res1">
-            <input type="text" placeholder="opcion 1" name="respuesta1" class="errorInputrespuesta1">
+            <input type="text" placeholder="opcion 1" name="respuesta1" class="errorInputrespuesta1" value="<?php echo isset($_POST['respuesta1']) ? $_POST['respuesta1'] : '' ?>">
             <input type="radio" name="correcta" id="correcta1" value="1" checked><label for="correcta1">Correcta</label>
         </section>
         <section id="res2">
-            <input type="text" placeholder="opcion 2" id="correcta2" name="respuesta2" class="errorInputrespuesta2">
+            <input type="text" placeholder="opcion 2" id="correcta2" name="respuesta2" class="errorInputrespuesta2" value="<?php echo isset($_POST['respuesta2']) ? $_POST['respuesta2'] : '' ?>">
             <input type="radio" name="correcta" value="2"><label for="correcta2">Correcta</label>
         </section>
         <section id="res3">
-            <input type="text" placeholder="opcion 3" id="correcta3" name="respuesta3" class="errorInputrespuesta3">
+            <input type="text" placeholder="opcion 3" id="correcta3" name="respuesta3" class="errorInputrespuesta3" value="<?php echo isset($_POST['respuesta3']) ? $_POST['respuesta3'] : '' ?>">
             <input type="radio" name="correcta" value="3"><label for="correcta3">Correcta</label>
         </section>
         <section id="res4">
-            <input type="text" placeholder="opcion 4" id="correcta4" name="respuesta4" class="errorInputrespuesta4">
+            <input type="text" placeholder="opcion 4" id="correcta4" name="respuesta4" class="errorInputrespuesta4" value="<?php echo isset($_POST['respuesta4']) ? $_POST['respuesta4'] : '' ?>">
             <input type="radio" name="correcta" value="4"><label for="correcta4">Correcta</label>
         </section>
         <input type="submit" name="guardar" value="Guardar" id="guardar" class="botones">

@@ -22,27 +22,27 @@
             <li class="categoria">
                 <a href="#">Usuarios</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta de usuario</a></li>
+                    <li><a href="alta_usuario.php">Alta de usuario</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Temáticas</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta temática</a></li>
+                    <li><a href="alta_tematica.php">Alta temática</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Preguntas</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta pregunta</a></li>
+                    <li><a href="alta_pregunta.php">Alta pregunta</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="#">Exámenes</a>
                 <ul class="submenu">
-                    <li><a href="#">Alta examen</a></li>
+                    <li><a href="../../js/paginas/alta_examen.html">Alta examen</a></li>
                     <li><a href="#">Histórico</a></li>
                 </ul>
             </li>
@@ -51,7 +51,7 @@
     <h3>Alta tematica</h3>
     <form method="post" class="formAltaUsuario">
         <label for="tema">Tema:</label><br>
-        <input type="text" id="tema" name="tema" class="errorInputtema"><br>
+        <input type="text" id="tema" name="tema" class="errorInputtema" value="<?php echo isset($_POST['tema']) ? $_POST['tema'] : '' ?>"><br>
         <input type="submit" name="btnGuardar" value="Guardar" class="botones">
     </form>
     <?php

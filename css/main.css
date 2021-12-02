@@ -113,6 +113,9 @@ footer {
   padding: 10px;
   border: 1px solid black;
 }
+.cajaExamen-pregunta div.tematica {
+  background-color: #5F9EA0;
+}
 
 .cajaLogin {
   font-size: 200%;
@@ -180,9 +183,6 @@ div#preguntasDisponibles {
   margin-right: 50px;
   margin-left: 10%;
   z-index: -20;
-}
-div#preguntasDisponibles div.tematica {
-  background-color: #5F9EA0;
 }
 
 .botones {

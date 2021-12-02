@@ -23,43 +23,32 @@ window.addEventListener("load",function(){
             tematica.innerText=data[i].id_tematica.tema;
             conPregunta.setAttribute("id",data[i]['id']);
             conPregunta.addEventListener("click",function(){
-                if(this.getAttribute("class")=="seleccionado")
-                {
-                    this.removeAttribute("class");
-                }
-                else{
-                    this.setAttribute("class","seleccionado");
-                }
+                this.classList.toggle("seleccionado");
             })
             conPregunta.draggable=true; 
             conPregunta.addEventListener("dragstart", function(e){ //cuando se empieza a arrastrar
-                this.setAttribute("arrastrado","true");
-                this.setAttribute("class","seleccionado");
+                this.classList.add("seleccionado");
             });
             conPregunta.addEventListener("dragend", function(){ //cuando se terminda de arrastrar
-                this.removeAttribute("class");
+                this.classList.remove("seleccionado");
             });
             conPregunta.appendChild(tematica);
             conPregunta.appendChild(pregunta);
             cajaDisponibles.appendChild(conPregunta);
-            //cajaDisponibles.appendChild(pregunta);
         }
 
+        function quitaColor(vector)
+        {
+            for(i=0;i<vector.length;i++)
+            {
+                vector[i].classList.remove("seleccionado");
+            }
+        }
 
         cajaSeleccionadas.addEventListener("dragover",function(e){
             e.preventDefault();
         });
 
-        //clase = cajaSeleccionadas.getAttribute("class");
-        // cajaSeleccionadas.addEventListener("dragenter",function(e){
-        //     e.preventDefault();
-        //     this.setAttribute("class",clase+" dragEnter");
-        // });
-        
-        // cajaSeleccionadas.addEventListener("dragleave",function(e){
-        //     e.preventDefault();
-        //     this.setAttribute("class",clase);
-        // });
         cajaSeleccionadas.addEventListener("drop",function(e){
             e.preventDefault();
             seleccionadas = document.getElementsByClassName("seleccionado");
@@ -67,6 +56,8 @@ window.addEventListener("load",function(){
             {
                 this.appendChild(seleccionadas[0]);
             }
+            var p = document.querySelectorAll("#preguntasSeleccionadas .seleccionado");
+            quitaColor(p);
             preguntas = document.querySelectorAll('#preguntasSeleccionadas > div[tipo=pregunta]');
             nPreg.innerText="Nº preguntas: "+preguntas.length;
         })
@@ -79,8 +70,10 @@ window.addEventListener("load",function(){
             seleccionadas = document.getElementsByClassName("seleccionado");
             for(i=0;i<seleccionadas.length;i++)
             {
-                this.appendChild(seleccionadas[0]);
+                this.appendChild(seleccionadas[i]);
             }
+            var p = document.querySelectorAll("#preguntasDisponibles .seleccionado");
+            quitaColor(p);
             preguntas = document.querySelectorAll('#preguntasSeleccionadas > div[tipo=pregunta]');
             nPreg.innerText="Nº preguntas: "+preguntas.length;
         })
