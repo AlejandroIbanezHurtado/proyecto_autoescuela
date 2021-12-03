@@ -103,10 +103,10 @@ footer {
 
 .cajaExamen-pregunta {
   font-size: 100%;
-  width: 35%;
+  width: 99.5%;
   height: 350px;
   border: solid 2px black;
-  margin-top: 10px;
+  margin-top: 30px;
   overflow-y: scroll;
 }
 .cajaExamen-pregunta div {
@@ -178,13 +178,6 @@ footer {
   font-size: 80%;
 }
 
-div#preguntasDisponibles {
-  float: left;
-  margin-right: 50px;
-  margin-left: 10%;
-  z-index: -20;
-}
-
 .botones {
   background-color: #5F9EA0;
   color: white;
@@ -196,6 +189,29 @@ div#preguntasDisponibles {
 }
 .botones:hover {
   cursor: pointer;
+}
+
+table {
+  float: none;
+  margin: auto;
+  margin-top: 60px;
+  position: relative;
+  width: 60%;
+  border-collapse: collapse;
+}
+table thead {
+  background-color: lightgray;
+}
+table td, table th {
+  border: 1px solid black;
+}
+table tbody tr td a {
+  float: left;
+  color: black;
+  text-decoration: underline;
+}
+table tbody tr td a + a {
+  float: right;
 }
 
 body {
@@ -213,16 +229,29 @@ div.seleccionado {
   background-color: #8ac1fc;
 }
 
-#preguntasSeleccionadas {
+section {
+  float: left;
+  padding: 0;
+  height: 400px;
+  width: 30%;
+  margin-left: 10%;
+  margin-top: 20px;
+}
+section input {
   float: right;
+}
+section + section {
   margin-right: 10%;
-  z-index: -20;
+  float: right;
+}
+section + section input {
+  float: left;
 }
 
 section + #form1 {
   clear: both;
   margin-right: 10%;
-  margin-top: 20px;
+  margin-top: 50px;
   float: right;
 }
 section + #form1 input {

@@ -5,6 +5,8 @@ window.addEventListener("load",function(){
     const boton = document.getElementById("boton");
     var descripcion = document.getElementById("descripcion");
     var duracion = document.getElementById("duracion");
+    var buscaDisponibles = document.getElementById("buscaDisponibles");
+    var buscaSeleccioandas = document.getElementById("buscaSeleccionadas");
 
     fetch("../../php/ajax/ajaxSesion.php")
     .then(response => response.json())
@@ -29,6 +31,29 @@ window.addEventListener("load",function(){
             case "nada":
                 window.location.href = "../../php/paginas/login.php";
                 break;
+        }
+    }
+
+    buscaDisponibles.addEventListener("keyup",function(){
+        buscaPor("preguntasDisponibles", buscaDisponibles.value);
+    })
+    buscaSeleccioandas.addEventListener("keyup",function(){
+        buscaPor("preguntasSeleccionadas", buscaSeleccioandas.value);
+    })
+
+    function buscaPor(id, texto)
+    {
+        preguntas = document.querySelectorAll("#"+id+" > div[tipo=pregunta]");
+        for(i=0;i<preguntas.length;i++)
+        {
+            if(preguntas[i].children[1].innerText.indexOf(texto)==-1)
+            {
+                preguntas[i].classList.add("ocultar");
+            }
+            else{
+                preguntas[i].classList.remove("ocultar");
+            }
+            
         }
     }
 

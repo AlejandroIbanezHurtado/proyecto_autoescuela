@@ -1,5 +1,5 @@
 <?php
 require "../cargadores/cargarBD.php";
 BD::Conectar();
-$a = BD::obtenUsuariosPaginados(1, 2);
+$a = BD::obtenUsuariosPaginados($_GET['pagina'], $_GET['filas']);
 echo json_encode($a);

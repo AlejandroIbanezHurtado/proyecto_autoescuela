@@ -5,6 +5,7 @@
 @import "layout/_footer.scss";
 @import "layout/_caja.scss";
 @import "components/_botones.scss";
+@import "layout/_tabla.scss";
  body{
     font-family: sans-serif;
     padding: 0;
@@ -20,17 +21,31 @@ div.seleccionado {
     background-color: $colorDivSeleccionado;
 }
 
-#preguntasSeleccionadas{
-    float: right;
-    margin-right: 10%;
-    z-index: -20;
-    
+
+section{
+    float: left;
+    padding: 0;
+    height: 400px;
+    width: 30%;
+    margin-left: 10%;
+    margin-top: 20px;
+    input{
+        float: right;
+    }
+
+    +section{
+        margin-right: 10%;
+        float: right;
+        input{
+            float: left;
+        }
+    }
 }
 
 section + #form1{
     clear: both;
     margin-right: 10%;
-    margin-top: 20px;
+    margin-top: 50px;
     float: right;
     input{ //boton
         background-color: $colorBoton;

@@ -1,7 +1,9 @@
 window.addEventListener("load",function(){
     var tabla = document.getElementById("tabla");
     var tbody = tabla.children[1];
-    fetch("../../php/ajax/ajaxUsuariosPag.php")
+    var pagina = 1;
+    var filas = 3;
+    fetch("../../php/ajax/ajaxUsuariosPag.php?pagina="+pagina+"&filas="+filas)
     .then(response => response.json())
     .then(data => {
         cargaTabla(data);
@@ -21,8 +23,12 @@ window.addEventListener("load",function(){
             celda = document.createElement("td");
             a = document.createElement("a");
             a.setAttribute("href","#");
-            a.innerText = "Eliminar";
+            a.innerText = "Editar";
+            a2 = document.createElement("a");
+            a2.setAttribute("href","#");
+            a2.innerText = "Eliminar";
             celda.appendChild(a);
+            celda.appendChild(a2);
             fila.appendChild(celda);
             tbody.appendChild(fila);
         }
