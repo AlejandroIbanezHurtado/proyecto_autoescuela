@@ -219,13 +219,13 @@ div.seleccionado {
   z-index: -20;
 }
 
-#preguntasSeleccionadas + form {
+section + #form1 {
   clear: both;
   margin-right: 10%;
   margin-top: 20px;
   float: right;
 }
-#preguntasSeleccionadas + form input {
+section + #form1 input {
   background-color: #5F9EA0;
   color: white;
   border-radius: 20px;

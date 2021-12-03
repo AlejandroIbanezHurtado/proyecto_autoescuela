@@ -100,6 +100,27 @@ class BD
         return $res;
     }
 
+    public static function obtenUsuariosPaginados(int $pagina, int $filas):array
+    {
+        $registros = array();
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $res = self::$con->query("select * from usuarios");
+        $registros =$res->fetchAll();
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $res= self::$con->query("select * from usuarios limit $inicio, $filas");
+            while ($registro = $res->fetch(PDO::FETCH_OBJ)) {
+                $usuario = new usuario($registro->id, $registro->correo, $registro->nombre, $registro->apellidos, $registro->password, $registro->fecha_nac, $registro->rol, $registro->imagen);
+                $registros[] = $usuario;
+            }
+        }
+        return $registros;
+    }
+
     public static function actualizaUsuarioPassword($id, $password)
     {
         $string = "UPDATE usuarios SET password = '${password}' WHERE id = '${id}'";
