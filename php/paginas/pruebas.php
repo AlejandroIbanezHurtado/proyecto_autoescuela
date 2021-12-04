@@ -6,8 +6,7 @@ BD::Conectar();
 $clave="Cuando llueve, las ruedas del vehículo, ¿cómo se agarran a la calzada?";
 // $vector = BD::selectPreguntaEnunciado($clave);
 // var_dump($vector);
-$a = BD::obtenUsuariosPaginados(1, 2);
+$a = BD::obtenPreguntasPaginados(1, 5);
 var_dump($a);
-echo json_encode($a);
 
 //SELECT respuestas.id as id_respuesta, respuestas.enunciado as enunciado_respuesta, tematica.id as id_tematica, tematica.tema, preguntas.id as id_pregunta, preguntas.enunciado as enunciado_pregunta, preguntas.id_respuesta_correcta, preguntas.recurso, preguntas.id_tematica FROM respuestas INNER JOIN preguntas on respuestas.id_pregunta = preguntas.id inner join tematica on tematica.id = preguntas.id_tematica

@@ -76,6 +76,26 @@ nav li.categoria:hover ul.submenu > a {
   padding: 10px 20px;
 }
 
+nav#navTabla {
+  text-align: center;
+  padding: 20px;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  font-size: 150%;
+}
+nav#navTabla ul {
+  background-color: inherit;
+}
+nav#navTabla ul li {
+  margin-left: 20px;
+  margin-right: 20px;
+  color: lightseagreen;
+  display: inline-block;
+  list-style-type: none;
+  background-color: inherit;
+}
+
 .formAltaUsuario {
   font-size: 150%;
   float: none;
@@ -204,6 +224,7 @@ table thead {
 }
 table td, table th {
   border: 1px solid black;
+  padding: 10px;
 }
 table tbody tr td a {
   float: left;

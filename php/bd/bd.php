@@ -277,6 +277,27 @@ class BD
         return $vector;
     }
 
+    public static function obtenPreguntasPaginados(int $pagina, int $filas):array
+    {
+        $registros = array();
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $res = self::$con->query("select * from preguntas");
+        $registros =$res->fetchAll();
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $res = self::$con->query("SELECT DISTINCT preguntas.id as id_pregunta, tematica.id as id_tematica, tematica.tema, preguntas.enunciado as enunciado_pregunta, preguntas.id_respuesta_correcta, preguntas.recurso, preguntas.id_tematica FROM preguntas inner join tematica on tematica.id = preguntas.id_tematica limit $inicio, $filas");
+            while ($registro = $res->fetch(PDO::FETCH_OBJ)) {
+                $preguntas = new pregunta($registro->id_pregunta, $registro->enunciado_pregunta, $registro->id_respuesta_correcta, $registro->recurso, $registro->tema, null);
+                $registros[] = $preguntas;
+            }
+        }
+        return $registros;
+    }
+
 
     public static function selectPreguntaId($clave):array
     {
@@ -581,6 +602,17 @@ class BD
         return self::$con->errorInfo();
     }
 
-    
+    //GENERAL
+
+    public static function cuentaRegistros($tabla)
+    {
+        $res = array();
+        $resultado = self::$con->query("SELECT * FROM ${tabla}");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $res[] = $registro;
+        }
+
+        return count($res);
+    }
     
 }

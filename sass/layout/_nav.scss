@@ -56,3 +56,21 @@ nav {
         }
     }
 }
+
+nav#navTabla{
+    text-align: center;
+    padding: 20px;
+    height: min-content;
+    font-size: 150%;
+    ul{
+        background-color: inherit;
+        li{
+            margin-left: 20px;
+            margin-right: 20px;
+            color: lightseagreen;
+            display: inline-block;
+            list-style-type: none;
+            background-color: inherit;
+        }
+    }
+}
