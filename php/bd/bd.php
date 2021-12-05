@@ -150,6 +150,27 @@ class BD
         return $vector;
     }
 
+    public static function obtenTematicasPaginados(int $pagina, int $filas):array
+    {
+        $registros = array();
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $res = self::$con->query("select * from tematica");
+        $registros =$res->fetchAll();
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $res = self::$con->query("select * from tematica limit $inicio, $filas");
+            while ($registro = $res->fetch(PDO::FETCH_OBJ)) {
+                $tematica = new tematica($registro->id, $registro->tema);
+                $registros[] = $tematica;
+            }
+        }
+        return $registros;
+    }
+
     public static function selectTematicaTema($tema):array
     {
         $vector = array();
@@ -436,6 +457,27 @@ class BD
         }
 
         return $vector;
+    }
+
+    public static function obtenExamenesPaginados(int $pagina, int $filas):array
+    {
+        $registros = array();
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $res = self::$con->query("select * from examen");
+        $registros =$res->fetchAll();
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $res = self::$con->query("select * from examen limit $inicio, $filas");
+            while ($registro = $res->fetch(PDO::FETCH_OBJ)) {
+                $examen = new examen($registro->id, $registro->descripcion, $registro->duracion, $registro->num_preguntas, $registro->activo);
+                $registros[] = $examen;
+            }
+        }
+        return $registros;
     }
 
     public static function borrarExamenId($examen)

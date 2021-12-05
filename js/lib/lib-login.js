@@ -10,7 +10,7 @@ window.addEventListener("load",function(){
         switch(data)
         {
             case "alumno":
-                console.log("cargar alumno");
+                window.location.href = "../../php/paginas/login.php";
                 break;
             case "administrador":
                 console.log("cargar administrador");

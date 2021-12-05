@@ -95,6 +95,9 @@ nav#navTabla ul li {
   list-style-type: none;
   background-color: inherit;
 }
+nav#navTabla ul li:hover {
+  cursor: pointer;
+}
 
 .formAltaUsuario {
   font-size: 150%;

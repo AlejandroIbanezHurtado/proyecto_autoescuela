@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado preguntas</title>
+    <title>Listado examenes</title>
     <link rel="stylesheet" href="../../css/main.css">
     <script src="../entidades/pregunta.js"></script>
     <script src="../entidades/examen.js"></script>
@@ -47,12 +47,13 @@
             </li>
         </ul>
     </nav>
-    <h3>Listado preguntas</h3>
+    <h3>Listado examenes</h3>
     <table id="tabla">
         <thead>
             <tr>
-                <th>Enunciado</th>
-                <th>Tematica</th>
+                <th>Descripcion</th>
+                <th>Duracion</th>
+                <th>Nº preguntas</th>
                 <th>Opciones</th>
             </tr>
         </thead>
@@ -65,6 +66,6 @@
             
         </ul>
     </nav>
-    <script>listado(1,5,"../../php/ajax/ajaxPreguntasPag.php",["enunciado","id_tematica"],"preguntas");</script>
+    <script>listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas"],"examen");</script>
 </body>
 </html>
