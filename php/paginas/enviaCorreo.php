@@ -5,9 +5,9 @@ require "../helper/correo.php";
 require "../cargadores/cargarBD.php";
 require "../cargadores/cargarEntidades.php";
 Sesion::abreSesion();
-$usuario = Sesion::miraSiExiste("usuario");
+$usuario = Sesion::miraSiExiste("usuarioCorreo");
 $mensaje = Sesion::miraSiExiste("mensaje");
-unset($_SESSION['usuario']);
+unset($_SESSION['usuarioCorreo']);
 unset($_SESSION['mensaje']);
 $id = Sesion::miraSiExiste("id");
 if($usuario!="" && $usuario!=null)
@@ -24,6 +24,7 @@ if($usuario!="" && $usuario!=null)
 
     //insertamos usuario en usuarios
     BD::Conectar();
+    var_dump($usuario);
     BD::insertarUsuario($usuario);
 
     //leemos su id

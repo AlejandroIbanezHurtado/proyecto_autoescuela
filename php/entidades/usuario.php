@@ -33,4 +33,8 @@ class usuario implements JsonSerializable{
     public function getFecha_nac() {return $this->fecha_nac; }
     public function getRol() {return $this->rol; }
     public function getImagen() {return $this->imagen; }
+
+    public function setImagen($imagen){
+        $this->imagen = $imagen;
+     }
 }

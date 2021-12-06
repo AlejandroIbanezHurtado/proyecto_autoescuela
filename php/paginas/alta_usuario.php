@@ -14,6 +14,7 @@
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
     <script src="../../js/lib/lib-botonLogin.js"></script>
+    <script src="../../js/lib/lib-altaPregunta.js"></script>
 </head>
 <body>
     <img src="../../archivos/imagenesWeb/imagenLarga.png" alt="Logo autoescuela" class="fotoAutoescuela">
@@ -50,7 +51,10 @@
         </ul>
     </nav>
     <h3>Alta usuario</h3>
-    <form method="post" class="formAltaUsuario">
+    <form method="post" class="formAltaUsuario" enctype="multipart/form-data">
+        <label class="imagenAlta" id="imagenPre">
+                <input type="file" accept="image/png, image/gif, image/jpeg" name="fichero" id="subir"/>
+        </label>
         EMAIL:<br>
         <input type="mail" name="email" id="email" class="errorInputemail" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">
         <br>
@@ -85,8 +89,16 @@
             header('Location: login.php');
         }
         else{
+            $archivo = null;
             if(isset($_POST['btnGuardar']))
             {
+                if(!empty($_FILES))
+                {
+                    if($_FILES['fichero']['size']!=0)
+                    {
+                        $archivo = $_FILES['fichero'];
+                    }
+                }
                 $password=rand(10000000, 99999999);//generamos una contraseña aleatoria por defecto
                 
                 $usuario = new usuario("", $_POST['email'], $_POST['nombre'], $_POST['apellidos'],$password, $_POST['fechaNac'], $_POST['rol'], null);
@@ -101,8 +113,17 @@
                     }
                 }
                 else{
-                    Sesion::abreSesion();
-                    Sesion::inserta("usuario",$usuario);
+                    if($archivo!=null)
+                    {
+                        // archivo = ruta donde se ha guardado
+                        $tipo = $archivo['type'];
+                        $tipo = substr($tipo, 6, 10);
+                        $nombre = "imagen".(rand(0, 100) + rand(0, 10000)).$archivo['size'];
+                        move_uploaded_file($archivo['tmp_name'],"../../archivos/imagenesUsuarios/".$nombre.".".$tipo);
+                        $archivo = "../../archivos/imagenesUsuarios/".$nombre.".".$tipo;
+                    }
+                    $usuario->setImagen($archivo);
+                    Sesion::inserta("usuarioCorreo",$usuario);
                     $id = (rand(0,5000) + time());
                     $mensaje = "Bienvenido a Autoescuela Alc&aacute;zar <br>Haz click en el siguiente enlace pra cambiar tu contrase&ntilde;a y as&iacute; confirmar tu registro<br><br><a href=\"http://localhost/autoescuela/php/paginas/cambiaPassword.php?id=${id}\">Aqu&iacute;</a>";
                     Sesion::inserta("mensaje",$mensaje);
