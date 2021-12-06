@@ -19,10 +19,18 @@ table
       td{
         a{
           float: left;
-          color: black;
-          text-decoration: underline;
+          width: 35px;
+          height: 35px;
+          background-image:url("../archivos/imagenesWeb/editar.png");
+          border: none;
+          cursor: pointer;
           +a{
             float: right;
+            width: 35px;
+            height: 35px;
+            background-image:url("../archivos/imagenesWeb/eliminar.png");
+            border: none;
+            cursor: pointer;
           }
         }
       }

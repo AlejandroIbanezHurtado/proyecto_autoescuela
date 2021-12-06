@@ -83,6 +83,10 @@ nav#navTabla {
   height: -moz-min-content;
   height: min-content;
   font-size: 150%;
+  width: 30%;
+  float: left;
+  position: relative;
+  left: 35%;
 }
 nav#navTabla ul {
   background-color: inherit;
@@ -231,11 +235,19 @@ table td, table th {
 }
 table tbody tr td a {
   float: left;
-  color: black;
-  text-decoration: underline;
+  width: 35px;
+  height: 35px;
+  background-image: url("../archivos/imagenesWeb/editar.png");
+  border: none;
+  cursor: pointer;
 }
 table tbody tr td a + a {
   float: right;
+  width: 35px;
+  height: 35px;
+  background-image: url("../archivos/imagenesWeb/eliminar.png");
+  border: none;
+  cursor: pointer;
 }
 
 body {

@@ -17,7 +17,7 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
                 fetch(ruta+"?pagina="+pagina+"&filas="+filas)
                 .then(response => response.json())
                 .then(data => {
-                    cargaTabla(data);
+                    cargaTabla(data, pagina);
                 });
             }
         })
@@ -29,13 +29,15 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
             {
                 p = document.createElement("li");
                 p.innerText = i+1;
+                p.setAttribute("id",i+1);
+                p.classList.add("num");
                 p.addEventListener("click",function(){
                     vaciarTabla();
                     pagina = this.innerText;
                     fetch(ruta+"?pagina="+pagina+"&filas="+filas)
                     .then(response => response.json())
                     .then(data => {
-                        cargaTabla(data);
+                        cargaTabla(data, pagina);
                     });
                 })
                 lista.appendChild(p);
@@ -46,13 +48,15 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
             {
                 p = document.createElement("li");
                 p.innerText = i+1;
+                p.setAttribute("id",i+1);
+                p.classList.add("num");
                 p.addEventListener("click",function(){
                     vaciarTabla();
                     pagina = this.innerText;
                     fetch(ruta+"?pagina="+pagina+"&filas="+filas)
                     .then(response => response.json())
                     .then(data => {
-                        cargaTabla(data);
+                        cargaTabla(data, pagina);
                     });
                 })
                 lista.appendChild(p);
@@ -62,6 +66,7 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
         var delante = document.createElement("li");
         delante.innerText = ">";
         delante.addEventListener("click",function(){
+            pagina = parseInt(pagina);
             if(pagina<nPag)
             {
                 vaciarTabla();
@@ -69,7 +74,7 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
                 fetch(ruta+"?pagina="+pagina+"&filas="+filas)
                 .then(response => response.json())
                 .then(data => {
-                    cargaTabla(data);
+                    cargaTabla(data, pagina);
                 });
             }
         })
@@ -78,10 +83,18 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
     fetch(ruta+"?pagina="+pagina+"&filas="+filas)
     .then(response => response.json())
     .then(data => {
-        cargaTabla(data);
+        cargaTabla(data, pagina);
     });
-    function cargaTabla(data)
+    function cargaTabla(data, pagina)
     {
+        p = document.getElementsByClassName("num");
+        for(i=0;i<p.length;i++) p[i].style.textDecoration="none";
+        if(pagina<=p.length)
+        {
+            p = document.getElementById(pagina);
+            p.style.textDecoration="underline";
+        }
+        
         for(i=0;i<data.length;i++)
         {
             fila = document.createElement("tr");
@@ -94,19 +107,19 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
             celda = document.createElement("td");
             a = document.createElement("a");
             a.setAttribute("href","#");
-            a.innerText = "Editar";
             a2 = document.createElement("a");
             a2.setAttribute("href","#");
-            a2.innerText = "Eliminar";
             celda.appendChild(a);
             celda.appendChild(a2);
+            celda.style.width="10%";
             fila.appendChild(celda);
             tbody.appendChild(fila);
         }
     }
     function vaciarTabla()
     {
-        for(i=0;i<tbody.children.length+1;i++)
+        long = tbody.children.length;
+        for(i=0;i<long;i++)
         {
             tbody.removeChild(tbody.children[0]);
         }
