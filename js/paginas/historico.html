@@ -10,11 +10,13 @@
     <script src="../entidades/examen.js"></script>
     <script src="../lib/lib-loginHistorico.js"></script>
     <script src="../lib/lib-botonLogin.js"></script>
+    <script src="../lib/lib-listadoGeneral.js"></script>
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
 </head>
 <body>
     <img src="../../archivos/imagenesWeb/imagenLarga.png" alt="Logo autoescuela" class="fotoAutoescuela">
-    <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario"><aside class="ocultar" id="cajaUser"><a href="#">Editar</a><br><br><a href="#" id="cierraSesion">Cerrar sesión</a></aside>
+    <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario"><aside class="ocultar" id="cajaUser"><a href="#" id="editar">Editar</a><br><br><a href="#" id="cierraSesion">Cerrar sesión</a></aside>
+    <!-- NAV ADMINISTRADOR -->
     <nav>
         <ul>
             <li class="categoria">
@@ -46,6 +48,36 @@
             </li>
         </ul>
     </nav>
-    <h3>Histórico</h3>
+    <!-- NAV PARA USUARIO -->
+    <nav>
+        <ul>
+            <li class="categoria">
+                <a href="#">Histórico</a>
+            </li>
+            <li class="categoria">
+                <a href="#">Examen predefinido</a>
+            </li>
+            <li class="categoria">
+                <a href="#">Examen aleatorio</a>
+            </li>
+        </ul>
+    </nav>
+    <h3>Histórico de examenes</h3>
+    <!-- TABLA DE PRUEBA, MOSTRAR TABLA DE HISTORICO DE EXAMENES REALIZADOS POR USUARIOS -->
+    <table id="tabla">
+        <thead>
+            <th>Fecha/Hora</th>
+            <th>Alumno/a</th>
+            <th>Puntuación</th>
+            <th>Opciones</th>
+            <!-- La única opcion que hay es revisar -->
+        </thead>
+        <tbody></tbody>
+    </table>
+    <nav id="navTabla">
+        <ul id="listaTabla">
+            
+        </ul>
+    </nav>
 </body>
 </html>

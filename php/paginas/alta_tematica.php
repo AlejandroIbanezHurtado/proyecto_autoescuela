@@ -19,29 +19,29 @@
     <img src="../../archivos/imagenesWeb/imagenLarga.png" alt="Logo autoescuela" class="fotoAutoescuela">
     <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario"><aside class="ocultar" id="cajaUser"><a href="#">Editar</a><br><br><a href="#" id="cierraSesion">Cerrar sesión</a></aside>
     <nav>
-        <ul>
+    <ul>
             <li class="categoria">
-                <a href="#">Usuarios</a>
+                <a href="../../js/paginas/listado_usuarios.html">Usuarios</a>
                 <ul class="submenu">
                     <li><a href="alta_usuario.php">Alta de usuario</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="#">Temáticas</a>
+                <a href="../../js/paginas/listado_tematicas.html">Temáticas</a>
                 <ul class="submenu">
                     <li><a href="alta_tematica.php">Alta temática</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="#">Preguntas</a>
+                <a href="../../js/paginas/listado_preguntas.html">Preguntas</a>
                 <ul class="submenu">
                     <li><a href="alta_pregunta.php">Alta pregunta</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="#">Exámenes</a>
+                <a href="../../js/paginas/listado_examenes.html">Exámenes</a>
                 <ul class="submenu">
                     <li><a href="../../js/paginas/alta_examen.html">Alta examen</a></li>
                     <li><a href="#">Histórico</a></li>

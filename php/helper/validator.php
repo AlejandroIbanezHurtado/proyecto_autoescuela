@@ -13,13 +13,16 @@ class validator {
         return $res;
     }
 
-    public static function validaAltaUsuario(usuario $usuario)
+    public static function validaAltaUsuario(usuario $usuario, $email)
     {
         BD::Conectar();
         $res = [];
-        if(filter_var($usuario->getCorreo(), FILTER_VALIDATE_EMAIL)==false || BD::selectUsuarioEmail($usuario->getCorreo())!=false)
+        if($email==true)
         {
-            $res['email'] = "Correo no válido";
+            if(filter_var($usuario->getCorreo(), FILTER_VALIDATE_EMAIL)==false || BD::selectUsuarioEmail($usuario->getCorreo())!=false)
+            {
+                $res['email'] = "Correo no válido";
+            }
         }
         if(trim($usuario->getNombre())=="")
         {

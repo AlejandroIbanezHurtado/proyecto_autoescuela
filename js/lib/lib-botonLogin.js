@@ -2,6 +2,7 @@ window.addEventListener("load",function(){
     var caja = document.getElementById("cajaUser");
     var foto = document.getElementsByClassName("fotoUsuario")[0];
     var cierra = document.getElementById("cierraSesion");
+    var editar = document.getElementById("editar");
     //vemos si el usuario que ha iniciado sesion tiene foto
     fetch("../../php/ajax/ajaxMiraImagenUsuario.php")
     .then(response => response.json())
@@ -14,10 +15,13 @@ window.addEventListener("load",function(){
             foto.width=50;
         }
     });
-    //si no tiene mantenemos por defecto
-    //si tiene la cambiamos
+    
     foto.addEventListener("click",function(){
         caja.classList.toggle("ocultar");
+    })
+    editar.addEventListener("click",function(){
+        fetch("../../php/ajax/ajaxEditarUsuario.php?");
+        window.location.href = "../../php/paginas/alta_usuario.php";
     })
     cierra.addEventListener("click",function(){
         fetch("../../php/ajax/ajaxCierraSesion.php")

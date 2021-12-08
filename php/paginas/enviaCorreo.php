@@ -1,5 +1,5 @@
 <?php
-header("Location: ../../js/paginas/alta_examen.html");
+header("Location: ../../js/paginas/historico.html");
 require "../cargadores/cargarSesion.php";
 require "../helper/correo.php";
 require "../cargadores/cargarBD.php";
@@ -18,8 +18,8 @@ if($usuario!="" && $usuario!=null)
 
     $fecha_expiracion = new DateTime();
 
-    // $fecha_expiracion->add(new DateInterval('P10D'));
-    $fecha_expiracion->add(new DateInterval('PT1M'));
+    $fecha_expiracion->add(new DateInterval('P10D'));
+    // $fecha_expiracion->add(new DateInterval('PT1M'));
     $fecha_expiracion = date_format($fecha_expiracion, 'Y-m-d H:i:s');
 
     //insertamos usuario en usuarios

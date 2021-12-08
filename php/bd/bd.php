@@ -127,6 +127,26 @@ class BD
         return $registros = self::$con->exec($string);
     }
 
+    public static function actualizaUsuario($usuario)
+    {
+        $correo = $usuario->getCorreo();
+        $nombre = $usuario->getNombre();
+        $apellidos = $usuario->getApellidos();
+        $password = $usuario->getPassword();
+        $fecha_nac = $usuario->getFecha_nac();
+        $rol = $usuario->getRol();
+        $imagen = $usuario->getImagen();
+
+        if($imagen==NULL)
+        {
+            $string = "UPDATE usuarios set nombre = '${nombre}', apellidos='${apellidos}', fecha_nac='${fecha_nac}', rol = '${rol}', imagen = NULL WHERE correo = '${correo}'";
+        }
+        else{
+            $string = "UPDATE usuarios set nombre = '${nombre}', apellidos='${apellidos}', fecha_nac='${fecha_nac}', rol = '${rol}', imagen = '${imagen}' WHERE correo = '${correo}'";
+        }
+        $registros = self::$con->exec($string);
+        return self::$con->errorInfo();
+    }
 
     /*public static function actualizaImagen($tabla, $id, $imagen)
     {

@@ -5,11 +5,15 @@ window.addEventListener("load",function(){
         cargaPagina(data);
     });
 
+    fetch("../../php/ajax/ajaxSesionEditar.php")
+    .then(response => res = response);
+    console-log(res);
     function cargaPagina(data)
     {
         switch(data)
         {
             case "alumno":
+                //if(res!="editar") window.location.href = "../../php/paginas/login.php";
                 window.location.href = "../../php/paginas/login.php";
                 break;
             case "administrador":
