@@ -446,6 +446,32 @@ class BD
         return self::$con->errorInfo();
     }
 
+    public static function actualizaPregunta($pregunta)
+    {
+        $enunciado = $pregunta->getEnunciado();
+        $id_respuesta_correcta = $pregunta->getId_respuesta_correcta();
+        $recurso = $pregunta->getRecurso();
+        $id_tematica = $pregunta->getId_tematica();
+        $id = $pregunta->getId();
+
+        if($recurso==NULL)
+        {
+            $string = "UPDATE preguntas SET enunciado = '${enunciado}', id_respuesta_correcta = '${id_respuesta_correcta}', id_tematica = '${id_tematica}' WHERE id = '${id}'";
+        }
+        
+        if($id_respuesta_correcta==NULL)
+        {
+            $string = "UPDATE preguntas SET enunciado = '${enunciado}', recurso = '${recurso}', id_tematica = '${id_tematica}' WHERE id = '${id}'";
+        }
+        if($recurso==NULL && $id_respuesta_correcta==NULL)
+        {
+            $string = "UPDATE preguntas SET enunciado = '${enunciado}', id_tematica = '${id_tematica}' WHERE id = '${id}'";
+        }
+
+        $registros = self::$con->exec($string);
+        return self::$con->errorInfo();
+    }
+
     public static function actualizaRespuestaCorrecta($valor, $id)
     {
         $string = "UPDATE preguntas SET id_respuesta_correcta = '${valor}' WHERE id = '${id}';";

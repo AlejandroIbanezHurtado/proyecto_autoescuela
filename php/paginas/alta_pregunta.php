@@ -25,20 +25,20 @@
             <li class="categoria">
                 <a href="../../js/paginas/listado_usuarios.html">Usuarios</a>
                 <ul class="submenu">
-                    <li><a href="alta_usuario.php">Alta de usuario</a></li>
+                    <li><a href="../../php/paginas/alta_usuario.php">Alta de usuario</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="../../js/paginas/listado_tematicas.html">Temáticas</a>
                 <ul class="submenu">
-                    <li><a href="alta_tematica.php">Alta temática</a></li>
+                    <li><a href="../../php/paginas/alta_tematica.php">Alta temática</a></li>
                 </ul>
             </li>
             <li class="categoria">
                 <a href="../../js/paginas/listado_preguntas.html">Preguntas</a>
                 <ul class="submenu">
-                    <li><a href="alta_pregunta.php">Alta pregunta</a></li>
+                    <li><a href="../../php/paginas/alta_pregunta.php">Alta pregunta</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
@@ -52,7 +52,13 @@
         </ul>
     </nav>
     <h3>Alta pregunta</h3>
-    
+   <?php
+   if(isset($_SESSION['editarPregunta']))
+   {
+       BD::Conectar();
+       $preg = BD::selectPreguntaId($_SESSION['editarPregunta'])[$_SESSION['editarPregunta']];
+   }
+   ?> 
     <form method="post" class="formAltaPreg" enctype="multipart/form-data">
         <label class="imagenAlta" id="imagenPre">
                 <input type="file" accept="image/png, image/gif, image/jpeg" name="fichero" id="subir"/>
@@ -73,7 +79,7 @@
         ?>
         <br>
         <label for="enunciado">Enunciado</label><br>
-        <textarea name="enunciado" id="enunciado" cols="30" rows="10" class="errorInputenunciado"><?php echo isset($_POST['enunciado']) ? $_POST['enunciado'] : '' ?></textarea>
+        <textarea name="enunciado" id="enunciado" cols="30" rows="10" class="errorInputenunciado" <?php if(isset($_SESSION['editarPregunta'])){echo "readonly";}?>><?php if(isset($_SESSION['editarPregunta'])){echo $preg->getEnunciado();}else{echo isset($_POST['enunciado']) ? $_POST['enunciado'] : '';} ?></textarea>
         <section id="res1">
             <input type="text" placeholder="opcion 1" name="respuesta1" class="errorInputrespuesta1" value="<?php echo isset($_POST['respuesta1']) ? $_POST['respuesta1'] : '' ?>">
             <input type="radio" name="correcta" id="correcta1" value="1" checked><label for="correcta1">Correcta</label>
@@ -117,7 +123,7 @@
                 //GUARDAMOS
                 
                 //VALIDAMOS LOS CAMPOS DE PREGUNTA
-                $enunciado = BD::selectPreguntaEnunciado($_POST['enunciado']);//vemos si ese enunciado existe en la base de datos
+                // $enunciado = BD::selectPreguntaEnunciado($_POST['enunciado']);//vemos si ese enunciado existe en la base de datos
                 $p = new pregunta(null, $_POST['enunciado'], null, null, null, [$_POST['respuesta1'],$_POST['respuesta2'],$_POST['respuesta3'],$_POST['respuesta4']]);
                 $res = validator::validaAltaPregunta($p);
                 if(count($res)!=0)
@@ -141,7 +147,14 @@
                     }
                     //creamos pregunta sin array de respuestas ni respuesta correcta y lo insertamos en la base de datos
                     $pregunta = new pregunta(null, $_POST['enunciado'], null, $archivo, $_POST['tematica'], null);
-                    BD::insertarPregunta($pregunta);
+                    if($_SESSION['editarPregunta'])
+                    {
+                        BD::actualizaPregunta($pregunta);
+                    }
+                    else{
+                        BD::insertarPregunta($pregunta);
+                    }
+                    
                     //creamos respuestas asociadas a esa pregunta recien creada
                     $id_pregunta = BD::selectPreguntaEnunciadoPeq($_POST['enunciado']);
                     //var_dump($id_pregunta);

@@ -72,7 +72,7 @@ class validator {
         BD::Conectar();
         $enunciado = BD::selectPreguntaEnunciado($pregunta->getEnunciado());
         $res = [];
-        if(trim($pregunta->getEnunciado())=="" || !empty($enunciado))
+        if(trim($pregunta->getEnunciado())=="")
         {
             $res['enunciado'] = "Enunciado no disponible";
         }

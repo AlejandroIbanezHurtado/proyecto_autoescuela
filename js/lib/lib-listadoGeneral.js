@@ -98,19 +98,29 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
         for(i=0;i<data.length;i++)
         {
             fila = document.createElement("tr");
+            valor="";
             for(j=0;j<columnas.length;j++)
             {
                 celda = document.createElement("td");
                 celda.innerText = data[i][columnas[j]];
                 fila.appendChild(celda);
             }
+            valor = data[i].id;
             celda = document.createElement("td");
             a = document.createElement("a");
             a.setAttribute("href","#");
+            a.setAttribute("valor",valor);
+            a.addEventListener("click",function(){
+                editar(nombreTabla, this.getAttribute("valor"));
+            })
             a2 = document.createElement("a");
+            a2.setAttribute("valor",valor);
+            a2.addEventListener("click",function(){
+                eliminar(nombreTabla, this.getAttribute("valor"));
+            })
             a2.setAttribute("href","#");
-            celda.appendChild(a);
-            celda.appendChild(a2);
+            celda.appendChild(a); //editar
+            celda.appendChild(a2); //eliminar
             celda.style.width="10%";
             fila.appendChild(celda);
             tbody.appendChild(fila);
@@ -123,5 +133,33 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
         {
             tbody.removeChild(tbody.children[0]);
         }
+    }
+    function editar(tabla, valor)
+    {
+        switch(tabla)
+        {
+            case "usuarios":
+                fetch("../../php/ajax/ajaxEditarAlta.php?tabla=Usuario&valor="+valor);
+                window.location.href = "../../php/paginas/alta_usuario.php";
+                break;
+            case "preguntas":
+                fetch("../../php/ajax/ajaxEditarAlta.php?tabla=Pregunta&valor="+valor);
+                window.location.href = "../../php/paginas/alta_pregunta.php";
+                break;
+            case "tematica":
+                window.location.href = "../../php/paginas/alta_tematica.php";
+                break;
+            case "examen":
+                window.location.href = "../../js/paginas/alta_examen.html";
+                break;
+        }
+    }
+    function eliminar(tabla, valor)
+    {
+        if (confirm("Al eliminar, este registro ya no pertenecerá a"+tabla))
+        {
+            fetch("../../php/ajax/ajaxBorrarId.php?tabla="+tabla+"&valor="+valor);
+        }
+        window.location.reload();
     }
 }

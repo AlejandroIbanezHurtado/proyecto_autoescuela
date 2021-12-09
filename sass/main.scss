@@ -22,7 +22,7 @@ div.seleccionado {
 }
 
 
-section{
+section#pregDis{
     float: left;
     padding: 0;
     height: 400px;
@@ -33,7 +33,12 @@ section{
         float: right;
     }
 
-    +section{
+    +section#pregSel{
+        padding: 0;
+        height: 400px;
+        width: 30%;
+        margin-left: 10%;
+        margin-top: 20px;
         margin-right: 10%;
         float: right;
         input{
@@ -171,15 +176,19 @@ form.formAltaPreg{
     input{
         margin: 10px;
     }
-    section{
-        label{
-            font-size: 80%;  
-        }
-    }
+    // section{
+    //     height: 50px;
+    //     float: left;
+    //     label{
+    //         font-size: 80%;  
+    //     }
+    // }
     input#guardar{
         float: right;
     }
     input#guardar{
+        margin-top: 50px;
+        clear: both;
         background-color: $colorBoton;
         color: $color-texto-boton;
         border-radius: 20px;

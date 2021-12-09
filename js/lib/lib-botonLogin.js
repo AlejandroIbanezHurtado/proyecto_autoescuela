@@ -4,6 +4,20 @@ window.addEventListener("load",function(){
     var cierra = document.getElementById("cierraSesion");
     var editar = document.getElementById("editar");
     var foto1 = document.getElementsByClassName("fotoAutoescuela")[0];
+    var alta_usuario = document.body.querySelector("a[href='../../php/paginas/alta_usuario.php']");
+    var alta_tematica = document.body.querySelector("a[href='../../php/paginas/alta_tematica.php']");
+    var alta_pregunta = document.body.querySelector("a[href='../../php/paginas/alta_pregunta.php']");
+    var alta_examen = document.body.querySelector("a[href='../../js/paginas/alta_examen.php']");
+
+    alta_usuario.addEventListener("click",function(){
+        fetch("../../php/ajax/ajaxCierraSesionEditar.php?tabla=Usuario");
+        window.location.href = "../../php/paginas/alta_usuario.php";
+    })
+
+    alta_pregunta.addEventListener("click",function(){
+        fetch("../../php/ajax/ajaxCierraSesionEditar.php?tabla=Pregunta");
+        window.location.href = "../../php/paginas/alta_pregunta.php";
+    })
 
     foto1.addEventListener("click",function(){
         window.location.href = "../../js/paginas/historico.html";

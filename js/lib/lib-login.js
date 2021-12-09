@@ -7,7 +7,6 @@ window.addEventListener("load",function(){
 
     fetch("../../php/ajax/ajaxSesionEditar.php")
     .then(response => res = response);
-    console-log(res);
     function cargaPagina(data)
     {
         switch(data)

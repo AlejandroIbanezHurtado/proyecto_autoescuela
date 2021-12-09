@@ -19,12 +19,18 @@
             BD::Conectar();
             $usuario = BD::selectUsuarioEmail2($_SESSION['usuario']->getCorreo());
         }
+        if(isset($_SESSION['editarUsuario']) && is_numeric($_SESSION['editarUsuario']))
+        {
+            $usuario = BD::selectUsuarioId($_SESSION['editarUsuario']);
+            $_SESSION['editarUsuario'] = $usuario->getCorreo();
+        }
     ?>
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
     <script src="../../js/lib/lib-botonLogin.js"></script>
     <script src="../../js/lib/lib-altaPregunta.js"></script>
     <script src="../../js/lib/lib-loginHistorico.js"></script>
+    <!-- <script>window.onbeforeunload = alert("");</script> -->
 </head>
 <body>
     <img src="../../archivos/imagenesWeb/imagenLarga.png" alt="Logo autoescuela" class="fotoAutoescuela">
@@ -33,27 +39,27 @@
     <nav>
         <ul>
             <li class="categoria">
-                <a href="listado_usuarios.html">Usuarios</a>
+                <a href="../../js/paginas/listado_usuarios.html">Usuarios</a>
                 <ul class="submenu">
                     <li><a href="../../php/paginas/alta_usuario.php">Alta de usuario</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="listado_tematicas.html">Temáticas</a>
+                <a href="../../js/paginas/listado_tematicas.html">Temáticas</a>
                 <ul class="submenu">
                     <li><a href="../../php/paginas/alta_tematica.php">Alta temática</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="listado_preguntas.html">Preguntas</a>
+                <a href="../../js/paginas/listado_preguntas.html">Preguntas</a>
                 <ul class="submenu">
-                    <li><a href="../../php/paginas/alta_tematica.php">Alta pregunta</a></li>
+                    <li><a href="../../php/paginas/alta_pregunta.php">Alta pregunta</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="listado_examenes.html">Exámenes</a>
+                <a href="../../js/paginas/listado_examenes.html">Exámenes</a>
                 <ul class="submenu">
                     <li><a href="alta_examen.html">Alta examen</a></li>
                     <li><a href="#">Histórico</a></li>
@@ -152,7 +158,7 @@
                     $usuario->setImagen($archivo);
                     if(isset($_SESSION['editarUsuario']))
                     {
-                        var_dump(BD::actualizaUsuario($usuario));
+                        BD::actualizaUsuario($usuario);
                         unset($_SESSION['editarUsuario']);
                         header('Location: alta_usuario.php');
                     }

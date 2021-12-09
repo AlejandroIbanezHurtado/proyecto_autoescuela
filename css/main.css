@@ -265,7 +265,7 @@ div.seleccionado {
   background-color: #8ac1fc;
 }
 
-section {
+section#pregDis {
   float: left;
   padding: 0;
   height: 400px;
@@ -273,14 +273,19 @@ section {
   margin-left: 10%;
   margin-top: 20px;
 }
-section input {
+section#pregDis input {
   float: right;
 }
-section + section {
+section#pregDis + section#pregSel {
+  padding: 0;
+  height: 400px;
+  width: 30%;
+  margin-left: 10%;
+  margin-top: 20px;
   margin-right: 10%;
   float: right;
 }
-section + section input {
+section#pregDis + section#pregSel input {
   float: left;
 }
 
@@ -425,13 +430,12 @@ form.formAltaPreg #tematica, form.formAltaPreg #enunciado {
 form.formAltaPreg input {
   margin: 10px;
 }
-form.formAltaPreg section label {
-  font-size: 80%;
-}
 form.formAltaPreg input#guardar {
   float: right;
 }
 form.formAltaPreg input#guardar {
+  margin-top: 50px;
+  clear: both;
   background-color: #5F9EA0;
   color: white;
   border-radius: 20px;
