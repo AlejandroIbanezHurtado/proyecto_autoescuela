@@ -1,6 +1,11 @@
 window.addEventListener("load",function(){
     var imagenPre = document.getElementById("imagenPre");
     var subir = document.getElementById("subir");
+    var imagenPre = document.getElementById("imagenPre");
+    if(imagenPre.getAttribute("value")!=null && imagenPre.getAttribute("value")!="")
+    {
+        imagenPre.style.backgroundImage = "url('"+imagenPre.getAttribute("value")+"')";
+    }
     subir.addEventListener("change",function(){
         readFile(this);
     })

@@ -19,68 +19,83 @@
             BD::Conectar();
             $usuario = BD::selectUsuarioEmail2($_SESSION['usuario']->getCorreo());
         }
-        
     ?>
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
     <script src="../../js/lib/lib-botonLogin.js"></script>
     <script src="../../js/lib/lib-altaPregunta.js"></script>
+    <script src="../../js/lib/lib-loginHistorico.js"></script>
 </head>
 <body>
     <img src="../../archivos/imagenesWeb/imagenLarga.png" alt="Logo autoescuela" class="fotoAutoescuela">
     <img src="../../archivos/imagenesWeb/user.png" alt="Imagen usuario" class="fotoUsuario"><aside class="ocultar" id="cajaUser"><a href="#" id="editar">Editar</a><br><br><a href="#" id="cierraSesion">Cerrar sesión</a></aside>
+    <!-- NAV ADMINISTRADOR -->
     <nav>
         <ul>
             <li class="categoria">
-                <a href="../../js/paginas/listado_usuarios.html">Usuarios</a>
+                <a href="listado_usuarios.html">Usuarios</a>
                 <ul class="submenu">
-                    <li><a href="alta_usuario.php">Alta de usuario</a></li>
+                    <li><a href="../../php/paginas/alta_usuario.php">Alta de usuario</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="../../js/paginas/listado_tematicas.html">Temáticas</a>
+                <a href="listado_tematicas.html">Temáticas</a>
                 <ul class="submenu">
-                    <li><a href="alta_tematica.php">Alta temática</a></li>
+                    <li><a href="../../php/paginas/alta_tematica.php">Alta temática</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="../../js/paginas/listado_preguntas.html">Preguntas</a>
+                <a href="listado_preguntas.html">Preguntas</a>
                 <ul class="submenu">
-                    <li><a href="alta_pregunta.php">Alta pregunta</a></li>
+                    <li><a href="../../php/paginas/alta_tematica.php">Alta pregunta</a></li>
                     <li><a href="#">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
-                <a href="../../js/paginas/listado_examenes.html">Exámenes</a>
+                <a href="listado_examenes.html">Exámenes</a>
                 <ul class="submenu">
-                    <li><a href="../../js/paginas/alta_examen.html">Alta examen</a></li>
+                    <li><a href="alta_examen.html">Alta examen</a></li>
                     <li><a href="#">Histórico</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
+    <!-- NAV PARA USUARIO -->
+    <nav>
+        <ul>
+            <li class="categoria">
+                <a href="../../js/paginas/historico.html">Histórico</a>
+            </li>
+            <li class="categoria">
+                <a href="#">Examen predefinido</a>
+            </li>
+            <li class="categoria">
+                <a href="#">Examen aleatorio</a>
+            </li>
+        </ul>
+    </nav>
     <h3>Alta usuario</h3>
     <form method="post" class="formAltaUsuario" enctype="multipart/form-data">
-        <label class="imagenAlta" id="imagenPre">
+        <label class="imagenAlta" id="imagenPre" value="<?php if(isset($_SESSION['editarUsuario'])){echo $usuario->getImagen();} ?>">
                 <input type="file" accept="image/png, image/gif, image/jpeg" name="fichero" id="subir"/>
         </label>
         EMAIL:<br>
-        <input type="mail" name="email" id="email" class="errorInputemail" value="<?php if(isset($_SESSION['editar'])){echo $_SESSION['editar'];}else{echo isset($_POST['email']) ? $_POST['email'] : '';} ?>" <?php if(isset($_SESSION['editar'])){echo "readonly";}?>>
+        <input type="mail" name="email" id="email" class="errorInputemail" value="<?php if(isset($_SESSION['editarUsuario'])){echo $_SESSION['editarUsuario'];}else{echo isset($_POST['email']) ? $_POST['email'] : '';} ?>" <?php if(isset($_SESSION['editarUsuario'])){echo "readonly";}?>>
         <br>
         NOMBRE:<br>
-        <input type="text" name="nombre" id="nombre" class="errorInputnombre" value="<?php echo isset($_POST['nombre']) ? $_POST['nombre'] : '' ?>" placeholder="<?php if(isset($_SESSION['editar'])){echo $usuario->getNombre();} ?>">
+        <input type="text" name="nombre" id="nombre" class="errorInputnombre" value="<?php echo isset($_POST['nombre']) ? $_POST['nombre'] : '' ?>" placeholder="<?php if(isset($_SESSION['editarUsuario'])){echo $usuario->getNombre();} ?>">
         <br>
         APELLIDOS:<br>
-        <input type="text" name="apellidos" id="apellidos" class="errorInputapellidos" value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : '' ?>" placeholder="<?php if(isset($_SESSION['editar'])){echo $usuario->getApellidos();} ?>">
+        <input type="text" name="apellidos" id="apellidos" class="errorInputapellidos" value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : '' ?>" placeholder="<?php if(isset($_SESSION['editarUsuario'])){echo $usuario->getApellidos();} ?>">
         <br>
         FECHA DE NACIMIENTO:<br>
-        <input type="date" name="fechaNac" id="fechaNac" class="errorInputfechaNac" value="<?php if(isset($_SESSION['editar'])){echo $usuario->getFecha_nac();}else{echo isset($_POST['fechaNac']) ? $_POST['fechaNac'] : '';} ?>">
+        <input type="date" name="fechaNac" id="fechaNac" class="errorInputfechaNac" value="<?php if(isset($_SESSION['editarUsuario'])){echo $usuario->getFecha_nac();}else{echo isset($_POST['fechaNac']) ? $_POST['fechaNac'] : '';} ?>">
         <br>
         ROL:<br>
         <select name="rol">
-            <option value="alumno" <?php if(isset($_SESSION['editar']) && $usuario->getRol()=="alumno"){echo "selected";}?>>alumno</option>
-            <option value="administrador" <?php if(isset($_SESSION['editar']) && $usuario->getRol()=="administrador"){echo "selected";}?>>administrador</option>
+            <option value="alumno" <?php if(isset($_SESSION['editarUsuario']) && $usuario->getRol()=="alumno"){echo "selected";}?>>alumno</option>
+            <option value="administrador" <?php if(isset($_SESSION['editarUsuario']) && $usuario->getRol()=="administrador"){echo "selected";}?>>administrador</option>
         </select>
         <br><br>
         <input type="submit" name="btnGuardar" value="Guardar" class="botones">
@@ -89,7 +104,7 @@
     if(isset($_SESSION['usuario']))
     {
         
-        if($usuario->getRol()=="alumno" && !isset($_SESSION['editar']))
+        if($usuario->getRol()=="alumno" && !isset($_SESSION['editarUsuario']))
         {
             header('Location: login.php');
         }
@@ -108,7 +123,7 @@
                 
                 $usuario = new usuario("", $_POST['email'], $_POST['nombre'], $_POST['apellidos'],$password, $_POST['fechaNac'], $_POST['rol'], null);
                 
-                if(isset($_SESSION['editar']))
+                if(isset($_SESSION['editarUsuario']))
                 {
                     $res = validator::validaAltaUsuario($usuario,false);
                 }
@@ -135,10 +150,10 @@
                         $archivo = "../../archivos/imagenesUsuarios/".$nombre.".".$tipo;
                     }
                     $usuario->setImagen($archivo);
-                    if(isset($_SESSION['editar']))
+                    if(isset($_SESSION['editarUsuario']))
                     {
                         var_dump(BD::actualizaUsuario($usuario));
-                        unset($_SESSION['editar']);
+                        unset($_SESSION['editarUsuario']);
                         header('Location: alta_usuario.php');
                     }
                     else{
@@ -147,7 +162,7 @@
                         $mensaje = "Bienvenido a Autoescuela Alc&aacute;zar <br>Haz click en el siguiente enlace pra cambiar tu contrase&ntilde;a y as&iacute; confirmar tu registro<br><br><a href=\"http://localhost/autoescuela/php/paginas/cambiaPassword.php?id=${id}\">Aqu&iacute;</a>";
                         Sesion::inserta("mensaje",$mensaje);
                         Sesion::inserta("id",$id);
-                        unset($_SESSION['editar']);
+                        unset($_SESSION['editarUsuario']);
                         header('Location: enviaCorreo.php');
                     }
                     
@@ -157,7 +172,7 @@
         }
     }
     else{
-        unset($_SESSION['editar']);
+        unset($_SESSION['editarUsuario']);
         header('Location: login.php');
     }
     

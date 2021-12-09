@@ -3,6 +3,11 @@ window.addEventListener("load",function(){
     var foto = document.getElementsByClassName("fotoUsuario")[0];
     var cierra = document.getElementById("cierraSesion");
     var editar = document.getElementById("editar");
+    var foto1 = document.getElementsByClassName("fotoAutoescuela")[0];
+
+    foto1.addEventListener("click",function(){
+        window.location.href = "../../js/paginas/historico.html";
+    })
     //vemos si el usuario que ha iniciado sesion tiene foto
     fetch("../../php/ajax/ajaxMiraImagenUsuario.php")
     .then(response => response.json())
