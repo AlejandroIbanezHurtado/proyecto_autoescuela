@@ -9,18 +9,35 @@ window.addEventListener("load",function(){
     .then(response => res = response);
     function cargaPagina(data)
     {
-        switch(data)
+        if(window.location.href=="http://localhost/autoescuela/js/paginas/listado_examenes.html")
         {
-            case "alumno":
-                //if(res!="editar") window.location.href = "../../php/paginas/login.php";
-                window.location.href = "../../php/paginas/login.php";
-                break;
-            case "administrador":
-                console.log("cargar administrador");
-                break;
-            case "nada":
-                window.location.href = "../../php/paginas/login.php";
-                break;
+            switch(data)
+            {
+                case "alumno":
+                    listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas","activo"],"examen", "alumno");
+                    break;
+                case "administrador":
+                    listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas","activo"],"examen");
+                    break;
+                case "nada":
+                    listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas","activo"],"examen");
+                    break;
+            }
         }
+        else{
+            switch(data)
+            {
+                case "alumno":
+                    window.location.href = "../../php/paginas/login.php";
+                    break;
+                case "administrador":
+                    console.log("cargar administrador");
+                    break;
+                case "nada":
+                    window.location.href = "../../php/paginas/login.php";
+                    break;
+            }
+        }
+        
     }
 })

@@ -11,6 +11,7 @@
     <script src="../lib/lib-login.js"></script>
     <script src="../lib/lib-botonLogin.js"></script>
     <script src="../lib/lib-listadoGeneral.js"></script>
+    <script src="../lib/lib-loginHistorico.js"></script>
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
 </head>
 <body>
@@ -47,6 +48,20 @@
             </li>
         </ul>
     </nav>
+    <!-- NAV PARA USUARIO -->
+    <nav>
+        <ul>
+            <li class="categoria">
+                <a href="historico.html">Histórico</a>
+            </li>
+            <li class="categoria">
+                <a href="../../js/paginas/listado_examenes.html">Examen predefinido</a>
+            </li>
+            <li class="categoria">
+                <a href="#">Examen aleatorio</a>
+            </li>
+        </ul>
+    </nav>
     <h3>Listado examenes</h3>
     <table id="tabla">
         <thead>
@@ -54,6 +69,7 @@
                 <th>Descripcion</th>
                 <th>Duracion</th>
                 <th>Nº preguntas</th>
+                <th>Activo</th>
                 <th>Opciones</th>
             </tr>
         </thead>
@@ -66,6 +82,5 @@
             
         </ul>
     </nav>
-    <script>listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas"],"examen");</script>
 </body>
 </html>

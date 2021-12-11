@@ -1,4 +1,4 @@
-function listado(pagina, filas, ruta, columnas, nombreTabla){
+function listado(pagina, filas, ruta, columnas, nombreTabla, rol="administrador"){
     var tabla = document.getElementById("tabla");
     var lista = document.getElementById("listaTabla");
     var tbody = tabla.children[1];
@@ -105,25 +105,63 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
                 celda.innerText = data[i][columnas[j]];
                 fila.appendChild(celda);
             }
-            valor = data[i].id;
-            celda = document.createElement("td");
-            a = document.createElement("a");
-            a.setAttribute("href","#");
-            a.setAttribute("valor",valor);
-            a.addEventListener("click",function(){
-                editar(nombreTabla, this.getAttribute("valor"));
-            })
-            a2 = document.createElement("a");
-            a2.setAttribute("valor",valor);
-            a2.addEventListener("click",function(){
-                eliminar(nombreTabla, this.getAttribute("valor"));
-            })
-            a2.setAttribute("href","#");
-            celda.appendChild(a); //editar
-            celda.appendChild(a2); //eliminar
-            celda.style.width="10%";
-            fila.appendChild(celda);
+            if(rol!="alumno")
+            {
+                valor = data[i].id;
+                celda = document.createElement("td");
+                a = document.createElement("a");
+                a.setAttribute("href","#");
+                a.setAttribute("valor",valor);
+                a.addEventListener("click",function(){
+                    editar(nombreTabla, this.getAttribute("valor"));
+                })
+                a2 = document.createElement("a");
+                a2.setAttribute("valor",valor);
+                a2.addEventListener("click",function(){
+                    eliminar(nombreTabla, this.getAttribute("valor"));
+                })
+                a2.setAttribute("href","#");
+                celda.appendChild(a); //editar
+                celda.appendChild(a2); //eliminar
+                if(nombreTabla=="examen")
+                {
+                    a3 = document.createElement("a");
+                    a3.setAttribute("valor",valor);
+                    a3.addEventListener("click",function(){
+                        desactivar(this.getAttribute("valor"), this.parentElement.parentElement.children[3].getAttribute("activo"));
+                    })
+                    celda.appendChild(a3);
+                    celda.style.width="110px";
+                }
+                else{
+                    celda.style.width="70px";
+                }
+                fila.appendChild(celda);
+            }
+            else{
+                valor = data[i].id;
+                celda = document.createElement("td");
+                a = document.createElement("a");
+                a.setAttribute("href","#");
+                a.setAttribute("valor",valor);
+                a.style.backgroundImage="none";
+                a.innerText = "Realizar"
+                a.addEventListener("click",function(){
+                    realizarExamen(this.getAttribute("valor"));
+                })
+                celda.appendChild(a); //realizar examen
+                fila.appendChild(celda);
+            }
             tbody.appendChild(fila);
+            if(nombreTabla=="examen"){
+                activo = tbody.children[i].children[3].innerText;
+                if(activo=="SI")
+                {
+                    tbody.children[i].children[3].setAttribute("activo",0);
+                }else{
+                    tbody.children[i].children[3].setAttribute("activo",1);
+                }
+            }
         }
     }
     function vaciarTabla()
@@ -161,5 +199,17 @@ function listado(pagina, filas, ruta, columnas, nombreTabla){
             fetch("../../php/ajax/ajaxBorrarId.php?tabla="+tabla+"&valor="+valor);
         }
         window.location.reload();
+    }
+
+    function desactivar(valor, activo)
+    {
+        fetch("../../php/ajax/ajaxDesactivarExamen.php?valor="+valor+"&activo="+activo);
+        window.location.reload();
+    }
+
+    function realizarExamen(valor)
+    {
+        fetch("../../php/ajax/ajaxRealizarExamen.php?valor="+valor);
+        window.location.href="../../js/paginas/realizaExamen.html";
     }
 }

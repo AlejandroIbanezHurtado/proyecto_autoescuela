@@ -519,6 +519,13 @@ class BD
             $inicio = ($pagina-1) * $filas;
             $res = self::$con->query("select * from examen limit $inicio, $filas");
             while ($registro = $res->fetch(PDO::FETCH_OBJ)) {
+                if($registro->activo==1)
+                {
+                    $registro->activo="SI";
+                }
+                else{
+                    $registro->activo="NO";
+                }
                 $examen = new examen($registro->id, $registro->descripcion, $registro->duracion, $registro->num_preguntas, $registro->activo);
                 $registros[] = $examen;
             }
@@ -541,6 +548,13 @@ class BD
         $num_preguntas = $examen->getNum_preguntas();
         $activo = $examen->getActivo();
         $string = "INSERT INTO examen (id, descripcion, duracion, num_preguntas, activo)  VALUES (NULL, '${descripcion}','${duracion}','${num_preguntas}','${activo}');";
+        $registros = self::$con->exec($string);
+        return self::$con->errorInfo();
+    }
+
+    public static function desactivaExamen($id, $valor)
+    {
+        $string = "UPDATE examen SET activo = '${valor}' WHERE id = '${id}';";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }

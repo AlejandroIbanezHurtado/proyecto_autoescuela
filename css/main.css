@@ -242,10 +242,19 @@ table tbody tr td a {
   cursor: pointer;
 }
 table tbody tr td a + a {
-  float: right;
+  float: left;
   width: 35px;
   height: 35px;
   background-image: url("../archivos/imagenesWeb/eliminar.png");
+  border: none;
+  cursor: pointer;
+}
+table tbody tr td a + a + a {
+  float: right;
+  width: 35px;
+  height: 35px;
+  background-image: url("../archivos/imagenesWeb/desactivar.png");
+  background-repeat: no-repeat;
   border: none;
   cursor: pointer;
 }
