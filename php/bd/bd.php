@@ -493,6 +493,54 @@ class BD
         return $vector;
     }
 
+    public static function selectExamenId2($clave):array
+    {
+        $vector = array();
+        $resultado = self::$con->query("SELECT * FROM examen where id = '${clave}'");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $examen = new examen($registro->id, $registro->descripcion, $registro->duracion, $registro->num_preguntas, $registro->activo);
+            $vector [] = $examen->getId();
+        }
+
+        return $vector;
+    }
+
+    // SELECT respuestas.id as id_respuesta, respuestas.enunciado as enunciado_respuesta, tematica.id as id_tematica, tematica.tema, preguntas.id as id_pregunta, preguntas.enunciado as enunciado_pregunta, preguntas.id_respuesta_correcta, preguntas.recurso, preguntas.id_tematica FROM respuestas INNER JOIN preguntas on respuestas.id_pregunta = preguntas.id inner join tematica on tematica.id = preguntas.id_tematica inner join examen_pregunta on examen_pregunta.id_pregunta = preguntas.id WHERE examen_pregunta.id_examen = '${clave}'
+    public static function selectExamenId($clave):array
+    {
+        $vector = [];
+        $resultado = self::$con->query("SELECT respuestas.id as id_respuesta, respuestas.enunciado as enunciado_respuesta, tematica.id as id_tematica, tematica.tema, preguntas.id as id_pregunta, preguntas.enunciado as enunciado_pregunta, preguntas.id_respuesta_correcta, preguntas.recurso, preguntas.id_tematica FROM respuestas INNER JOIN preguntas on respuestas.id_pregunta = preguntas.id inner join tematica on tematica.id = preguntas.id_tematica inner join examen_pregunta on examen_pregunta.id_pregunta = preguntas.id where examen_pregunta.id_examen = '${clave}'");
+        $rep = "";
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $idPreg = $registro->id_pregunta;
+            
+            if($idPreg!=$rep)
+            {
+                $resultado2 = self::$con->query("SELECT * FROM respuestas WHERE id_pregunta ='${idPreg}'");
+                $vectorResp = [];
+                while ($registro2 = $resultado2->fetch(PDO::FETCH_OBJ))
+                {
+                    $respuesta2 = new respuesta($registro2->id, utf8_encode($registro2->enunciado), $registro2->id_pregunta);
+                    $vectorResp[] = $respuesta2;
+                    // var_dump($registro2);
+                    // $vectorResp[] = $registro2->id;
+                }
+                $rep = $idPreg;
+                $enunPreg = utf8_encode($registro->enunciado_pregunta);
+                $enunResp = utf8_encode($registro->enunciado_respuesta);
+                $enunTema = utf8_encode($registro->tema);
+
+                $tematica = new tematica($registro->id_tematica, $enunTema);
+                $respuesta = new respuesta($registro->id_respuesta, $enunResp, $registro->id_pregunta);
+                $id_pregunta = new pregunta($registro->id_pregunta, $enunPreg, $respuesta, $registro->recurso, $tematica, $vectorResp);
+                $vector [$registro->id_pregunta] = $id_pregunta;
+            }
+            
+        }
+
+        return $vector;
+    }
+
     public static function selectExamenDescripcion($descripcion)
     {
         $vector = false;

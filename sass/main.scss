@@ -176,13 +176,6 @@ form.formAltaPreg{
     input{
         margin: 10px;
     }
-    // section{
-    //     height: 50px;
-    //     float: left;
-    //     label{
-    //         font-size: 80%;  
-    //     }
-    // }
     input#guardar{
         float: right;
     }
@@ -214,4 +207,35 @@ form.formAltaPreg{
 
 input[type="file"] {
     display: none;
+}
+
+section.preguntaPrincipal{
+    clear: both;
+    height: 500px;
+    margin: 20px;
+    p{
+        width: 40%;
+        float: right;
+        font-size: 130%;
+        margin-top: 30px;
+        margin-right: 80px;
+    }
+    img{
+        width: 350px;
+        height: 250px;
+    }
+    section{
+        height: 50px;
+        width: 40%;
+        margin-top: -150px;
+        margin-right: 80px;
+        float: right;
+        height: 100px;
+        font-size: 120%;
+    }
+    table{
+        margin-top: 150px;
+        width: min-content;
+        cursor: pointer;
+    }
 }
