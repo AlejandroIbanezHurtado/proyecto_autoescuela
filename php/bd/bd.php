@@ -685,6 +685,71 @@ class BD
         return $vector;
     }
 
+    public static function selectEjecucionExamenUsuario($id):array
+    {
+        $vector = array();
+        $resultado = self::$con->query("SELECT ejecucion FROM examen_usuario where id = '${id}'");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $vector [0] = $registro->ejecucion;
+        }
+
+        return $vector;
+    }
+
+    public static function selectExamenUsuarioId($clave):array
+    {
+        $vector = array();
+        $resultado = self::$con->query("SELECT examen.* FROM examen_usuario inner join examen on examen.id=examen_usuario.id_examen where examen_usuario.id = '${clave}'");
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
+            $examen = new examen($registro->id, $registro->descripcion, $registro->duracion, $registro->num_preguntas, $registro->activo);
+            $vector [] = $examen;
+        }
+
+        return $vector;
+    }
+
+    public static function obtenExamenesUsuariosPaginados(int $pagina, int $filas):array
+    {
+        $registros = array();
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $res = self::$con->query("select * from examen_usuario");
+        $registros =$res->fetchAll();
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $res = self::$con->query("select examen_usuario.*, usuarios.correo as correo_usuario, examen.descripcion as nombre_examen from examen_usuario inner join examen on examen.id=examen_usuario.id_examen inner join usuarios on usuarios.id=examen_usuario.id_usuario limit $inicio, $filas");
+            while ($registro = $res->fetch(PDO::FETCH_OBJ)) {
+                $examen = new examen_usuario($registro->id, $registro->nombre_examen, $registro->correo_usuario, $registro->fecha, $registro->calificacion, $registro->ejecucion);
+                $registros[] = $examen;
+            }
+        }
+        return $registros;
+    }
+
+    public static function obtenExamenesUsuariosPaginadosAlumno(int $pagina, int $filas, $cor):array
+    {
+        $registros = array();
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $res = self::$con->query("select * from examen_usuario");
+        $registros =$res->fetchAll();
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $res = self::$con->query("select examen_usuario.*, usuarios.correo as correo_usuario, examen.descripcion as nombre_examen from examen_usuario inner join examen on examen.id=examen_usuario.id_examen inner join usuarios on usuarios.id=examen_usuario.id_usuario where usuarios.correo = '${cor}' limit $inicio, $filas");
+            while ($registro = $res->fetch(PDO::FETCH_OBJ)) {
+                $examen = new examen_usuario($registro->id, $registro->nombre_examen, $registro->correo_usuario, $registro->fecha, $registro->calificacion, $registro->ejecucion);
+                $registros[] = $examen;
+            }
+        }
+        return $registros;
+    }
+
     public static function borrarExamenUsuarioId($examen_usuario)
     {
         $id = $examen_usuario->getId();
@@ -696,9 +761,12 @@ class BD
     public static function insertarExamenUsuario($examen_usuario)
     {
         $id_examen = $examen_usuario->getId_examen();
+        $id_examen = $id_examen->getId();
         $id_usuario = $examen_usuario->getId_usuario();
+        $id_usuario = $id_usuario->getId();
         $calificacion = $examen_usuario->getCalificacion();
         $ejecucion = $examen_usuario->getEjecucion();
+        $ejecucion = json_encode($ejecucion);
         $string = "INSERT INTO examen_usuario (id, id_examen, id_usuario, fecha, calificacion, ejecucion)  VALUES (NULL, '${id_examen}','${id_usuario}', NOW(),'${calificacion}','${ejecucion}');";
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();

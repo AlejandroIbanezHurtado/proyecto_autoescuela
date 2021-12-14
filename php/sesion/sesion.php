@@ -12,7 +12,7 @@ class Sesion{
 
     public static function miraSiExiste($indice)
     {
-        return $_SESSION[$indice]?$_SESSION[$indice]:"";
+        return isset($_SESSION[$indice])?$_SESSION[$indice]:"";
     }
 
     public static function terminaSesion()

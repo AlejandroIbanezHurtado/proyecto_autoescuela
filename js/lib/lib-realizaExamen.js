@@ -1,167 +1,292 @@
 window.addEventListener("load",function(){
     var body = document.getElementsByTagName("body")[0];
-    var foto1 = document.getElementsByClassName("fotoAutoescuela")[0];
-    var historico = document.body.querySelector("a[href='../../js/paginas/historico.html']");
-    var examenPred = document.body.querySelector("a[href='../../js/paginas/listado_examenes.html']");
-    var examenAle = document.body.querySelector("a[href='###']");
+    // var foto1 = document.getElementsByClassName("fotoAutoescuela")[0];
+    // var historico = document.body.querySelector("a[href='../../js/paginas/historico.html']");
+    // var examenPred = document.body.querySelector("a[href='../../js/paginas/listado_examenes.html']");
+    // var examenAle = document.body.querySelector("a[href='###']");
     var contador = document.getElementById("contador");
-    
-    fetch("../../php/ajax/ajaxSaberCorreoUsuario")
+    // var revisar = null;
+    fetch("../../php/ajax/ajaxSaberRevisarExamen")
         .then(response => response.json())
-        .then(data => {
-            correoUsuario = data;
-        });
+        .then(re => {
+            var revisar = re;
+            console.log(revisar);
 
-    fetch("../../php/ajax/ajaxSaberNombreExamen")
-        .then(response => response.json())
-        .then(data => {
-            nombreExamen = data;
-        });
-
-    fetch("../../php/ajax/ajaxSaberExamen")
-        .then(response => response.json())
-        .then(data => {
-            examenS = data[0];
-        });
-    fetch("../../php/ajax/ajaxSaberDuracionExamen")
-        .then(response => response.json())
-        .then(data => {
-            duracion = data;
-            minutos = parseInt(duracion.substr(3,2));
-            segundos = parseInt(duracion.substr(6,2));
-            duracion2 = (minutos*60)+segundos;
-            startTimer(duracion2, contador);
-        });
-    fetch("../../php/ajax/ajaxDameExamen")
-    .then(response => response.json())
-    .then(data => {
-        numPreg=0;
-        for(var i in data)
-        {
-            numPreg++;
-        }
-        e = data;
-        cont = 0;
-        for(var i in data)
-        {
-            cont ++;
-            //CAJA PRINCIPAL
-            sectionPrin = document.createElement("section");
-            sectionPrin.setAttribute("num",cont);
-            sectionPrin.classList.add("ocultar");
-            sectionPrin.classList.add("preguntaPrincipal");
-            // sectionPrin.style.backgroundColor = "red";//para ver donde esta section
-
-            //ENUNCIADO
-            enunciado = document.createElement("p");
-            enunciado.innerText = cont+" - "+data[i].enunciado;
-            sectionPrin.appendChild(enunciado);
-
-            //IMAGEN
-            imagen = document.createElement("img");
-            if(data[i].recurso!=null && data[i].recurso!="")
+            fetch("../../php/ajax/ajaxSaberCorreoUsuario")
+            .then(response => response.json())
+            .then(data => {
+                correoUsuario = data;
+            });
+        
+            fetch("../../php/ajax/ajaxSaberNombreExamen")
+            .then(response => response.json())
+            .then(data => {
+                nombreExamen = data;
+            });
+        
+            fetch("../../php/ajax/ajaxSaberExamen")
+            .then(response => response.json())
+            .then(data => {
+                examenS = data[0];
+            });
+            fetch("../../php/ajax/ajaxSaberDuracionExamen")
+            .then(response => response.json())
+            .then(data => {
+                duracion = data;
+                minutos = parseInt(duracion.substr(3,2));
+                segundos = parseInt(duracion.substr(6,2));
+                duracion2 = (minutos*60)+segundos;
+                startTimer(duracion2, contador);
+            });
+        
+            if(revisar!=null)
             {
-                imagen.src=data[i].recurso;
-            }
-            else{
-                imagen.src="../../archivos/imagenesWeb/imagen.png";
-            }
-            sectionPrin.appendChild(imagen);
-
-            //CONTENEDOR RESPUESTAS
-            contRes = document.createElement("section");
-            contRes.setAttribute("num",cont);
-            contRes.setAttribute("id_preg",data[i].id);
-            //RESPUESTAS
-            letras = ["a)","b)","c)","d)"];
-            for(j=0;j<data[i].vectorRespuestas.length;j++)
-            {
-                enunRes = document.createElement("span");
-                enunRes.innerText=letras[j]+" "+data[i].vectorRespuestas[j].enunciado;
-                radio = document.createElement("input");
-                radio.type="radio";
-                radio.name="res"+cont;
-                radio.setAttribute("id_res",data[i].vectorRespuestas[j].id);
-                contRes.appendChild(enunRes);
-                contRes.appendChild(radio);
-                br = document.createElement("br");
-                br2 = document.createElement("br");
-                contRes.appendChild(br);
-                contRes.appendChild(br2);
-            }
-            sectionPrin.appendChild(contRes);
-
-            //TABLA NAV
-            tabla = document.createElement("table");
-            tbody = document.createElement("tbody");
-            nfilas = Math.ceil(numPreg/10);
-            for(w=0;w<nfilas;w++)
-            {
-                fila = document.createElement("tr");
-                if(w==nfilas-1)
-                {
-                    if(numPreg<10)
+                // data = "e";
+                var h = null;
+                fetch("../../php/ajax/ajaxDameExamen?id="+revisar)
+                .then(response => response.json())
+                .then(data => {
+                    data = data[0];
+                    data = JSON.parse(data);
+        
+                    numPreg=0;
+                    for(var i in data)
                     {
-                        for(j=0;j<numPreg;j++)
+                        numPreg++;
+                    }
+                    e = data;
+                    cont = 0;
+                    for(var i in data)
+                    {
+                        cont ++;
+                        //CAJA PRINCIPAL
+                        sectionPrin = document.createElement("section");
+                        sectionPrin.setAttribute("num",cont);
+                        sectionPrin.classList.add("ocultar");
+                        sectionPrin.classList.add("preguntaPrincipal");
+                        // sectionPrin.style.backgroundColor = "red";//para ver donde esta section
+        
+                        //ENUNCIADO
+                        enunciado = document.createElement("p");
+                        enunciado.innerText = data[i].enunciado;
+                        sectionPrin.appendChild(enunciado);
+        
+                        //IMAGEN
+                        imagen = document.createElement("img");
+                        if(data[i].recurso!=null && data[i].recurso!="")
                         {
-                            creaCelda(j);
+                            imagen.src=data[i].recurso;
+                        }
+                        else{
+                            imagen.src="../../archivos/imagenesWeb/imagen.png";
+                        }
+                        sectionPrin.appendChild(imagen);
+
+                        //CONTENEDOR RESPUESTAS
+                        contRes = document.createElement("section");
+                        contRes.setAttribute("num",cont);
+                        contRes.setAttribute("id_preg",data[i].id);
+                        //RESPUESTAS
+                        letras = ["a)","b)","c)","d)"];
+                        for(j=0;j<data[i].vectorRespuestas.length;j++)
+                        {
+                            enunRes = document.createElement("span");
+                            enunRes.innerText=letras[j]+" "+data[i].vectorRespuestas[j].enunciado;
+                            radio = document.createElement("input");
+                            radio.type="radio";
+                            radio.name="res"+cont;
+                            radio.setAttribute("id_res",data[i].vectorRespuestas[j].id);
+                            contRes.appendChild(enunRes);
+                            contRes.appendChild(radio);
+                            br = document.createElement("br");
+                            br2 = document.createElement("br");
+                            contRes.appendChild(br);
+                            contRes.appendChild(br2);
+                        }
+                        sectionPrin.appendChild(contRes);
+        
+                        //TABLA NAV
+                        tabla = document.createElement("table");
+                        tbody = document.createElement("tbody");
+                        nfilas = Math.ceil(numPreg/10);
+                        for(w=0;w<nfilas;w++)
+                        {
+                            fila = document.createElement("tr");
+                            if(w==nfilas-1)
+                            {
+                                if(numPreg<10)
+                                {
+                                    for(j=0;j<numPreg;j++)
+                                    {
+                                        creaCelda(j);
+                                    }
+                                }
+                                else{
+                                    n = numPreg.toString().substr(1);
+                                    for(j=0;j<n;j++)
+                                    {
+                                        creaCelda(j);
+                                    }
+                                }
+                                
+                            }
+                            else{
+                                for(j=0;j<10;j++)
+                                {
+                                    creaCelda(j);
+                                }
+                            }
+                            
+                            tbody.appendChild(fila);
+                        }
+                        
+                        tabla.appendChild(tbody);
+                        sectionPrin.appendChild(tabla);
+        
+                        //BOTON TERMINAR
+                        boton = document.createElement("button");
+                        boton.addEventListener("click",function(){
+                            salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
+                        })
+                        boton.innerText="TERMINAR";
+                        boton.classList.add("botones");
+                        sectionPrin.appendChild(boton);
+                        body.appendChild(sectionPrin);
+                        if(data[i].id_respuesta_correcta!=null)
+                        {
+                            z = data[i].id_respuesta_correcta.id;
+                            console.log("section.preguntaPrincipal > section > input[id_res='"+z+"']");
+                            res = document.querySelectorAll("section.preguntaPrincipal > section > input[id_res='"+z+"']");
+                            res[0].checked=true;
                         }
                     }
-                    else{
-                        n = numPreg.toString().substr(1);
-                        for(j=0;j<n;j++)
-                        {
-                            creaCelda(j);
-                        }
-                    }
+                    preg = document.querySelectorAll("section.preguntaPrincipal");
+                    preg[0].classList.remove("ocultar");
+                });
+            }
+            else
+            {
+                fetch("../../php/ajax/ajaxDameExamen")
+                .then(response => response.json())
+                .then(data => {
                     
-                }
-                else{
-                    for(j=0;j<10;j++)
+                    numPreg=0;
+                    for(var i in data)
                     {
-                        creaCelda(j);
+                        numPreg++;
                     }
-                }
-                
-                tbody.appendChild(fila);
+                    e = data;
+                    cont = 0;
+                    for(var i in data)
+                    {
+                        cont ++;
+                        //CAJA PRINCIPAL
+                        sectionPrin = document.createElement("section");
+                        sectionPrin.setAttribute("num",cont);
+                        sectionPrin.classList.add("ocultar");
+                        sectionPrin.classList.add("preguntaPrincipal");
+                        // sectionPrin.style.backgroundColor = "red";//para ver donde esta section
+        
+                        //ENUNCIADO
+                        enunciado = document.createElement("p");
+                        enunciado.innerText = cont+" - "+data[i].enunciado;
+                        sectionPrin.appendChild(enunciado);
+        
+                        //IMAGEN
+                        imagen = document.createElement("img");
+                        if(data[i].recurso!=null && data[i].recurso!="")
+                        {
+                            imagen.src=data[i].recurso;
+                        }
+                        else{
+                            imagen.src="../../archivos/imagenesWeb/imagen.png";
+                        }
+                        sectionPrin.appendChild(imagen);
+        
+                        //CONTENEDOR RESPUESTAS
+                        contRes = document.createElement("section");
+                        contRes.setAttribute("num",cont);
+                        contRes.setAttribute("id_preg",data[i].id);
+                        //RESPUESTAS
+                        letras = ["a)","b)","c)","d)"];
+                        for(j=0;j<data[i].vectorRespuestas.length;j++)
+                        {
+                            enunRes = document.createElement("span");
+                            enunRes.innerText=letras[j]+" "+data[i].vectorRespuestas[j].enunciado;
+                            radio = document.createElement("input");
+                            radio.type="radio";
+                            radio.name="res"+cont;
+                            radio.setAttribute("id_res",data[i].vectorRespuestas[j].id);
+                            contRes.appendChild(enunRes);
+                            contRes.appendChild(radio);
+                            br = document.createElement("br");
+                            br2 = document.createElement("br");
+                            contRes.appendChild(br);
+                            contRes.appendChild(br2);
+                        }
+                        sectionPrin.appendChild(contRes);
+        
+                        //TABLA NAV
+                        tabla = document.createElement("table");
+                        tbody = document.createElement("tbody");
+                        nfilas = Math.ceil(numPreg/10);
+                        for(w=0;w<nfilas;w++)
+                        {
+                            fila = document.createElement("tr");
+                            if(w==nfilas-1)
+                            {
+                                if(numPreg<10)
+                                {
+                                    for(j=0;j<numPreg;j++)
+                                    {
+                                        creaCelda(j);
+                                    }
+                                }
+                                else{
+                                    n = numPreg.toString().substr(1);
+                                    for(j=0;j<n;j++)
+                                    {
+                                        creaCelda(j);
+                                    }
+                                }
+                                
+                            }
+                            else{
+                                for(j=0;j<10;j++)
+                                {
+                                    creaCelda(j);
+                                }
+                            }
+                            
+                            tbody.appendChild(fila);
+                        }
+                        
+                        tabla.appendChild(tbody);
+                        sectionPrin.appendChild(tabla);
+        
+                        //BOTON TERMINAR
+                        boton = document.createElement("button");
+                        boton.addEventListener("click",function(){
+                            salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
+                        })
+                        boton.innerText="TERMINAR";
+                        boton.classList.add("botones");
+                        sectionPrin.appendChild(boton);
+                        body.appendChild(sectionPrin);
+                    }
+                    preg = document.querySelectorAll("section.preguntaPrincipal");
+                    preg[0].classList.remove("ocultar");
+                });
+        
+                this.setInterval(function(){
+                    if(contador.innerText=="00:00")
+                    {
+                        salir(examenS, duracion, nombreExamen, numPreg, correoUsuario);
+                        window.location.href="../../js/paginas/listado_examenes.html";
+                    }
+                }, 1000)
             }
-            
-            tabla.appendChild(tbody);
-            sectionPrin.appendChild(tabla);
-
-            //BOTON TERMINAR
-            boton = document.createElement("button");
-            boton.addEventListener("click",function(){
-                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
-            })
-            foto1.addEventListener("click",function(){
-                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
-            })
-            historico.addEventListener("click",function(){
-                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
-            })
-            examenPred.addEventListener("click",function(){
-                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
-            })
-            examenAle.addEventListener("click",function(){
-                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
-            })
-            boton.innerText="TERMINAR";
-            boton.classList.add("botones");
-            sectionPrin.appendChild(boton);
-            body.appendChild(sectionPrin);
-        }
-        preg = document.querySelectorAll("section.preguntaPrincipal");
-        preg[0].classList.remove("ocultar");
-    });
-
-    this.setInterval(function(){
-        if(contador.innerText=="00:00")
-        {
-            salir(examenS, duracion, nombreExamen, numPreg, correoUsuario);
-            window.location.href="../../js/paginas/listado_examenes.html";
-        }
-    }, 1000)
+        });
 })
 function creaCelda(j)
 {
@@ -227,9 +352,9 @@ function salir(id_examen, duracion, nombreExamen, numPreg, usuario)
         examen1 = new examen(id_examen,nombreExamen,duracion,numPreg,1);
         
         preguntas = [];
-        respuestaCorrecta=null;
         for(i=0;i<preg.length;i++)
         {
+            respuestaCorrecta=null;
             respuestas = [];
             c=0;
             for(j=1;j<16;j=j+4)
@@ -249,9 +374,16 @@ function salir(id_examen, duracion, nombreExamen, numPreg, usuario)
             preguntas[i]=preguntaCopia;
         }
         console.log(preguntas);
-        examenUsuario = new examen_usuario("",examen1,usuario,"",calificacion,preguntas);
+        examenUsuario = new examen_usuario("",examen1,usuario,"",calificacion+"/"+numPreg,preguntas);
+        const examenU = new FormData();
+        examenUsuario = JSON.stringify(examenUsuario);
+        examenU.append("examenUsuario",examenUsuario);
+        fetch("../../php/ajax/ajaxInsertaExamenUsuario", { method: 'POST', body: examenU })
+        .then(function (response) {
+            return response.text();
+        })
+        window.location.href="../../js/paginas/historico.html";
     });
-    
 }
 
 function startTimer(duration, display) {

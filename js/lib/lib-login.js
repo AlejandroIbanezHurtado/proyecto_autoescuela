@@ -20,22 +20,44 @@ window.addEventListener("load",function(){
                     listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas","activo"],"examen");
                     break;
                 case "nada":
-                    listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas","activo"],"examen");
+                    window.location.href = "../../php/paginas/login.php";
                     break;
             }
         }
         else{
-            switch(data)
+
+            if(window.location.href=="http://localhost/autoescuela/js/paginas/historico.html")
             {
-                case "alumno":
-                    window.location.href = "../../php/paginas/login.php";
-                    break;
-                case "administrador":
-                    console.log("cargar administrador");
-                    break;
-                case "nada":
-                    window.location.href = "../../php/paginas/login.php";
-                    break;
+                switch(data)
+                {
+                    case "alumno":
+                        fetch("../../php/ajax/ajaxSaberCorreoUsuario.php")
+                        .then(response => response.json())
+                        .then(data => {
+                            listado(1,5,"../../php/ajax/ajaxExamenesUsuariosPag.php?alumno="+data+"&",["id_examen","fecha","calificacion"],"examen_usuario", "alumno");
+                        });
+                        break;
+                    case "administrador":
+                        listado(1,5,"../../php/ajax/ajaxExamenesUsuariosPag.php",["id_examen","fecha","id_usuario","calificacion"],"examen_usuario");
+                        break;
+                    case "nada":
+                        window.location.href = "../../php/paginas/login.php";
+                        break;
+                }
+            }
+            else{
+                switch(data)
+                {
+                    case "alumno":
+                        window.location.href = "../../php/paginas/login.php";
+                        break;
+                    case "administrador":
+                        console.log("cargar administrador");
+                        break;
+                    case "nada":
+                        window.location.href = "../../php/paginas/login.php";
+                        break;
+                }
             }
         }
         

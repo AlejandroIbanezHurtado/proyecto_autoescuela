@@ -1,7 +1,17 @@
 function listado(pagina, filas, ruta, columnas, nombreTabla, rol="administrador"){
     var tabla = document.getElementById("tabla");
+    var tabla2 = document.getElementById("tabla2");
     var lista = document.getElementById("listaTabla");
     var tbody = tabla.children[1];
+    if(rol=="alumno")
+    {
+        tabla2.classList.remove("ocultar");
+        tbody = tabla2.children[1];
+    }
+    else{
+        tabla.classList.remove("ocultar");
+        tbody = tabla.children[1];
+    }
     fetch("../../php/ajax/ajaxCuentaRegistros.php?tabla="+nombreTabla)
     .then(response => response.json())
     .then(data => {
@@ -80,7 +90,15 @@ function listado(pagina, filas, ruta, columnas, nombreTabla, rol="administrador"
         })
         lista.appendChild(delante);
     });
-    fetch(ruta+"?pagina="+pagina+"&filas="+filas)
+    let ruta2 = null;
+    if(ruta.substr(-3)=="php")
+    {
+        ruta2 = ruta+"?pagina="+pagina+"&filas="+filas;
+    }
+    else{
+        ruta2 = ruta+"pagina="+pagina+"&filas="+filas;
+    }
+    fetch(ruta2)
     .then(response => response.json())
     .then(data => {
         cargaTabla(data, pagina);
@@ -145,10 +163,20 @@ function listado(pagina, filas, ruta, columnas, nombreTabla, rol="administrador"
                 a.setAttribute("href","#");
                 a.setAttribute("valor",valor);
                 a.style.backgroundImage="none";
-                a.innerText = "Realizar"
-                a.addEventListener("click",function(){
-                    realizarExamen(this.getAttribute("valor"));
-                })
+                if(ruta!="../../php/ajax/ajaxExamenesPag.php")
+                {
+                    a.innerText = "Revisar";
+                    a.addEventListener("click",function(){
+                        revisarExamen(this.getAttribute("valor"));
+                    })
+                }
+                else{
+                    a.innerText = "Realizar";
+                    a.addEventListener("click",function(){
+                        realizarExamen(this.getAttribute("valor"));
+                    })
+                }
+                
                 celda.appendChild(a); //realizar examen
                 fila.appendChild(celda);
             }
@@ -210,6 +238,12 @@ function listado(pagina, filas, ruta, columnas, nombreTabla, rol="administrador"
     function realizarExamen(valor)
     {
         fetch("../../php/ajax/ajaxRealizarExamen.php?valor="+valor);
+        window.location.href="../../js/paginas/realizaExamen.html";
+    }
+
+    function revisarExamen(valor)
+    {
+        fetch("../../php/ajax/ajaxRealizarExamen.php?valor="+valor+"&revisar=1");
         window.location.href="../../js/paginas/realizaExamen.html";
     }
 }

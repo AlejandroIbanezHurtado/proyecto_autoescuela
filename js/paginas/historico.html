@@ -11,6 +11,7 @@
     <script src="../lib/lib-loginHistorico.js"></script>
     <script src="../lib/lib-botonLogin.js"></script>
     <script src="../lib/lib-listadoGeneral.js"></script>
+    <script src="../lib/lib-login.js"></script>
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
 </head>
 <body>
@@ -64,10 +65,21 @@
     </nav>
     <h3>Histórico de examenes</h3>
     <!-- TABLA DE PRUEBA, MOSTRAR TABLA DE HISTORICO DE EXAMENES REALIZADOS POR USUARIOS -->
-    <table id="tabla">
+    <table id="tabla" class="ocultar">
         <thead>
+            <th>Examen</th>
             <th>Fecha/Hora</th>
             <th>Alumno/a</th>
+            <th>Puntuación</th>
+            <th>Opciones</th>
+            <!-- La única opcion que hay es revisar -->
+        </thead>
+        <tbody></tbody>
+    </table>
+    <table id="tabla2" class="ocultar">
+        <thead>
+            <th>Examen</th>
+            <th>Fecha/Hora</th>
             <th>Puntuación</th>
             <th>Opciones</th>
             <!-- La única opcion que hay es revisar -->
