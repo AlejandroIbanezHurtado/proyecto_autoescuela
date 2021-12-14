@@ -274,7 +274,7 @@ footer article a {
   background-color: #5F9EA0;
   color: white;
   border-radius: 20px;
-  font-size: 130%;
+  font-size: 100%;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -308,7 +308,7 @@ div.seleccionado {
   background-color: #5F9EA0;
   color: white;
   border-radius: 20px;
-  font-size: 130%;
+  font-size: 100%;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
