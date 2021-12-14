@@ -1,4 +1,4 @@
-table 
+table //tabla para los listados
 {
   float: none;
   margin: auto;
@@ -17,14 +17,14 @@ table
   tbody{
     tr{
       td{
-        a{
+        a{//opcion de editar
           float: left;
           width: 35px;
           height: 35px;
           background-image:url("../archivos/imagenesWeb/editar.png");
           border: none;
           cursor: pointer;
-          +a{
+          +a{//opciond de borrar
             float: left;
             width: 35px;
             height: 35px;
@@ -32,7 +32,7 @@ table
             border: none;
             cursor: pointer;
 
-            +a{
+            +a{//opcion de desactivar
               float: right;
               width: 35px;
               height: 35px;

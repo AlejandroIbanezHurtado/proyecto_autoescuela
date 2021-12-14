@@ -8,6 +8,7 @@ window.addEventListener("load",function(){
     var alta_tematica = document.body.querySelector("a[href='../../php/paginas/alta_tematica.php']");
     var alta_pregunta = document.body.querySelector("a[href='../../php/paginas/alta_pregunta.php']");
     var alta_examen = document.body.querySelector("a[href='../../js/paginas/alta_examen.php']");
+    var footer = document.createElement("footer");
 
     try{
         alta_usuario.addEventListener("click",function(){
@@ -55,4 +56,24 @@ window.addEventListener("load",function(){
         });
         window.location.href = "../../php/paginas/login.php";
     })
+
+    mapa = document.createElement("article");
+    a = document.createElement("a");
+    a.innerText = "Mapa de navegación";
+    a.href = "../../Mapa_navegacion.pdf";
+    mapa.appendChild(a);
+    guia = document.createElement("article");
+    a = document.createElement("a");
+    a.innerText = "Guía de estilos";
+    a.href = "../../guiaEstilos.pdf";
+    guia.appendChild(a);
+    dgt = document.createElement("article");
+    a = document.createElement("a");
+    a.innerText = "DGT";
+    a.href = "https://www.dgt.es/inicio/";
+    dgt.appendChild(a);
+    footer.appendChild(mapa);
+    footer.appendChild(guia);
+    footer.appendChild(dgt);
+    document.getElementsByTagName("body")[0].appendChild(footer);
 })

@@ -6,91 +6,24 @@
 @import "layout/_caja.scss";
 @import "components/_botones.scss";
 @import "layout/_tabla.scss";
- body{
-    font-family: sans-serif;
-    padding: 0;
-    margin: 0;
-}
+@import "base/_reset.scss";
+@import "base/_tipografias.scss";
+@import "layout/_section.scss";
+@import "components/_img.scss";
+@import "layout/_parrafo.scss";
 
+ body, button, input{
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+}
+input:invalid { //para los campos del formulario inválidos
+    background-color: rgb(255, 148, 148);
+  }
 .errorInput{
     float: right;
     font-size: $size-texto-errorInput;
 }
-
-div.seleccionado {
-    background-color: $colorDivSeleccionado;
-}
-
-
-section#pregDis{
-    float: left;
-    padding: 0;
-    height: 400px;
-    width: 30%;
-    margin-left: 10%;
-    margin-top: 20px;
-    input{
-        float: right;
-    }
-
-    +section#pregSel{
-        padding: 0;
-        height: 400px;
-        width: 30%;
-        margin-left: 10%;
-        margin-top: 20px;
-        margin-right: 10%;
-        float: right;
-        input{
-            float: left;
-        }
-    }
-}
-
-section + #form1{
-    clear: both;
-    margin-right: 10%;
-    margin-top: 50px;
-    float: right;
-    input{ //boton
-        background-color: $colorBoton;
-        color: $color-texto-boton;
-        border-radius: 20px;
-        font-size: 120%;
-        height: max-content;
-    }
-}
-
-nav + h3{
-    font-size: 200%;
-    margin-top: 50px;
-    margin-left: 50px;
-
-    +input{
-        margin-left: 20%;
-        float: left;
-        width: 20%;
-        +input{
-            margin-right: 40%;
-            float: right;
-            +br{
-                +input{
-                    margin-left: 34.5%;
-                    float: left;
-                    margin-top: 50px;
-                    +input{
-                        margin-top: 50px;
-                        margin-right: 20%;
-                        float: right;
-                    }
-                }
-            }
-            
-        }
-    }
-}
-
-@keyframes iluminar {
+@keyframes iluminar {//de un color a otro
     from {
         background-color: $color-fondo-nav;
         color: $color-texto-nav;
@@ -100,142 +33,9 @@ nav + h3{
         color: $color-texto-nav-hover;
     }
 }
-
-img.fotoAutoescuela{
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-img.fotoUsuario{
-    float: right;
-    margin-top: 15px;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    + aside{
-        width: 10%;
-        height: 80px;
-        background-color: lightgray;
-        border-radius: 5px;
-        position: relative;
-        clear: both;
-        z-index: 10;
-        float: right;
-        margin-right: 1.5%;
-        text-align: center;
-        padding-top: 30px;
-        a{
-            text-decoration: none;
-            color: white;
-            text-shadow: black 2px 2px 2px;
-        }
-    }
-    &:hover{
-        cursor: pointer;
-    }
-}
-
-.ocultar{
+.ocultar{//esta clase sirve para ocultar cualquier elemento
     display: none;
 }
-
-p.errorCambioPassword{
-    font-size: 200%;
-    @include floatMargin();
-    margin-top: 20px;
-    text-align: center;
-    border: solid 3px black;
-    width: 70%;
-}
-  
-p.errorCambioPassword + section{
-    font-size: 200%;
-    @include floatMargin();
-    margin-top: 100px;
-    text-align: center;
-    width: 70%;
-}
-
-img.caution{
-    width: 200px;
-    height: 200px;
-    display:block;
-    margin:auto;
-}
-
-form.formAltaPreg{
-    font-size: 150%;
-    width: 40%;
-    text-align: left;
-    @include floatMargin();
-    #tematica, #enunciado{
-        width: 50%;
-        margin-bottom: 30px;
-    }
-    input{
-        margin: 10px;
-    }
-    input#guardar{
-        float: right;
-    }
-    input#guardar{
-        margin-top: 50px;
-        clear: both;
-        background-color: $colorBoton;
-        color: $color-texto-boton;
-        border-radius: 20px;
-        font-size: 70%;
-        height: max-content;
-    
-        &:hover{
-            cursor: pointer;
-        }
-    }
-}
-
-.imagenAlta{
-    float: right;
-    width: 150px;
-    height: 150px;
-    @include imagenFondo("../archivos/imagenesWeb/add-image.png", no-repeat, 150px);
-    @include pointer();
-    input[type="submit"] {
-        margin-top: 200px;
-    }
-}
-
 input[type="file"] {
     display: none;
-}
-
-section.preguntaPrincipal{
-    clear: both;
-    height: 500px;
-    margin: 20px;
-    p{
-        width: 40%;
-        float: right;
-        font-size: 130%;
-        margin-top: 30px;
-        margin-right: 80px;
-    }
-    img{
-        width: 350px;
-        height: 250px;
-    }
-    section{
-        height: 50px;
-        width: 40%;
-        margin-top: -150px;
-        margin-right: 80px;
-        float: right;
-        height: 100px;
-        font-size: 120%;
-    }
-    table{
-        margin-top: 150px;
-        width: min-content;
-        cursor: pointer;
-    }
 }

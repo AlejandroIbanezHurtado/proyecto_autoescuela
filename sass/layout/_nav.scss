@@ -1,4 +1,5 @@
-nav {
+nav {//nav que se repite en todas las paginas
+    font-family: 'Fjalla One', sans-serif;
     position: absolute;
     width: 100%;
     font-family: Arial, Helvetica, sans-serif;
@@ -57,7 +58,7 @@ nav {
     }
 }
 
-nav#navTabla{
+nav#navTabla{//este es el nav que hay debajo de los listados para navegar entre las paginadas
     text-align: center;
     padding: 20px;
     height: min-content;
@@ -78,6 +79,34 @@ nav#navTabla{
             &:hover{
                 cursor: pointer;
             }
+        }
+    }
+}
+nav + h3{
+    font-size: 200%;
+    margin-top: 50px;
+    margin-left: 50px;
+
+    +input{
+        margin-left: 20%;
+        float: left;
+        width: 20%;
+        +input{
+            margin-right: 40%;
+            float: right;
+            +br{
+                +input{
+                    margin-left: 34.5%;
+                    float: left;
+                    margin-top: 50px;
+                    +input{
+                        margin-top: 50px;
+                        margin-right: 20%;
+                        float: right;
+                    }
+                }
+            }
+            
         }
     }
 }

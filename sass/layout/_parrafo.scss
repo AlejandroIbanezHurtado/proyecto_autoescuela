@@ -1,0 +1,8 @@
+p.errorCambioPassword{//este párrafo se muestra cuando el cambio de contraseña no se ha podido realizar(ventana error password)
+    font-size: 200%;
+    @include floatMargin();
+    margin-top: 20px;
+    text-align: center;
+    border: solid 3px black;
+    width: 70%;
+}

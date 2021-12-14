@@ -1,4 +1,4 @@
-.formAltaUsuario{
+.formAltaUsuario{//form para crear usuario
     font-size: 150%;
     @include floatMargin();
     margin-top: 50px;
@@ -8,5 +8,49 @@
     input{
         margin-bottom: 30px;
         height: 25px;
+    }
+}
+
+section + #form1{
+    clear: both;
+    margin-right: 10%;
+    margin-top: 50px;
+    float: right;
+    input{ //boton
+        background-color: $colorBoton;
+        color: $color-texto-boton;
+        border-radius: 20px;
+        font-size: 120%;
+        height: max-content;
+    }
+}
+
+form.formAltaPreg{//form de crear pregunta
+    font-size: 150%;
+    width: 40%;
+    text-align: left;
+    @include floatMargin();
+    #tematica, #enunciado{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+    input{
+        margin: 10px;
+    }
+    input#guardar{
+        float: right;
+    }
+    input#guardar{
+        margin-top: 50px;
+        clear: both;
+        background-color: $colorBoton;
+        color: $color-texto-boton;
+        border-radius: 20px;
+        font-size: 70%;
+        height: max-content;
+    
+        &:hover{
+            cursor: pointer;
+        }
     }
 }

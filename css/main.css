@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Source+Sans+3:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap");
 nav {
+  font-family: "Fjalla One", sans-serif;
   position: absolute;
   width: 100%;
   font-family: Arial, Helvetica, sans-serif;
@@ -103,6 +106,31 @@ nav#navTabla ul li:hover {
   cursor: pointer;
 }
 
+nav + h3 {
+  font-size: 200%;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+nav + h3 + input {
+  margin-left: 20%;
+  float: left;
+  width: 20%;
+}
+nav + h3 + input + input {
+  margin-right: 40%;
+  float: right;
+}
+nav + h3 + input + input + br + input {
+  margin-left: 34.5%;
+  float: left;
+  margin-top: 50px;
+}
+nav + h3 + input + input + br + input + input {
+  margin-top: 50px;
+  margin-right: 20%;
+  float: right;
+}
+
 .formAltaUsuario {
   font-size: 150%;
   float: none;
@@ -116,6 +144,54 @@ nav#navTabla ul li:hover {
   height: 25px;
 }
 
+section + #form1 {
+  clear: both;
+  margin-right: 10%;
+  margin-top: 50px;
+  float: right;
+}
+section + #form1 input {
+  background-color: #5F9EA0;
+  color: white;
+  border-radius: 20px;
+  font-size: 120%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+form.formAltaPreg {
+  font-size: 150%;
+  width: 40%;
+  text-align: left;
+  float: none;
+  margin: auto;
+}
+form.formAltaPreg #tematica, form.formAltaPreg #enunciado {
+  width: 50%;
+  margin-bottom: 30px;
+}
+form.formAltaPreg input {
+  margin: 10px;
+}
+form.formAltaPreg input#guardar {
+  float: right;
+}
+form.formAltaPreg input#guardar {
+  margin-top: 50px;
+  clear: both;
+  background-color: #5F9EA0;
+  color: white;
+  border-radius: 20px;
+  font-size: 70%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+form.formAltaPreg input#guardar:hover {
+  cursor: pointer;
+}
+
 footer {
   color: #eee;
   background-color: #666;
@@ -123,9 +199,22 @@ footer {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   position: absolute;
+  top: 1000px;
   width: 100%;
+  height: 60px;
   bottom: 0px;
   padding: 5px;
+  line-height: 60px;
+  clear: both;
+}
+footer article {
+  margin-right: 20%;
+  margin-left: 5%;
+  display: inline-flex;
+}
+footer article a {
+  text-decoration: none;
+  color: white;
 }
 
 .cajaExamen-pregunta {
@@ -185,7 +274,7 @@ footer {
   background-color: #5F9EA0;
   color: white;
   border-radius: 20px;
-  font-size: 70%;
+  font-size: 130%;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -205,11 +294,21 @@ footer {
   font-size: 80%;
 }
 
+div.seleccionado {
+  background-color: #8ac1fc;
+}
+
+#contador {
+  float: right;
+  margin-right: 10%;
+  font-size: 150%;
+}
+
 .botones {
   background-color: #5F9EA0;
   color: white;
   border-radius: 20px;
-  font-size: 70%;
+  font-size: 130%;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -259,19 +358,12 @@ table tbody tr td a + a + a {
   cursor: pointer;
 }
 
-body {
-  font-family: sans-serif;
-  padding: 0;
+* {
   margin: 0;
-}
-
-.errorInput {
-  float: right;
-  font-size: 40%;
-}
-
-div.seleccionado {
-  background-color: #8ac1fc;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  outline: none;
 }
 
 section#pregDis {
@@ -298,68 +390,48 @@ section#pregDis + section#pregSel input {
   float: left;
 }
 
-section + #form1 {
+section.preguntaPrincipal {
   clear: both;
-  margin-right: 10%;
-  margin-top: 50px;
-  float: right;
+  height: 500px;
+  margin: 20px;
 }
-section + #form1 input {
-  background-color: #5F9EA0;
-  color: white;
-  border-radius: 20px;
+section.preguntaPrincipal p {
+  width: 40%;
+  float: right;
+  font-size: 130%;
+  margin-top: 30px;
+  margin-right: 80px;
+}
+section.preguntaPrincipal img {
+  width: 350px;
+  height: 250px;
+}
+section.preguntaPrincipal section {
+  height: 50px;
+  width: 40%;
+  margin-top: -150px;
+  margin-right: 80px;
+  float: right;
+  height: 100px;
   font-size: 120%;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
+}
+section.preguntaPrincipal table {
+  margin-top: 150px;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  cursor: pointer;
 }
 
-nav + h3 {
+p.errorCambioPassword + section {
   font-size: 200%;
-  margin-top: 50px;
-  margin-left: 50px;
-}
-nav + h3 + input {
-  margin-left: 20%;
-  float: left;
-  width: 20%;
-}
-nav + h3 + input + input {
-  margin-right: 40%;
-  float: right;
-}
-nav + h3 + input + input + br + input {
-  margin-left: 34.5%;
-  float: left;
-  margin-top: 50px;
-}
-nav + h3 + input + input + br + input + input {
-  margin-top: 50px;
-  margin-right: 20%;
-  float: right;
+  float: none;
+  margin: auto;
+  margin-top: 100px;
+  text-align: center;
+  width: 70%;
 }
 
-@-webkit-keyframes iluminar {
-  from {
-    background-color: #666;
-    color: #eee;
-  }
-  to {
-    background-color: #888;
-    color: #fff;
-  }
-}
-
-@keyframes iluminar {
-  from {
-    background-color: #666;
-    color: #eee;
-  }
-  to {
-    background-color: #888;
-    color: #fff;
-  }
-}
 img.fotoAutoescuela {
   margin-top: 10px;
   margin-left: 10px;
@@ -395,66 +467,11 @@ img.fotoUsuario:hover {
   cursor: pointer;
 }
 
-.ocultar {
-  display: none;
-}
-
-p.errorCambioPassword {
-  font-size: 200%;
-  float: none;
-  margin: auto;
-  margin-top: 20px;
-  text-align: center;
-  border: solid 3px black;
-  width: 70%;
-}
-
-p.errorCambioPassword + section {
-  font-size: 200%;
-  float: none;
-  margin: auto;
-  margin-top: 100px;
-  text-align: center;
-  width: 70%;
-}
-
 img.caution {
   width: 200px;
   height: 200px;
   display: block;
   margin: auto;
-}
-
-form.formAltaPreg {
-  font-size: 150%;
-  width: 40%;
-  text-align: left;
-  float: none;
-  margin: auto;
-}
-form.formAltaPreg #tematica, form.formAltaPreg #enunciado {
-  width: 50%;
-  margin-bottom: 30px;
-}
-form.formAltaPreg input {
-  margin: 10px;
-}
-form.formAltaPreg input#guardar {
-  float: right;
-}
-form.formAltaPreg input#guardar {
-  margin-top: 50px;
-  clear: both;
-  background-color: #5F9EA0;
-  color: white;
-  border-radius: 20px;
-  font-size: 70%;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-}
-form.formAltaPreg input#guardar:hover {
-  cursor: pointer;
 }
 
 .imagenAlta {
@@ -472,39 +489,55 @@ form.formAltaPreg input#guardar:hover {
   margin-top: 200px;
 }
 
-input[type=file] {
+p.errorCambioPassword {
+  font-size: 200%;
+  float: none;
+  margin: auto;
+  margin-top: 20px;
+  text-align: center;
+  border: solid 3px black;
+  width: 70%;
+}
+
+body, button, input {
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+}
+
+input:invalid {
+  background-color: #ff9494;
+}
+
+.errorInput {
+  float: right;
+  font-size: 40%;
+}
+
+@-webkit-keyframes iluminar {
+  from {
+    background-color: #666;
+    color: #eee;
+  }
+  to {
+    background-color: #888;
+    color: #fff;
+  }
+}
+
+@keyframes iluminar {
+  from {
+    background-color: #666;
+    color: #eee;
+  }
+  to {
+    background-color: #888;
+    color: #fff;
+  }
+}
+.ocultar {
   display: none;
 }
 
-section.preguntaPrincipal {
-  clear: both;
-  height: 500px;
-  margin: 20px;
-}
-section.preguntaPrincipal p {
-  width: 40%;
-  float: right;
-  font-size: 130%;
-  margin-top: 30px;
-  margin-right: 80px;
-}
-section.preguntaPrincipal img {
-  width: 350px;
-  height: 250px;
-}
-section.preguntaPrincipal section {
-  height: 50px;
-  width: 40%;
-  margin-top: -150px;
-  margin-right: 80px;
-  float: right;
-  height: 100px;
-  font-size: 120%;
-}
-section.preguntaPrincipal table {
-  margin-top: 150px;
-  width: -webkit-min-content;
-  width: -moz-min-content;
-  width: min-content;
-  cursor: pointer;
+input[type=file] {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

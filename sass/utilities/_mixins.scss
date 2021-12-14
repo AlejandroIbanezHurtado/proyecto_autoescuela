@@ -6,7 +6,7 @@
 
 @mixin estableceColorHover
 {
-    &:hover{
+    &:hover{//ratón encima
         color: $color-texto-nav-hover;
         background-color: $color-fondo-nav-hover;
     }
@@ -54,7 +54,7 @@
     background-color: $colorBoton;
     color: white;
     border-radius: 20px;
-    font-size: 70%;
+    font-size: 130%;
     height: max-content;
     @include pointer();
 }
@@ -72,7 +72,7 @@
     margin: $margin;
 }
 
-@mixin imagenFondo($url, $repeat: no-repeat, $size: 150px)
+@mixin imagenFondo($url, $repeat: no-repeat, $size: 150px)//por defecto no se repite y tiene 150px
 {
     background-image: url($url);
     background-repeat: $repeat;

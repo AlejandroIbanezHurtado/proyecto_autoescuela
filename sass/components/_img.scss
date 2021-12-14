@@ -1,0 +1,52 @@
+img.fotoAutoescuela{//imagen que se repite en toda la aplicacion
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+img.fotoUsuario{//imagen del usuario que esta login
+    float: right;
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    + aside{//esta caja queda oculta/visible cuando se hace click, está justo debajo de la imagen del usuario, contiene Editar perfil y cerar sesion
+        width: 10%;
+        height: 80px;
+        background-color: lightgray;
+        border-radius: 5px;
+        position: relative;
+        clear: both;
+        z-index: 10;
+        float: right;
+        margin-right: 1.5%;
+        text-align: center;
+        padding-top: 30px;
+        a{
+            text-decoration: none;
+            color: white;
+            text-shadow: black 2px 2px 2px;
+        }
+    }
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+img.caution{//imagen de error para cambio de contraseña o creacion de usuario
+    width: 200px;
+    height: 200px;
+    display:block;
+    margin:auto;
+}
+
+.imagenAlta{//no es un elemento img, son las propiedades que se les da al elemento que está por encima del input type=file
+    float: right;
+    width: 150px;
+    height: 150px;
+    @include imagenFondo("../archivos/imagenesWeb/add-image.png", no-repeat, 150px);
+    @include pointer();
+    input[type="submit"] {
+        margin-top: 200px;
+    }
+}

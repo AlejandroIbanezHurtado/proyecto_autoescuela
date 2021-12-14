@@ -1,0 +1,63 @@
+section#pregDis{//caja que contiene divs que son las preguntas disponibles
+    float: left;
+    padding: 0;
+    height: 400px;
+    width: 30%;
+    margin-left: 10%;
+    margin-top: 20px;
+    input{
+        float: right;
+    }
+
+    +section#pregSel{//siguiente section son las preguntas arrastradas de las disponibles
+        padding: 0;
+        height: 400px;
+        width: 30%;
+        margin-left: 10%;
+        margin-top: 20px;
+        margin-right: 10%;
+        float: right;
+        input{
+            float: left;
+        }
+    }
+}
+
+section.preguntaPrincipal{//esta cja contiene toda una pregunta en la ventana realiza examen
+    clear: both;
+    height: 500px;
+    margin: 20px;
+    p{//enunciado de la pregunta
+        width: 40%;
+        float: right;
+        font-size: 130%;
+        margin-top: 30px;
+        margin-right: 80px;
+    }
+    img{//foto de la pregunta
+        width: 350px;
+        height: 250px;
+    }
+    section{//contenedor de las respuestas de la pregunta
+        height: 50px;
+        width: 40%;
+        margin-top: -150px;
+        margin-right: 80px;
+        float: right;
+        height: 100px;
+        font-size: 120%;
+    }
+    table{//tabla navegadora para las preguntas
+        margin-top: 150px;
+        width: min-content;
+        cursor: pointer;
+    }
+}
+
+p.errorCambioPassword + section{//seccion debajo de errorCambioPassword
+    font-size: 200%;
+    @include floatMargin();
+    margin-top: 100px;
+    text-align: center;
+    width: 70%;
+}

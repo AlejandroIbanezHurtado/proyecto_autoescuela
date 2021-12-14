@@ -1,25 +1,25 @@
-.cajaExamen-pregunta{
+.cajaExamen-pregunta{//caja padre de dos cajas para crear el examen
     font-size: 100%;
     width: 99.5%;
     height: 350px;
     border: solid 2px black;
     margin-top: 30px;
     overflow-y: scroll;
-    div{
+    div{//caja hijo que contiene preguntas
         padding: 10px;
         border: 1px solid black;
     }
 
-    div.tematica{
+    div.tematica{//este div contiene el nombre de la temática
         background-color: $colorFondoTematica;
     }
 }
 
-.cajaLogin{
+.cajaLogin{//caja para el login
     font-size: $size-texto-cajaLogin;
     height: $altoCajaLogin;
     width: $anchoCajaLogin;
-    @include floatMargin();
+    @include floatMargin();//float none, margin auto
     margin-top: -50px;
     overflow: visible;
     padding-top: 100px;
@@ -71,4 +71,12 @@
     label.recuerdame{
         font-size: 80%;
     }
+}
+div.seleccionado {//para la pregunta seleccionada
+    background-color: $colorDivSeleccionado;
+}
+#contador{//cuenta atras examen
+    float: right;
+    margin-right: 10%;
+    font-size: 150%;
 }

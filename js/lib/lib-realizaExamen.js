@@ -1,9 +1,36 @@
 window.addEventListener("load",function(){
     var body = document.getElementsByTagName("body")[0];
+    var foto1 = document.getElementsByClassName("fotoAutoescuela")[0];
+    var historico = document.body.querySelector("a[href='../../js/paginas/historico.html']");
+    var examenPred = document.body.querySelector("a[href='../../js/paginas/listado_examenes.html']");
+    var examenAle = document.body.querySelector("a[href='###']");
+    var contador = document.getElementById("contador");
+    
+    fetch("../../php/ajax/ajaxSaberCorreoUsuario")
+        .then(response => response.json())
+        .then(data => {
+            correoUsuario = data;
+        });
+
+    fetch("../../php/ajax/ajaxSaberNombreExamen")
+        .then(response => response.json())
+        .then(data => {
+            nombreExamen = data;
+        });
+
     fetch("../../php/ajax/ajaxSaberExamen")
         .then(response => response.json())
         .then(data => {
-            examen = data[0];
+            examenS = data[0];
+        });
+    fetch("../../php/ajax/ajaxSaberDuracionExamen")
+        .then(response => response.json())
+        .then(data => {
+            duracion = data;
+            minutos = parseInt(duracion.substr(3,2));
+            segundos = parseInt(duracion.substr(6,2));
+            duracion2 = (minutos*60)+segundos;
+            startTimer(duracion2, contador);
         });
     fetch("../../php/ajax/ajaxDameExamen")
     .then(response => response.json())
@@ -105,7 +132,19 @@ window.addEventListener("load",function(){
             //BOTON TERMINAR
             boton = document.createElement("button");
             boton.addEventListener("click",function(){
-                salir();
+                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
+            })
+            foto1.addEventListener("click",function(){
+                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
+            })
+            historico.addEventListener("click",function(){
+                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
+            })
+            examenPred.addEventListener("click",function(){
+                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
+            })
+            examenAle.addEventListener("click",function(){
+                salir(examenS, contador.innerText, nombreExamen, numPreg, correoUsuario);
             })
             boton.innerText="TERMINAR";
             boton.classList.add("botones");
@@ -115,6 +154,14 @@ window.addEventListener("load",function(){
         preg = document.querySelectorAll("section.preguntaPrincipal");
         preg[0].classList.remove("ocultar");
     });
+
+    this.setInterval(function(){
+        if(contador.innerText=="00:00")
+        {
+            salir(examenS, duracion, nombreExamen, numPreg, correoUsuario);
+            window.location.href="../../js/paginas/listado_examenes.html";
+        }
+    }, 1000)
 })
 function creaCelda(j)
 {
@@ -132,7 +179,7 @@ function creaCelda(j)
     fila.appendChild(celda);
 }
 
-function salir(id_examen)
+function salir(id_examen, duracion, nombreExamen, numPreg, usuario)
 {
     preg = document.querySelectorAll("section.preguntaPrincipal > section");
     marcadas = [];
@@ -159,20 +206,67 @@ function salir(id_examen)
                         break;
                 }
                 //primero ver calificacion
-                pregunta = new pregunta2(preg[i].getAttribute("id_preg"),preg[i].children[j].getAttribute("id_res"));
-                marcadas[i]=pregunta;
+                pregunta1 = new pregunta2(preg[i].getAttribute("id_preg"),preg[i].children[j].getAttribute("id_res"));
+                marcadas[i]=pregunta1;
             }
         }
     }
     marcadas=marcadas.filter(function (el) {
         return el != null;
       });
-    console.log(marcadas);
-    fetch("../../php/ajax/ajaxSaberCalificacionExamen?examen="+id_examen)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
+
+    const data = new FormData();
+    marcadas=JSON.stringify(marcadas);
+    data.append("res",marcadas);
+    fetch("../../php/ajax/ajaxSaberCalificacionExamen?examen="+id_examen, { method: 'POST', body: data })
+    .then(function (response) {
+        return response.text();
+    })
+    .then(function (body) {
+        calificacion = body;
+        examen1 = new examen(id_examen,nombreExamen,duracion,numPreg,1);
+        
+        preguntas = [];
+        respuestaCorrecta=null;
+        for(i=0;i<preg.length;i++)
+        {
+            respuestas = [];
+            c=0;
+            for(j=1;j<16;j=j+4)
+            {
+                c++;
+                respuestaCopia = new respuesta(preg[i].children[j].getAttribute("id_res"),preg[i].children[j-1].innerText.substr(3));
+                if(preg[i].children[j].checked)
+                {
+                    respuestaCorrecta = respuestaCopia;
+                }
+                respuestas[c] = respuestaCopia;
+            }
+            respuestas=respuestas.filter(function (el) {
+                return el != null;
+              });
+            preguntaCopia = new pregunta(preg[i].getAttribute("id_preg"),preg[i].parentElement.children[0].innerText,respuestaCorrecta,preg[i].parentElement.children[1].src,null,respuestas);
+            preguntas[i]=preguntaCopia;
+        }
+        console.log(preguntas);
+        examenUsuario = new examen_usuario("",examen1,usuario,"",calificacion,preguntas);
     });
-    //crear json con preguntas, respuestas e id examen
     
+}
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.innerText = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
 }

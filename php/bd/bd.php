@@ -308,7 +308,7 @@ class BD
                 $enunTema = utf8_encode($registro->tema);
 
                 $tematica = new tematica($registro->id_tematica, $enunTema);
-                $respuesta = new respuesta($registro->id_respuesta, $enunResp, $registro->id_pregunta);
+                $respuesta = new respuesta($registro->id_respuesta_correcta, $enunResp, $registro->id_pregunta);
                 $id_pregunta = new pregunta($registro->id_pregunta, $enunPreg, $respuesta, $registro->recurso, $tematica, $vectorResp);
                 $vector [$registro->id_pregunta] = $id_pregunta;
             }
@@ -358,11 +358,20 @@ class BD
                 }
                 $rep = $idPreg;
                 $enunPreg = utf8_encode($registro->enunciado_pregunta);
-                $enunResp = utf8_encode($registro->enunciado_respuesta);
+                
                 $enunTema = utf8_encode($registro->tema);
 
+                $w = $registro->id_respuesta_correcta;
+                $resultado3 = self::$con->query("SELECT * FROM respuestas WHERE id ='${w}'");
+                $respuesta_correcta=null;
+                while ($registro3 = $resultado3->fetch(PDO::FETCH_OBJ))
+                {
+                    $respuesta_correcta = $registro3;
+                }
+                $enunResp = utf8_encode($respuesta_correcta->enunciado);
+
                 $tematica = new tematica($registro->id_tematica, $enunTema);
-                $respuesta = new respuesta($registro->id_respuesta, $enunResp, $registro->id_pregunta);
+                $respuesta = new respuesta($registro->id_respuesta_correcta, $enunResp, $registro->id_pregunta);
                 $id_pregunta = new pregunta($registro->id_pregunta, $enunPreg, $respuesta, $registro->recurso, $tematica, $vectorResp);
                 $vector [$registro->id_pregunta] = $id_pregunta;
             }
@@ -499,7 +508,7 @@ class BD
         $resultado = self::$con->query("SELECT * FROM examen where id = '${clave}'");
         while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {
             $examen = new examen($registro->id, $registro->descripcion, $registro->duracion, $registro->num_preguntas, $registro->activo);
-            $vector [] = $examen->getId();
+            $vector [] = $examen;
         }
 
         return $vector;
@@ -530,6 +539,7 @@ class BD
                 $enunResp = utf8_encode($registro->enunciado_respuesta);
                 $enunTema = utf8_encode($registro->tema);
 
+                shuffle($vectorResp);
                 $tematica = new tematica($registro->id_tematica, $enunTema);
                 $respuesta = new respuesta($registro->id_respuesta, $enunResp, $registro->id_pregunta);
                 $id_pregunta = new pregunta($registro->id_pregunta, $enunPreg, $respuesta, $registro->recurso, $tematica, $vectorResp);
@@ -538,6 +548,7 @@ class BD
             
         }
 
+        shuffle($vector);
         return $vector;
     }
 
