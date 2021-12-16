@@ -7,6 +7,7 @@ function listado(pagina, filas, ruta, columnas, nombreTabla, rol="administrador"
     {
         tabla2.classList.remove("ocultar");
         tbody = tabla2.children[1];
+        tabla = tabla2;
     }
     else{
         tabla.classList.remove("ocultar");
@@ -246,4 +247,5 @@ function listado(pagina, filas, ruta, columnas, nombreTabla, rol="administrador"
         fetch("../../php/ajax/ajaxRealizarExamen.php?valor="+valor+"&revisar=1");
         window.location.href="../../js/paginas/realizaExamen.html";
     }
+    ordenaTabla(tabla);
 }

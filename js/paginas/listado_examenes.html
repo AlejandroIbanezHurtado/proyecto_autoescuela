@@ -12,6 +12,7 @@
     <script src="../lib/lib-botonLogin.js"></script>
     <script src="../lib/lib-listadoGeneral.js"></script>
     <script src="../lib/lib-loginHistorico.js"></script>
+    <script src="../lib/lib-ordenaTabla.js"></script>
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
 </head>
 <body>
@@ -23,7 +24,7 @@
                 <a href="listado_usuarios.html">Usuarios</a>
                 <ul class="submenu">
                     <li><a href="../../php/paginas/alta_usuario.php">Alta de usuario</a></li>
-                    <li><a href="#">Alta masiva</a></li>
+                    <li><a href="../../js/paginas/alta_masiva_usuarios.html">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
@@ -36,7 +37,7 @@
                 <a href="listado_preguntas.html">Preguntas</a>
                 <ul class="submenu">
                     <li><a href="../../php/paginas/alta_pregunta.php">Alta pregunta</a></li>
-                    <li><a href="#">Alta masiva</a></li>
+                    <li><a href="../../js/paginas/alta_masiva_preguntas.html">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
@@ -63,21 +64,7 @@
         </ul>
     </nav>
     <h3>Listado examenes</h3>
-    <table id="tabla">
-        <thead>
-            <tr>
-                <!-- <th>Descripcion</th>
-                <th>Duracion</th>
-                <th>Nº preguntas</th>
-                <th>Activo</th>
-                <th>Opciones</th> -->
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
-    <table id="tabla2">
+    <table id="tabla" class="ocultar">
         <thead>
             <tr>
                 <th>Descripcion</th>
@@ -85,6 +72,20 @@
                 <th>Nº preguntas</th>
                 <th>Activo</th>
                 <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <table id="tabla2" class="ocultar">
+        <thead>
+            <tr>
+                <th>Descripcion</th>
+                <th>Duracion</th>
+                <th>Nº preguntas</th>
+                <th>Activo</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>

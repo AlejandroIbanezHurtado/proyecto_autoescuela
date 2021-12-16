@@ -21,4 +21,8 @@ switch($_GET['tabla'])
         $examen = new examen($_GET['valor'], null, null, null, null);
         BD::borrarExamenId($examen);
         break;
+    case "examen_usuario":
+        $examen = new examen_usuario($_GET['valor'], null, null, null, null, null);
+        BD::borrarExamenUsuarioId($examen);
+        break;
 }

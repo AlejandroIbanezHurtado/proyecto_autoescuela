@@ -39,3 +39,9 @@ input:invalid { //para los campos del formulario inválidos
 input[type="file"] {
     display: none;
 }
+input#subirCsv{
+    display: block;
+}
+form.altaMasiva{
+    margin-left: 20%;
+}

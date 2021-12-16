@@ -26,7 +26,7 @@
                 <a href="../../js/paginas/listado_usuarios.html">Usuarios</a>
                 <ul class="submenu">
                     <li><a href="../../php/paginas/alta_usuario.php">Alta de usuario</a></li>
-                    <li><a href="#">Alta masiva</a></li>
+                    <li><a href="../../js/paginas/alta_masiva_usuarios.html">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">
@@ -39,7 +39,7 @@
                 <a href="../../js/paginas/listado_preguntas.html">Preguntas</a>
                 <ul class="submenu">
                     <li><a href="../../php/paginas/alta_pregunta.php">Alta pregunta</a></li>
-                    <li><a href="#">Alta masiva</a></li>
+                    <li><a href="../../js/paginas/alta_masiva_preguntas.html">Alta masiva</a></li>
                 </ul>
             </li>
             <li class="categoria">

@@ -3,10 +3,32 @@ require "../cargadores/cargarEntidades.php";
 class BD
 {
     private static $con;
+    // private static $transactionCount = 0;
+    // private static $transactionCounter = 0;
 
     public static function Conectar()
     {
         self::$con = new PDO('mysql:host=localhost;dbname=autoescuela', 'root','');
+    }
+
+    public static function beginTransaction()
+    {
+        return self::$con->beginTransaction();
+    }
+
+    public static function commit()
+    {
+        return self::$con->commit();
+    }
+
+    public static function rollBack()
+    {
+        return self::$con->rollBack();
+    }
+
+    public static function lastError()
+    {
+        return self::$con->errorInfo();
     }
 
     //USUARIO
@@ -147,14 +169,6 @@ class BD
         $registros = self::$con->exec($string);
         return self::$con->errorInfo();
     }
-
-    /*public static function actualizaImagen($tabla, $id, $imagen)
-    {
-        //$string = "UPDATE ".$tabla." SET imagen = '".$imagen."' WHERE nombre = '".$nombre."';";
-        $string = "UPDATE ${tabla} SET IMAGEN = '${imagen}' WHERE nombre = '${nombre}'";
-        return $registros = self::$con->exec($string);
-    }*/
-
 
 
     //TEMATICA

@@ -540,4 +540,12 @@ input:invalid {
 
 input[type=file] {
   display: none;
+}
+
+input#subirCsv {
+  display: block;
+}
+
+form.altaMasiva {
+  margin-left: 20%;
 }/*# sourceMappingURL=main.css.map */

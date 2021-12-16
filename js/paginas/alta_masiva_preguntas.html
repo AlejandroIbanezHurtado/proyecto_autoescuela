@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado usuarios</title>
+    <title>Document</title>
     <link rel="stylesheet" href="../../css/main.css">
     <script src="../entidades/pregunta.js"></script>
     <script src="../entidades/examen.js"></script>
-    <script src="../lib/lib-login.js"></script>
     <script src="../lib/lib-botonLogin.js"></script>
-    <script src="../lib/lib-listadoGeneral.js"></script>
-    <script src="../lib/lib-ordenaTabla.js"></script>
+    <script src="../lib/lib-altaMasivaPreguntas.js"></script>
     <link rel="shortcut icon" href="../../archivos/imagenesWeb/logoAutoescuela.jpg">
 </head>
 <body>
@@ -48,27 +46,14 @@
             </li>
         </ul>
     </nav>
-    <h3>Listado usuarios</h3>
-    <table id="tabla">
-        <thead>
-            <tr>
-                <th>Correo</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Fecha de nacimiento</th>
-                <th>Rol</th>
-                <th>Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
-    <nav id="navTabla">
-        <ul id="listaTabla">
-            
-        </ul>
-    </nav>
-    <script>listado(1,5,"../../php/ajax/ajaxUsuariosPag.php",["correo","nombre","apellidos","fecha_nac","rol"],"usuarios");</script>
+    <h3>Alta masiva preguntas</h3>
+    
+    <form action="" enctype="multipart/form-data" class="altaMasiva">
+        <input type="file" accept=".csv" id="subirCsv"/>
+        <br>
+        <textarea id="area" cols="30" rows="10"></textarea>
+        <br><br><br>
+        <input type="submit" value="Guardar" class="botones" id="boton">
+    </form>
 </body>
 </html>

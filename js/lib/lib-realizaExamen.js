@@ -386,19 +386,21 @@ function salir(id_examen, duracion, nombreExamen, numPreg, usuario)
     });
 }
 
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
+function startTimer(duracion, elemento) {
+    var timer = duracion;
+    var min;
+    var seg;
     setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+        min = parseInt(timer / 60, 10);
+        seg = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+        min = min < 10 ? "0" + min : min;//concatenamos un cero cuando no sea 10 para que no queden solos
+        seg = seg < 10 ? "0" + seg : seg;
 
-        display.innerText = minutes + ":" + seconds;
+        elemento.innerText = min + ":" + seg;
 
         if (--timer < 0) {
-            timer = duration;
+            timer = duracion;
         }
     }, 1000);
 }
