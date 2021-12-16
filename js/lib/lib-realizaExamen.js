@@ -152,7 +152,6 @@ window.addEventListener("load",function(){
                         if(data[i].id_respuesta_correcta!=null)
                         {
                             z = data[i].id_respuesta_correcta.id;
-                            console.log("section.preguntaPrincipal > section > input[id_res='"+z+"']");
                             res = document.querySelectorAll("section.preguntaPrincipal > section > input[id_res='"+z+"']");
                             res[0].checked=true;
                         }
@@ -163,24 +162,49 @@ window.addEventListener("load",function(){
                     //PREGUNTAS RELLENADAS
                     pregun = document.querySelectorAll("section.preguntaPrincipal > section");
                     tablas = document.getElementsByTagName("table");
+                    coloreaPreguntas(tablas,pregun, "#ff9999","mal",null);
+
+                    //Marcamos las correctas de verde
+                    buenas=[];
                     for(k=0;k<tablas.length;k++)
                     {
                         for(j=1;j<16;j=j+4)
                         {
                             if(pregun[k].children[j].checked)
                             {
-                                h = tablas[k].querySelectorAll("tr > td");
-                                for(w=0;w<h.length;w++)
-                                {
-                                    if(h[w].getAttribute("num")==(k-1)+"")
-                                    {
-                                        h[w].style.backgroundColor="#b5bcff";
-                                    }
-                                }
-                                
+                                rellenas[k] = k+1;
+                                break;
                             }
                         }
                     }
+                    num_pregus = [];
+                    for(j=0;j<e.length;j++)
+                    {
+                        num_pregus[j] = e[j].id;
+                    }
+                    //enviamos array de preguntas
+                    pregus = new FormData();
+                    num_pregus = JSON.stringify(num_pregus);
+                    pregus.append("vector",num_pregus);
+                    fetch("../../php/ajax/ajaxSaberIdResCorrecta", { method: 'POST', body: pregus })
+                    .then(function (response) {
+                        return response.text();
+                    })
+                    .then(function (body) {
+                        resCor = JSON.parse(body);
+                        for(j=0;j<resCor.length;j++)
+                        {
+                            if(e[j].id_respuesta_correcta!=null)
+                            {
+                                if(resCor[j]==e[j].id_respuesta_correcta.id)
+                                {
+                                    buenas[j]=j+1;
+                                }
+                            }
+                        }
+                        coloreaPreguntas(tablas, pregun, "#6fc48c","bien",buenas);
+                    });
+                    
                 });
             }
             else
@@ -258,7 +282,7 @@ window.addEventListener("load",function(){
                                 {
                                     for(j=0;j<numPreg;j++)
                                     {
-                                        creaCelda(j+1);
+                                        creaCelda(j+1,true);
                                     }
                                 }
                                 else{
@@ -266,7 +290,7 @@ window.addEventListener("load",function(){
                                     n = numPreg.toString().substr(1);
                                     for(j=0;j<n;j++)
                                     {
-                                        creaCelda((j+1)+10);
+                                        creaCelda((j+1)+10,true);
                                     }
                                 }
                                 
@@ -274,7 +298,7 @@ window.addEventListener("load",function(){
                             else{
                                 for(j=0;j<10;j++)
                                 {
-                                    creaCelda(j+1);
+                                    creaCelda(j+1,true);
                                 }
                             }
                             
@@ -308,13 +332,22 @@ window.addEventListener("load",function(){
             }
         });
 })
-function creaCelda(j)
+function creaCelda(j,azul=false)
 {
     celda = document.createElement("td");
     celda.innerText=j;
     celda.setAttribute("num",j-1);
     celda.addEventListener("click",function(){
         preg = document.querySelectorAll("section.preguntaPrincipal");
+
+        if(azul)
+        {
+            pregun = document.querySelectorAll("section.preguntaPrincipal > section");
+            tablas = document.getElementsByTagName("table");
+            coloreaPreguntas(tablas,pregun, "#c4c4ff","mal",null);
+        }
+        
+
         for(q=0;q<preg.length;q++)
         {
             preg[q].classList.add("ocultar");
@@ -423,4 +456,42 @@ function startTimer(duracion, elemento) {
             timer = duracion;
         }
     }, 1000);
+}
+
+function coloreaPreguntas(tablas, pregun, color, tipo="mal",buenas=null)
+{
+    rellenas = [];
+
+    if(tipo=="mal")
+    {
+        //VEMOS LAS PREGUNTAS RESPONDIDAS
+        for(k=0;k<tablas.length;k++)
+        {
+            for(j=1;j<16;j=j+4)
+            {
+                if(pregun[k].children[j].checked)
+                {
+                    rellenas[k] = k+1;
+                    break;
+                }
+            }
+        }
+    }
+    else{
+        rellenas = buenas;
+    }
+    
+
+    //MARCAMOS EN CADA TABLA LAS PREGUNTAS RESPONDIDAS DE UN COLOR AZUL
+    for(k=0;k<tablas.length;k++)
+    {
+        h = tablas[k].querySelectorAll("tr > td");
+        for(w=0;w<h.length;w++)
+        {
+            if(h[w].getAttribute("num")==(rellenas[w]-1)+"")
+            {
+                h[w].style.backgroundColor=color;
+            }
+        }
+    }
 }

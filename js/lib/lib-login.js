@@ -9,7 +9,7 @@ window.addEventListener("load",function(){
     .then(response => res = response);
     function cargaPagina(data)
     {
-        if(window.location.href=="http://localhost/autoescuela/js/paginas/listado_examenes.html")
+        if(window.location.href=="http://localhost/autoescuela/js/paginas/listado_examenes.html" || window.location.href=="http://www.autoescuela.com/js/paginas/listado_examenes.html")
         {
             switch(data)
             {
@@ -26,7 +26,7 @@ window.addEventListener("load",function(){
         }
         else{
 
-            if(window.location.href=="http://localhost/autoescuela/js/paginas/historico.html")
+            if(window.location.href=="http://localhost/autoescuela/js/paginas/historico.html" || window.location.href=="http://www.autoescuela.com/js/paginas/historico.html")
             {
                 switch(data)
                 {
