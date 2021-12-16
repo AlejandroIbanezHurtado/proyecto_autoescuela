@@ -164,12 +164,13 @@
                     }
                     else{
                         Sesion::inserta("usuarioCorreo",$usuario);
-                        $id = (rand(0,5000) + time());
+                        $id = md5((rand(0,5000) + time()));
                         $mensaje = "Bienvenido a Autoescuela Alc&aacute;zar <br>Haz click en el siguiente enlace pra cambiar tu contrase&ntilde;a y as&iacute; confirmar tu registro<br><br><a href=\"http://localhost/autoescuela/php/paginas/cambiaPassword.php?id=${id}\">Aqu&iacute;</a>";
                         Sesion::inserta("mensaje",$mensaje);
                         Sesion::inserta("id",$id);
                         unset($_SESSION['editarUsuario']);
-                        header('Location: enviaCorreo.php');
+                        // header('Location: enviaCorreo.php');
+                        echo "<script>window.location.href=\"enviaCorreo.php\"</script>";
                     }
                     
                 }

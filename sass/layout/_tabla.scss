@@ -8,6 +8,7 @@ table //tabla para los listados
   border-collapse: collapse;
   thead{
     background-color: lightgray;
+    cursor: pointer;
   }
   td, th 
   {

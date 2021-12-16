@@ -1,11 +1,7 @@
 window.addEventListener("load",function(){
     var body = document.getElementsByTagName("body")[0];
-    // var foto1 = document.getElementsByClassName("fotoAutoescuela")[0];
-    // var historico = document.body.querySelector("a[href='../../js/paginas/historico.html']");
-    // var examenPred = document.body.querySelector("a[href='../../js/paginas/listado_examenes.html']");
-    // var examenAle = document.body.querySelector("a[href='###']");
     var contador = document.getElementById("contador");
-    // var revisar = null;
+    
     fetch("../../php/ajax/ajaxSaberRevisarExamen")
         .then(response => response.json())
         .then(re => {
@@ -118,14 +114,15 @@ window.addEventListener("load",function(){
                                 {
                                     for(j=0;j<numPreg;j++)
                                     {
-                                        creaCelda(j);
+                                        creaCelda(j+1);
                                     }
                                 }
                                 else{
+                                    m = parseInt(numPreg.toString().substr(0,1))*10;
                                     n = numPreg.toString().substr(1);
                                     for(j=0;j<n;j++)
                                     {
-                                        creaCelda(j);
+                                        creaCelda((j+1)+10);
                                     }
                                 }
                                 
@@ -133,7 +130,7 @@ window.addEventListener("load",function(){
                             else{
                                 for(j=0;j<10;j++)
                                 {
-                                    creaCelda(j);
+                                    creaCelda(j+1);
                                 }
                             }
                             
@@ -162,6 +159,28 @@ window.addEventListener("load",function(){
                     }
                     preg = document.querySelectorAll("section.preguntaPrincipal");
                     preg[0].classList.remove("ocultar");
+
+                    //PREGUNTAS RELLENADAS
+                    pregun = document.querySelectorAll("section.preguntaPrincipal > section");
+                    tablas = document.getElementsByTagName("table");
+                    for(k=0;k<tablas.length;k++)
+                    {
+                        for(j=1;j<16;j=j+4)
+                        {
+                            if(pregun[k].children[j].checked)
+                            {
+                                h = tablas[k].querySelectorAll("tr > td");
+                                for(w=0;w<h.length;w++)
+                                {
+                                    if(h[w].getAttribute("num")==(k-1)+"")
+                                    {
+                                        h[w].style.backgroundColor="#b5bcff";
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
                 });
             }
             else
@@ -239,14 +258,15 @@ window.addEventListener("load",function(){
                                 {
                                     for(j=0;j<numPreg;j++)
                                     {
-                                        creaCelda(j);
+                                        creaCelda(j+1);
                                     }
                                 }
                                 else{
+                                    m = parseInt(numPreg.toString().substr(0,1))*10;
                                     n = numPreg.toString().substr(1);
                                     for(j=0;j<n;j++)
                                     {
-                                        creaCelda(j);
+                                        creaCelda((j+1)+10);
                                     }
                                 }
                                 
@@ -254,7 +274,7 @@ window.addEventListener("load",function(){
                             else{
                                 for(j=0;j<10;j++)
                                 {
-                                    creaCelda(j);
+                                    creaCelda(j+1);
                                 }
                             }
                             
@@ -291,8 +311,8 @@ window.addEventListener("load",function(){
 function creaCelda(j)
 {
     celda = document.createElement("td");
-    celda.innerText=j+1;
-    celda.setAttribute("num",j);
+    celda.innerText=j;
+    celda.setAttribute("num",j-1);
     celda.addEventListener("click",function(){
         preg = document.querySelectorAll("section.preguntaPrincipal");
         for(q=0;q<preg.length;q++)

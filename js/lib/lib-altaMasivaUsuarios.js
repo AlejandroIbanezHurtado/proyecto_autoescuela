@@ -36,10 +36,16 @@ window.addEventListener("load",function(){
                 {
                     alert("EL ALTA SE REALIZÓN CON ÉXITO");
                 }
-                if(data==1062)
-                {
-                    alert("ERROR, HAY USUARIOS CON ESE CORREO");
+                else{
+                    if(data==1062)
+                    {
+                        alert("ERROR, HAY USUARIOS CON ESE CORREO");
+                    }
+                    else{
+                        alert("ERROR, NO SE HA PODIDO REALIZAR CON ÉXITO");
+                    }
                 }
+                
             })
         }
         

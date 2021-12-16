@@ -147,7 +147,7 @@
                     }
                     //creamos pregunta sin array de respuestas ni respuesta correcta y lo insertamos en la base de datos
                     $pregunta = new pregunta(null, $_POST['enunciado'], null, $archivo, $_POST['tematica'], null);
-                    if($_SESSION['editarPregunta'])
+                    if(isset($_SESSION['editarPregunta']))
                     {
                         BD::actualizaPregunta($pregunta);
                     }
@@ -169,7 +169,11 @@
                     $num = $_POST['correcta'];
                     $respuesta = new respuesta(null,$_POST['respuesta'.$num],$pregunta);
                     $id_res = BD::selectRespuestaEnunciadoPeq($respuesta->getEnunciado(), $pregunta->getId());
-                    BD::actualizaRespuestaCorrecta($id_res, $pregunta->getId());
+                    
+                    if(BD::actualizaRespuestaCorrecta($id_res, $pregunta->getId())[0]==00000)
+                    {
+                        echo "<script>alert(\"Pregunta introducida\")</script>;";
+                    }
                 }
                 
             }

@@ -84,7 +84,10 @@
                 }
                 else{
                     $tematica = new tematica(null,$_POST['tema']);
-                    BD::insertarTematica($tematica);
+                    if(BD::insertarTematica($tematica)[0]==00000)
+                    {
+                        echo "<script>alert(\"Temática introducida\")</script>;";
+                    }
                 }
             }
         }

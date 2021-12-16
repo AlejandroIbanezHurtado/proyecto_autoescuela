@@ -31,11 +31,11 @@
         $id_usuario = BD::selectUsuarioEmail($_POST['txtcorreo']);
         if($id_usuario!=false)
         {
-            $id = (rand(0,5000) + time());
+            $id = md5((rand(0,5000) + time()));
             $mensaje = "Bienvenido a Autoescuela Alc&aacute;zar <br>Haz click en el siguiente enlace pra cambiar tu contrase&ntilde;a<br><br><a href=\"http://localhost/autoescuela/php/paginas/cambiaPassword.php?c=1&id=${id}\">Aqu&iacute;</a>";
             Sesion::abreSesion();
             $usuario = new usuario("", $_POST['txtcorreo'], "", "", "", "", "", "");
-            Sesion::inserta("usuario",$usuario);
+            Sesion::inserta("usuarioCorreo",$usuario);
             Sesion::inserta("mensaje",$mensaje);
             Sesion::inserta("id",$id);
             header('Location: enviaCorreo.php');

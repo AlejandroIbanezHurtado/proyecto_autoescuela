@@ -11,9 +11,9 @@ class correo{
         // cambiar a 0 para no ver mensajes de error
         $mail->SMTPDebug  = 2;                          
         $mail->SMTPAuth   = true;
-        $mail->SMTPSecure = "ssl";//tls                 
+        $mail->SMTPSecure = "ssl";//tls   ssl              
         $mail->Host       = "smtp.gmail.com";    
-        $mail->Port       = 465;//587                 
+        $mail->Port       = 465;//587     465            
         // introducir usuario de google
         $mail->Username   = self::$correo; 
         // introducir clave

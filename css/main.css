@@ -327,6 +327,7 @@ table {
 }
 table thead {
   background-color: lightgray;
+  cursor: pointer;
 }
 table td, table th {
   border: 1px solid black;
