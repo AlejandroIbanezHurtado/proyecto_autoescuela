@@ -606,6 +606,34 @@ class BD
         return $registros;
     }
 
+    public static function obtenExamenesPaginadosA(int $pagina, int $filas):array
+    {
+        $registros = array();
+        $tildes = self::$con->query("SET NAMES 'utf8'");
+        $res = self::$con->query("select * from examen");
+        $registros =$res->fetchAll();
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $res = self::$con->query("select * from examen where activo=1 limit $inicio, $filas");
+            while ($registro = $res->fetch(PDO::FETCH_OBJ)) {
+                if($registro->activo==1)
+                {
+                    $registro->activo="SI";
+                }
+                else{
+                    $registro->activo="NO";
+                }
+                $examen = new examen($registro->id, $registro->descripcion, $registro->duracion, $registro->num_preguntas, $registro->activo);
+                $registros[] = $examen;
+            }
+        }
+        return $registros;
+    }
+
     public static function borrarExamenId($examen)
     {
         $id = $examen->getId();

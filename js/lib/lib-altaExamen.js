@@ -163,8 +163,8 @@ window.addEventListener("load",function(){
                                 })
                                 .then(function (body) {
                                     console.log(body);
+                                    window.location.href="../../js/paginas/alta_examen.html";
                                 });
-                                window.location.href=reload();
                             }
                             else{
                                 alert("La duración mínima es de 10 minutos");
