@@ -14,7 +14,7 @@ window.addEventListener("load",function(){
             switch(data)
             {
                 case "alumno":
-                    listado(1,5,"../../php/ajax/ajaxExamenesPagA.php",["descripcion","duracion","num_preguntas","activo"],"examen", "alumno");
+                    listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas"],"examen", "alumno");
                     break;
                 case "administrador":
                     listado(1,5,"../../php/ajax/ajaxExamenesPag.php",["descripcion","duracion","num_preguntas","activo"],"examen");
